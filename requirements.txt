@@ -1,0 +1,23 @@
+# Data Manipulation
+pandas>=2.0.0
+numpy
+
+# EDA
+sweetviz
+missingno
+
+# Big Data 
+pyspark>=3.4.0  
+
+# Visualization
+matplotlib
+seaborn
+
+# Machine Learning
+scikit-learn
+xgboost
+lightgbm        # Highly efficient for large datasets
+
+# Development Environment
+jupyterlab
+ipykernel

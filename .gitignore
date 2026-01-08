@@ -1,0 +1,51 @@
+# ===================================
+# Dont track data files
+# ===================================
+*.csv
+*.CSV
+*.xlsx
+*.xls
+*.zip
+*.tar.gz
+*csv.gz
+
+
+# Folder
+data/
+
+
+# ===================================
+# PYTHON
+# ===================================
+
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# SO
+.DS_Store
+Thumbs.db
+
+# API keys y configuración
+.env
+*.env
+config.ini
+secrets.json
+credentials.json
+
