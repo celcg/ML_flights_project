@@ -27,6 +27,7 @@ __pycache__/
 
 # Virtual environments
 venv/
+.venv313
 
 # Jupyter Notebook
 .ipynb_checkpoints
