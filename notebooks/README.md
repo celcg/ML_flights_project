@@ -35,6 +35,38 @@ Due to licensing restrictions you must:
    enriched 10% train and 5% validation samples are persisted as reusable Parquet;
    the external test period remains untouched.
 
+## Scaling experiment: 25% of train
+
+`scripts/run_t60_25pct.py` is the low-memory scaling run for the current winning
+model. It rebuilds the audited T-60 operational variables for a deterministic,
+nested 25% training sample, keeps the same 5% validation rows, and freezes the
+decisions selected at 10%:
+
+- feature set: all airport, route, operator and rotation variables except the
+  6-hour window;
+- Ridge `alpha=10` and a 32,768-position categorical hash;
+- no new tuning on validation and no access to the processed test period.
+
+The run fits Ridge and the historical route+airline baseline only. This isolates
+the effect of adding training rows and avoids the extra memory required by a
+second CatBoost fit. Run it from the project root with the Python 3.13 environment:
+
+```powershell
+& 'C:\Users\celti\AppData\Local\Programs\Python\Python313\python.exe' scripts\run_t60_25pct.py
+```
+
+The explicit interpreter path is intentional: this project lives in OneDrive
+and Windows can reject the executable shim inside `.venv313` even though its
+packages are valid. The runner adds `.venv313\Lib\site-packages` itself.
+
+Close browsers, VS Code, Word and other memory-heavy applications first. The
+preflight requires at least 1.5 GB free for the reduced `local[1]` / 2 GB Spark
+configuration; 4–5 GB free remains the recommended safe target. Results are
+written separately under `data/processed/model/arrival_pre_t60_ops_25pct`,
+`reports/09_t60_25pct_*` and `models/09_*_25pct.*`, so notebook-08 artifacts are
+not overwritten. Continue to 50% only if the frozen Ridge improves the combined
+MAE score by at least 0.20 minutes without worsening global MAE by more than 0.25.
+
 The original exploratory notebook 03 is preserved unchanged at
 `archive/03_non_numeric_data_analysis_original.ipynb`. The active notebook keeps
 that investigation while separating historical exploration from executable
