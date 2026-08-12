@@ -1,5 +1,5 @@
 # Data Manipulation
-pandas>=2.0.0
+pandas>=2.0.0,<3.0.0  # PySpark 4.2 does not yet fully support pandas 3.x
 numpy
 
 # EDA
@@ -8,6 +8,7 @@ missingno
 
 # Big Data 
 pyspark>=3.4.0  
+pyarrow>=18.0.0  # Required by Spark XGBoost through mapInPandas
 
 # Visualization
 matplotlib
@@ -16,6 +17,7 @@ seaborn
 # Machine Learning
 scikit-learn
 xgboost
+catboost
 lightgbm        # Highly efficient for large datasets
 
 # Development Environment
