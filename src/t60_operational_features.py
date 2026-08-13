@@ -308,3 +308,99 @@ def build_rotation_features(
         F.col("_previous_event_time").alias("_rotation_previous_event_time"),
         "_rotation_self_match",
     )
+
+
+def build_standard_t60_features(
+    targets: DataFrame,
+    events: DataFrame,
+    *,
+    windows_hours: Sequence[int] = (1, 6, 24),
+    id_column: str = "ECTRL ID",
+    cutoff_column: str = "prediction_cutoff_t60",
+) -> tuple[DataFrame, list[dict[str, int | str]]]:
+    """Build the audited airport/route/operator/rotation feature family.
+
+    Only events completed by each target's T-60 cutoff contribute.  Raw event
+    timestamps and self-removal diagnostics are retained only long enough to
+    perform the leakage audit and are not returned as model predictors.
+    """
+
+    specifications = [
+        ("adep_dep", ["ADEP"], "ACTUAL OFF BLOCK TIME", "Departure_Delay_Min"),
+        ("ades_arr", ["ADES"], "ACTUAL ARRIVAL TIME", "Arrival_Delay_Min"),
+        ("route_arr", ["ADEP", "ADES"], "ACTUAL ARRIVAL TIME", "Arrival_Delay_Min"),
+        ("operator_dep", ["AC Operator"], "ACTUAL OFF BLOCK TIME", "Departure_Delay_Min"),
+        ("operator_arr", ["AC Operator"], "ACTUAL ARRIVAL TIME", "Arrival_Delay_Min"),
+    ]
+    result = targets
+    audit: list[dict[str, int | str]] = []
+    for prefix, keys, event_time, value in specifications:
+        block = build_rolling_event_features(
+            targets,
+            events,
+            key_columns=keys,
+            event_time_column=event_time,
+            value_column=value,
+            prefix=prefix,
+            windows_hours=windows_hours,
+            id_column=id_column,
+            cutoff_column=cutoff_column,
+        )
+        max_columns = [f"_{prefix}_{hours}h_max_event_time" for hours in windows_hours]
+        self_columns = [f"_{prefix}_{hours}h_self_removed" for hours in windows_hours]
+        leakage_condition = None
+        for column in max_columns:
+            current = F.col(column) > F.col(cutoff_column)
+            leakage_condition = current if leakage_condition is None else leakage_condition | current
+        leakage = block.filter(leakage_condition).count() if leakage_condition is not None else 0
+        self_removed = block.agg(
+            *[F.sum(column).alias(column) for column in self_columns]
+        ).first().asDict()
+        if leakage:
+            raise AssertionError(f"{prefix} contains {leakage} post-cutoff events")
+        model_columns = [
+            column
+            for column in block.columns
+            if column == id_column or not column.startswith("_")
+        ]
+        result = result.join(block.select(*model_columns), id_column, "left")
+        audit.append(
+            {
+                "block": prefix,
+                "leakage_violations": leakage,
+                "self_contributions_removed": int(sum(value or 0 for value in self_removed.values())),
+            }
+        )
+
+    rotation = build_rotation_features(
+        targets,
+        events,
+        id_column=id_column,
+        cutoff_column=cutoff_column,
+    )
+    rotation_leakage = rotation.filter(
+        F.col("_rotation_previous_event_time") > F.col(cutoff_column)
+    ).count()
+    if rotation_leakage:
+        raise AssertionError(f"rotation contains {rotation_leakage} post-cutoff events")
+    result = result.join(
+        rotation.select(
+            id_column,
+            "rotation_previous_arrival_delay",
+            "rotation_previous_departure_delay",
+            "rotation_minutes_since_previous_arrival",
+            "rotation_history_available",
+        ),
+        id_column,
+        "left",
+    )
+    audit.append(
+        {
+            "block": "rotation",
+            "leakage_violations": rotation_leakage,
+            "self_contributions_removed": int(
+                rotation.agg(F.sum("_rotation_self_match").alias("n")).first()["n"] or 0
+            ),
+        }
+    )
+    return result, audit

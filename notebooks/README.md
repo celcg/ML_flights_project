@@ -34,6 +34,17 @@ Due to licensing restrictions you must:
    tuning split, feature ablation and a Ridge/CatBoost/baseline ensemble. The
    enriched 10% train and 5% validation samples are persisted as reusable Parquet;
    the external test period remains untouched.
+9. `09_business_aviation_analysis.ipynb` — English business-facing analysis of
+   network demand, route and operator reliability, temporal patterns, delay
+   recovery, correlations and hypothesis tests. It discovers one canonical
+   file for each of nine monthly snapshots through June 2023 and audits raw
+   null compatibility. Holdouts may be described but never fed into fitting.
+10. `10_expanded_data_ingestion_cleaning_pyspark.ipynb` — expanded PySpark
+    ingestion and cleaning with the previous rules, raw/post-clean null audits,
+    four temporal partitions and optional leakage-audited T-60 features.
+11. `11_expanded_arrival_pre_models_prediction.ipynb` — baseline, Ridge, Random
+    Forest, GBT, XGBoost and CatBoost on the expanded Parquet contract. December
+    selects the model; March and June 2023 are scored only after freezing it.
 
 ## Scaling experiment: 25% of train
 
@@ -67,6 +78,16 @@ written separately under `data/processed/model/arrival_pre_t60_ops_25pct`,
 not overwritten. Continue to 50% only if the frozen Ridge improves the combined
 MAE score by at least 0.20 minutes without worsening global MAE by more than 0.25.
 
+### Executed result
+
+The 25% run completed with 613,884 train rows and the same 29,315 validation
+rows. Ridge achieved MAE 9.892 and RMSE 14.749 minutes. Relative to Ridge at 10%,
+MAE improved by 0.049 minutes, RMSE by 0.049 minutes, and the 50/50 combined MAE
+criterion by only 0.027 minutes. This is statistically positive but practically
+too small to meet the 0.20-minute scaling threshold. The current decision is not
+to continue to 50%/100% with the unchanged feature set; prioritize temporal
+coverage and new signals first. Test remained unread.
+
 The original exploratory notebook 03 is preserved unchanged at
 `archive/03_non_numeric_data_analysis_original.ipynb`. The active notebook keeps
 that investigation while separating historical exploration from executable
@@ -79,9 +100,9 @@ dimension in memory when the processed CSV does not exist. Log and Yeo–Johnson
 transforms are optional and disabled by default.
 
 The current modelling population is scheduled commercial traffic (`ICAO Flight
-Type = S`) and the active task is arrival delay before departure (`arrival_pre`).
-Train covers the periods through September 2022, validation is December 2022 and
-the untouched test period is March 2023.
+Type = S`) and the active task is arrival delay at T-60 (`arrival_pre`). Train
+covers the periods through September 2022, validation is December 2022, the
+first untouched test is March 2023 and June 2023 is a future test.
 
 The validated local environment uses Python 3.13 and PySpark 4.2. On Windows,
 `create_spark` compiles a small local-filesystem adapter so Parquet can be written

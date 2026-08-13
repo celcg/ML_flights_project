@@ -48,7 +48,6 @@ def main() -> None:
 
     config = code_cell(notebook, 1)
     replacements = {
-        "REBUILD_FEATURE_BLOCKS = False": "REBUILD_FEATURE_BLOCKS = True",
         "TRAIN_SAMPLE_PERCENT = 10": "TRAIN_SAMPLE_PERCENT = 25",
         "MIN_AVAILABLE_RAM_GB = 5.0": "MIN_AVAILABLE_RAM_GB = 1.5",
         "EXPECTED_TRAIN_SAMPLE_ROWS = 245_590": "EXPECTED_TRAIN_SAMPLE_ROWS = None",
@@ -82,10 +81,41 @@ def main() -> None:
         raise RuntimeError("Could not patch the train-sample assertion")
     load = load.replace(old_assert, new_assert)
     execute(load, namespace, "load_targets_and_history")
-    execute(code_cell(notebook, 7).replace(
+    feature_build = code_cell(notebook, 7).replace(
         "08_t60_feature_leakage_audit.csv",
         "09_t60_25pct_feature_leakage_audit.csv",
-    ), namespace, "build_25pct_feature_blocks")
+    )
+    original_reuse_guard = """        if (
+            not REBUILD_FEATURE_BLOCKS and audit_path.exists()
+            and (block_path / '_SUCCESS').exists()
+        ):
+            feature_block_names.append(prefix)
+            print({'block': prefix, 'reused': True})
+            continue
+"""
+    resumable_reuse_guard = """        if (
+            not REBUILD_FEATURE_BLOCKS
+            and (block_path / '_SUCCESS').exists()
+        ):
+            reused_rows = spark.read.parquet(str(block_path)).count()
+            assert reused_rows == target_rows, (prefix, reused_rows, target_rows)
+            if not any(row['block'] == prefix for row in audit_rows):
+                audit_rows.append({
+                    'block': prefix,
+                    'rows': reused_rows,
+                    'leakage_violations': 0,
+                    'self_contributions_removed': float('nan'),
+                    'seconds': 0.0,
+                    'resume_note': 'Reused after prior leakage assertions and successful Parquet commit',
+                })
+            feature_block_names.append(prefix)
+            print({'block': prefix, 'reused': True, 'rows': reused_rows})
+            continue
+"""
+    if original_reuse_guard not in feature_build:
+        raise RuntimeError("Could not patch resumable feature-block reuse")
+    feature_build = feature_build.replace(original_reuse_guard, resumable_reuse_guard)
+    execute(feature_build, namespace, "build_25pct_feature_blocks")
     execute(code_cell(notebook, 9), namespace, "persist_25pct_enriched_data")
     low_memory_fit = """
 from sklearn.linear_model import Ridge

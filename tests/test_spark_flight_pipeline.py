@@ -11,6 +11,7 @@ try:
         calculate_delays,
         create_spark,
         select_available_features,
+        temporal_train_validation_two_test_split,
     )
 
     PYSPARK_AVAILABLE = True
@@ -131,6 +132,17 @@ class SparkPipelineTests(unittest.TestCase):
         )
         self.assertNotIn("Departure_Delay_Min", selected.columns)
         self.assertNotIn("Actual Distance Flown (nm)", selected.columns)
+
+    def test_four_way_temporal_split_is_disjoint(self):
+        frame = self.spark.createDataFrame(
+            [("2022-09-01 00:00:00",), ("2022-12-01 00:00:00",),
+             ("2023-03-01 00:00:00",), ("2023-06-01 00:00:00",)],
+            ["raw_time"],
+        ).selectExpr("to_timestamp(raw_time) as `FILED OFF BLOCK TIME`")
+        parts = temporal_train_validation_two_test_split(
+            frame, "2022-12-01", "2023-03-01", "2023-06-01"
+        )
+        self.assertEqual([part.count() for part in parts], [1, 1, 1, 1])
 
 
 if __name__ == "__main__":

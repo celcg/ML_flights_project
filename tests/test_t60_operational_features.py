@@ -85,6 +85,33 @@ class T60OperationalFeatureTests(unittest.TestCase):
         self.assertEqual(result["rotation_history_available"], 1)
         self.assertEqual(result["_rotation_self_match"], 0)
 
+    def test_rotation_nulls_anomalous_self_match_instead_of_leaking_target(self):
+        targets = self.spark.createDataFrame(
+            [(2, "REG1", datetime(2022, 1, 1, 9, 0))],
+            ["ECTRL ID", "AC Registration", "prediction_cutoff_t60"],
+        )
+        events = self.spark.createDataFrame(
+            [
+                (1, "REG1", datetime(2022, 1, 1, 8, 30), 12.0, 5.0),
+                # Bad source timestamps can make the target appear completed
+                # before its own T-60 cutoff. Its delays must never be exposed.
+                (2, "REG1", datetime(2022, 1, 1, 8, 45), 40.0, 30.0),
+            ],
+            [
+                "ECTRL ID",
+                "AC Registration",
+                "ACTUAL ARRIVAL TIME",
+                "Arrival_Delay_Min",
+                "Departure_Delay_Min",
+            ],
+        )
+        result = build_rotation_features(targets, events).first()
+        self.assertEqual(result["_rotation_self_match"], 1)
+        self.assertIsNone(result["rotation_previous_arrival_delay"])
+        self.assertIsNone(result["rotation_previous_departure_delay"])
+        self.assertIsNone(result["rotation_minutes_since_previous_arrival"])
+        self.assertEqual(result["rotation_history_available"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

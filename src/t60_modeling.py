@@ -11,7 +11,7 @@ import pandas as pd
 from scipy import sparse
 from sklearn.feature_extraction import FeatureHasher
 from sklearn.linear_model import Ridge
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 def add_schedule_features(frame: pd.DataFrame) -> pd.DataFrame:
@@ -168,6 +168,61 @@ class HashedRidgePreprocessor:
         numeric_matrix = sparse.csr_matrix(self.scaler.transform(numeric))
         return sparse.hstack([categorical_matrix, numeric_matrix], format="csr")
 
+
+@dataclass
+class MixedCategoricalRidgePreprocessor:
+    """One-hot low-cardinality fields and hash high-cardinality fields."""
+
+    low_cardinality_columns: Sequence[str]
+    high_cardinality_columns: Sequence[str]
+    numeric_columns: Sequence[str]
+    hash_features: int = 1 << 15
+    numeric_medians: pd.Series | None = None
+    scaler: StandardScaler = field(default_factory=lambda: StandardScaler(with_mean=False))
+    encoder: OneHotEncoder = field(
+        default_factory=lambda: OneHotEncoder(handle_unknown="ignore", sparse_output=True)
+    )
+    hasher: FeatureHasher = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.low_cardinality_columns = list(self.low_cardinality_columns)
+        self.high_cardinality_columns = list(self.high_cardinality_columns)
+        self.numeric_columns = list(self.numeric_columns)
+        self.hasher = FeatureHasher(
+            n_features=self.hash_features,
+            input_type="string",
+            alternate_sign=True,
+        )
+
+    def _hash_tokens(self, frame: pd.DataFrame):
+        categorical = frame[self.high_cardinality_columns].fillna("__MISSING__").astype(str)
+        columns = self.high_cardinality_columns
+        return (
+            [f"{column}={value}" for column, value in zip(columns, row)]
+            for row in categorical.itertuples(index=False, name=None)
+        )
+
+    def fit_transform(self, frame: pd.DataFrame):
+        low = frame[self.low_cardinality_columns].fillna("__MISSING__").astype(str)
+        low_matrix = self.encoder.fit_transform(low)
+        high_matrix = self.hasher.transform(self._hash_tokens(frame))
+        self.numeric_medians = frame[self.numeric_columns].median()
+        if self.numeric_medians.isna().any():
+            missing = self.numeric_medians[self.numeric_medians.isna()].index.tolist()
+            raise ValueError(f"Numeric columns contain no train values: {missing}")
+        numeric = frame[self.numeric_columns].fillna(self.numeric_medians).to_numpy(dtype=float)
+        numeric_matrix = sparse.csr_matrix(self.scaler.fit_transform(numeric))
+        return sparse.hstack([low_matrix, high_matrix, numeric_matrix], format="csr")
+
+    def transform(self, frame: pd.DataFrame):
+        if self.numeric_medians is None:
+            raise RuntimeError("The preprocessor must be fitted before transform")
+        low = frame[self.low_cardinality_columns].fillna("__MISSING__").astype(str)
+        low_matrix = self.encoder.transform(low)
+        high_matrix = self.hasher.transform(self._hash_tokens(frame))
+        numeric = frame[self.numeric_columns].fillna(self.numeric_medians).to_numpy(dtype=float)
+        numeric_matrix = sparse.csr_matrix(self.scaler.transform(numeric))
+        return sparse.hstack([low_matrix, high_matrix, numeric_matrix], format="csr")
 
 def fit_ridge(
     train: pd.DataFrame,

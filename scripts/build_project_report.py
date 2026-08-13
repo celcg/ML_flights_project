@@ -371,9 +371,9 @@ def create_assets() -> tuple[Path, Path, Path]:
     d = ImageDraw.Draw(img)
     _centered(d, (720, 42), "Ampliación temporal del conjunto de vuelos", title_font, text_color)
     left, top, right, bottom = 115, 100, 1390, 500
-    periods = ["dic-21", "mar-22", "jun-22", "sep-22", "dic-22", "mar-23"]
-    counts = [0.5702, 0.576258, 0.813452, 0.826994, 0.64684, 0.681919]
-    colors = ["#8BB8D8", "#71A8D0", "#5798C8", "#2E74B5", "#4CAFA7", "#2A9D8F"]
+    periods = ["jun-21", "sep-21", "dic-21", "mar-22", "jun-22", "sep-22", "dic-22", "mar-23", "jun-23"]
+    counts = [0.447215, 0.652298, 0.5702, 0.576258, 0.813452, 0.826994, 0.64684, 0.681919, 0.884823]
+    colors = ["#B7D4EA", "#9CC5E2", "#8BB8D8", "#71A8D0", "#5798C8", "#2E74B5", "#4CAFA7", "#2A9D8F", "#70AD47"]
     for tick in (0.0, 0.25, 0.5, 0.75, 1.0):
         y = bottom - tick * (bottom - top)
         d.line((left, y, right, y), fill=grid, width=2)
@@ -505,7 +505,7 @@ def build_document() -> Path:
     meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
     meta.paragraph_format.space_before = Pt(42)
     meta.paragraph_format.space_after = Pt(0)
-    r = meta.add_run("Versión 1.0  ·  9 de agosto de 2026")
+    r = meta.add_run("Versión 1.1  ·  13 de agosto de 2026")
     r.font.name = "Calibri"
     r.font.size = Pt(10)
     r.font.color.rgb = RGBColor.from_string("68727D")
@@ -522,11 +522,11 @@ def build_document() -> Path:
         doc,
         ["Decisión", "Motivo", "Estado o consecuencia"],
         [
-            ["Ampliar EUROCONTROL de un mes a seis periodos", "Un solo mes no representa estaciones ni cambios de tráfico.", "4.115.663 vuelos brutos entre dic-2021 y mar-2023."],
+            ["Ampliar EUROCONTROL de un mes a nueve periodos", "Un solo mes no representa estaciones ni cambios de tráfico.", "6.099.999 vuelos brutos entre jun-2021 y jun-2023."],
             ["Predecir solo llegada a T−60", "Es la necesidad prioritaria y evita mezclar horizontes operativos distintos.", "Variable objetivo: Arrival_Delay_Min."],
             ["Aplazar meteorología", "Antes conviene tener un baseline aeronáutico sólido y una unión temporal sin fugas.", "No se descarta; queda para una fase posterior."],
-            ["Filtrar tráfico regular programado", "El modelo debe responder a una población homogénea y útil.", "3.671.258 vuelos limpios para modelado."],
-            ["División temporal", "El futuro debe simular datos nuevos, no mezclarse al azar con el pasado.", "Train hasta sep-2022; validación dic-2022; test mar-2023."],
+            ["Filtrar tráfico regular programado", "El modelo debe responder a una población homogénea y útil.", "La regla se conserva; el nuevo conteo limpio se calculará al ejecutar notebook 10 completa."],
+            ["División temporal", "El futuro debe simular datos nuevos, no mezclarse al azar con el pasado.", "Train hasta sep-2022; validación dic-2022; tests mar-2023 y jun-2023."],
             ["Ridge como candidato actual", "Mejor equilibrio entre vuelos normales y retrasados, bajo consumo y fácil explicación.", "MAE global 9,94; MAE retrasados 18,21; combinado 14,07."],
         ],
         [2250, 3400, 3710],
@@ -578,28 +578,34 @@ def build_document() -> Path:
     doc.add_heading("Por qué se eligió y se amplió el dataset", level=1)
     add_body(doc, "La fuente principal es EUROCONTROL ADR. Se eligió porque ofrece millones de movimientos con una estructura coherente y campos directamente relacionados con la operación: horarios planificados y reales, aeropuertos, operador, tipo de aeronave, segmento y nivel de vuelo solicitado. Es una base adecuada para construir primero un modelo aeronáutico sin depender de fuentes externas.")
 
-    doc.add_heading("De un mes a seis periodos", level=2)
-    add_body(doc, "El primer análisis se hizo con diciembre de 2021: 570.200 vuelos. Era suficiente para entender columnas, nulos y distribuciones, pero no para confiar en la generalización. Por eso no se cambió a una fuente distinta: se añadieron más periodos de la misma fuente, espaciados para cubrir estaciones y cambios de volumen.")
+    doc.add_heading("De un mes a nueve periodos", level=2)
+    add_body(doc, "El primer análisis se hizo con diciembre de 2021: 570.200 vuelos. Era suficiente para entender columnas, nulos y distribuciones, pero no para confiar en la generalización. Se mantuvo la misma fuente y se añadieron junio y septiembre de 2021 y junio de 2023. El conjunto ampliado contiene 6.099.999 vuelos brutos en nueve cortes mensuales.")
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.paragraph_format.space_after = Pt(2)
     p.add_run().add_picture(str(period_chart), width=Inches(6.45))
-    add_caption(doc, "Figura 1. Seis periodos mensuales suman 4.115.663 vuelos. Son cortes estacionales, no un calendario continuo.")
+    add_caption(doc, "Figura 1. Nueve periodos mensuales suman 6.099.999 vuelos. Son cortes estacionales, no un calendario continuo.")
 
     add_table(
         doc,
         ["Periodo", "Vuelos", "Uso en el diseño temporal"],
         [
+            ["jun-2021", "447.215", "Entrenamiento"],
+            ["sep-2021", "652.298", "Entrenamiento"],
             ["dic-2021", "570.200", "Entrenamiento"],
             ["mar-2022", "576.258", "Entrenamiento"],
             ["jun-2022", "813.452", "Entrenamiento"],
             ["sep-2022", "826.994", "Entrenamiento"],
             ["dic-2022", "646.840", "Validación"],
             ["mar-2023", "681.919", "Test"],
+            ["jun-2023", "884.823", "Test futuro"],
         ],
         [1800, 1800, 5760],
         font_size=9,
     )
+
+    doc.add_heading("Compatibilidad y nulos de los nuevos datos", level=2)
+    add_body(doc, "Los nueve archivos conservan exactamente las mismas 18 columnas. La auditoría completa por bloques no detectó cambios materiales de nulos superiores a 2 puntos porcentuales. La mayor diferencia fue AC Registration: 0,203% en los archivos de referencia frente a 0,249% en los nuevos, solo +0,046 puntos. Las reglas de limpieza e imputación pueden mantenerse.")
 
     doc.add_heading("Ventaja y límite de esta ampliación", level=2)
     add_body(doc, "La ventaja es que el modelo ve invierno, primavera, verano y otoño con un volumen aún manejable en un ordenador personal. El límite es que faltan los meses intermedios: se aprende variación estacional, pero no una secuencia diaria continua. Si las variables de congestión o rotación muestran potencial, conseguir más meses consecutivos será más valioso que repetir muchas veces el mismo muestreo.")
@@ -664,7 +670,7 @@ def build_document() -> Path:
     # Cleaning.
     add_small_label(doc, "5 · Limpieza y preparación")
     doc.add_heading("Reglas aplicadas y razones", level=1)
-    add_body(doc, "La limpieza se implementó con PySpark para procesar los 4,1 millones de filas de forma reproducible. De los datos brutos, 3.671.885 vuelos pertenecían al alcance regular programado y 3.671.258 quedaron después de las reglas físicas. Por tanto, casi toda la reducción (443.778 vuelos) procede de definir la población, no de borrar observaciones por comodidad.")
+    add_body(doc, "La limpieza se implementó con PySpark y mantiene el mismo esquema de reglas al ampliar de 4,1 a 6,1 millones de filas brutas. Los conteos limpios anteriores siguen documentando la primera ejecución, pero el nuevo total se recalculará en la notebook 10 completa para no mezclar cifras de dos versiones del dataset.")
 
     add_table(
         doc,
@@ -972,7 +978,7 @@ def build_document() -> Path:
     add_bullet(doc, "LightGBM/SynapseML: mantener como TODO en un entorno Spark compatible y aislado.")
 
     doc.add_heading("¿CNN-LSTM ahora?", level=2)
-    add_body(doc, "No es la siguiente prioridad. CNN/LSTM cobra más sentido cuando hay secuencias densas y continuas por aeropuerto, ruta o aeronave. Los datos actuales son principalmente tabulares y seis cortes mensuales. Primero conviene conseguir meses consecutivos, construir secuencias sin huecos y comparar contra Ridge/CatBoost con el mismo split. Solo entonces se justificaría su mayor coste y complejidad.")
+    add_body(doc, "No es la siguiente prioridad. CNN/LSTM cobra más sentido cuando hay secuencias densas y continuas por aeropuerto, ruta o aeronave. Los datos actuales son principalmente tabulares y nueve cortes mensuales no consecutivos. Primero conviene conseguir meses consecutivos, construir secuencias sin huecos y comparar contra Ridge/CatBoost con el mismo split. Solo entonces se justificaría su mayor coste y complejidad.")
 
     add_callout(doc, "Decisión recomendada", "Entrenar primero con más datos de vuelos ya disponibles y validar en varios periodos. Añadir después meteorología. Probar una red secuencial solo cuando exista un histórico continuo suficiente y un baseline tabular congelado.")
 
@@ -1008,7 +1014,7 @@ def build_document() -> Path:
     )
 
     doc.add_heading("Fuentes internas revisadas", level=2)
-    add_body(doc, "Libretas 01_initial_analysis_sample a 08_arrival_pre_t60_operational_features; configuración compartida en src/flight_config.py; pipeline Spark en src/spark_flight_pipeline.py; salidas ejecutadas y gráficos de la carpeta reports. Las cifras de este informe proceden de esas ejecuciones locales.")
+    add_body(doc, "Libretas 01_initial_analysis_sample a 11_expanded_arrival_pre_models_prediction; configuración compartida en src/flight_config.py; catálogo en src/flight_data_catalog.py; pipeline Spark en src/spark_flight_pipeline.py; salidas de auditoría y gráficos de reports. Las métricas de modelos mostradas siguen correspondiendo al pipeline anterior hasta que se ejecute el entrenamiento ampliado; no deben atribuirse todavía a los nueve meses.")
 
     # Prevent accidental orphan lines in all normal paragraphs where practical.
     for paragraph in doc.paragraphs:
