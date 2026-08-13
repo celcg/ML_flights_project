@@ -403,6 +403,31 @@ def temporal_train_validation_test_split(
     return train, validation, test
 
 
+def temporal_train_validation_two_test_split(
+    df: DataFrame,
+    validation_start: str,
+    test_start: str,
+    future_test_start: str,
+    time_column: str = "FILED OFF BLOCK TIME",
+) -> tuple[DataFrame, DataFrame, DataFrame, DataFrame]:
+    """Create train, validation, test and later temporal test partitions."""
+
+    validation_boundary = F.to_timestamp(F.lit(validation_start))
+    test_boundary = F.to_timestamp(F.lit(test_start))
+    future_boundary = F.to_timestamp(F.lit(future_test_start))
+    train = df.filter(F.col(time_column) < validation_boundary)
+    validation = df.filter(
+        (F.col(time_column) >= validation_boundary)
+        & (F.col(time_column) < test_boundary)
+    )
+    test = df.filter(
+        (F.col(time_column) >= test_boundary)
+        & (F.col(time_column) < future_boundary)
+    )
+    future_test = df.filter(F.col(time_column) >= future_boundary)
+    return train, validation, test, future_test
+
+
 def fit_yeo_johnson_lambdas(
     train: DataFrame,
     columns: Sequence[str] = ("Requested FL", "Scheduled_Duration_Min"),

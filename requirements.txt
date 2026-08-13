@@ -1,6 +1,7 @@
 # Data Manipulation
 pandas>=2.0.0,<3.0.0  # PySpark 4.2 does not yet fully support pandas 3.x
 numpy
+scipy
 
 # EDA
 sweetviz

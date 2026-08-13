@@ -106,6 +106,9 @@ def add_heading(doc, text: str) -> None:
 
 def add_bullet(doc, text: str, bold_prefix: str | None = None) -> None:
     p = doc.add_paragraph(style="Summary Bullet")
+    bullet = p.add_run("• ")
+    bullet.bold = True
+    bullet.font.color.rgb = RGBColor.from_string(BLUE)
     if bold_prefix and text.startswith(bold_prefix):
         p.add_run(bold_prefix).bold = True
         p.add_run(text[len(bold_prefix) :])
@@ -128,34 +131,34 @@ def add_numbered(doc, number: int, text: str) -> None:
 def configure_styles(doc: Document) -> None:
     normal = doc.styles["Normal"]
     normal.font.name = "Calibri"
-    normal.font.size = Pt(9)
+    normal.font.size = Pt(9.6)
     normal.font.color.rgb = RGBColor.from_string("243142")
     normal.paragraph_format.space_after = Pt(3)
     normal.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
 
     heading = doc.styles.add_style("Summary Heading", WD_STYLE_TYPE.PARAGRAPH)
     heading.font.name = "Calibri"
-    heading.font.size = Pt(11)
+    heading.font.size = Pt(12)
     heading.font.bold = True
     heading.font.color.rgb = RGBColor.from_string(BLUE)
-    heading.paragraph_format.space_before = Pt(6)
-    heading.paragraph_format.space_after = Pt(3)
+    heading.paragraph_format.space_before = Pt(7)
+    heading.paragraph_format.space_after = Pt(4)
 
     body = doc.styles.add_style("Summary Body", WD_STYLE_TYPE.PARAGRAPH)
     body.font.name = "Calibri"
-    body.font.size = Pt(8.7)
+    body.font.size = Pt(9.4)
     body.font.color.rgb = RGBColor.from_string("243142")
-    body.paragraph_format.space_after = Pt(2.5)
-    body.paragraph_format.line_spacing = 1.02
+    body.paragraph_format.space_after = Pt(3)
+    body.paragraph_format.line_spacing = 1.04
 
     bullet = doc.styles.add_style("Summary Bullet", WD_STYLE_TYPE.PARAGRAPH)
     bullet.font.name = "Calibri"
-    bullet.font.size = Pt(8.6)
+    bullet.font.size = Pt(9.3)
     bullet.font.color.rgb = RGBColor.from_string("243142")
     bullet.paragraph_format.left_indent = Cm(0.42)
     bullet.paragraph_format.first_line_indent = Cm(-0.28)
-    bullet.paragraph_format.space_after = Pt(2.2)
-    bullet.paragraph_format.line_spacing = 1.0
+    bullet.paragraph_format.space_after = Pt(2.8)
+    bullet.paragraph_format.line_spacing = 1.02
     bullet._element.get_or_add_pPr().append(OxmlElement("w:contextualSpacing"))
 
 
@@ -168,9 +171,9 @@ def add_metric_strip(doc: Document) -> None:
     table.columns[2].width = Cm(6.15)
     cells = table.rows[0].cells
     items = (
-        ("RMSE GLOBAL", "15,83 → 14,80 min", "−6,5% frente al baseline"),
-        ("MAE VUELOS >15 MIN", "22,68 → 18,21 min", "−19,7% frente al baseline"),
-        ("CRITERIO COMBINADO", "14,07 min", "Ridge: mejor equilibrio"),
+        ("RMSE GLOBAL · 25%", "15,49 → 14,75 min", "−4,8% frente al baseline"),
+        ("MAE VUELOS >15 MIN", "21,66 → 18,20 min", "−16,0% frente al baseline"),
+        ("CRITERIO COMBINADO", "14,05 min", "Ridge: mejor equilibrio"),
     )
     for idx, (label, value, note) in enumerate(items):
         cell = cells[idx]
@@ -182,7 +185,7 @@ def add_metric_strip(doc: Document) -> None:
         p.paragraph_format.space_after = Pt(1)
         r = p.add_run(label)
         r.bold = True
-        r.font.size = Pt(7.2)
+        r.font.size = Pt(7.8)
         r.font.color.rgb = RGBColor.from_string(DARK_BLUE if idx != 2 else GREEN)
         p2 = cell.add_paragraph()
         p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -202,10 +205,10 @@ def add_metric_strip(doc: Document) -> None:
 
 def add_results_table(doc: Document) -> None:
     rows = (
-        ("Global MAE", "10,45", "9,94", "−4,8%"),
-        ("Global RMSE", "15,83", "14,80", "−6,5%"),
-        ("MAE >15 min", "22,68", "18,21", "−19,7%"),
-        ("RMSE >15 min", "29,77", "25,88", "−13,1%"),
+        ("Global MAE", "10,13", "9,89", "−2,3%"),
+        ("Global RMSE", "15,49", "14,75", "−4,8%"),
+        ("MAE >15 min", "21,66", "18,20", "−16,0%"),
+        ("RMSE >15 min", "29,11", "25,86", "−11,2%"),
     )
     table = doc.add_table(rows=1, cols=4)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -234,7 +237,7 @@ def add_results_table(doc: Document) -> None:
             p = cell.paragraphs[0]
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER if col_idx else WD_ALIGN_PARAGRAPH.LEFT
             r = p.add_run(value)
-            r.font.size = Pt(7.2)
+            r.font.size = Pt(7.8)
             if col_idx == 3:
                 r.bold = True
                 r.font.color.rgb = RGBColor.from_string(GREEN)
@@ -242,22 +245,33 @@ def add_results_table(doc: Document) -> None:
 
 
 def add_callout(doc: Document, title: str, text: str, fill=PALE_BLUE) -> None:
-    table = doc.add_table(rows=1, cols=1)
-    table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    table.autofit = True
-    cell = table.cell(0, 0)
-    shade(cell, fill)
-    set_cell_margins(cell, top=85, start=105, bottom=85, end=105)
-    p = cell.paragraphs[0]
-    p.paragraph_format.space_after = Pt(1)
+    # A shaded paragraph, rather than a table, respects native column width in
+    # LibreOffice and Word. Full-width table defaults can otherwise overflow.
+    p = doc.add_paragraph(style="Summary Body")
+    p.paragraph_format.left_indent = Cm(0.08)
+    p.paragraph_format.right_indent = Cm(0.08)
+    p.paragraph_format.space_before = Pt(4)
+    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.line_spacing = 1.04
+    p_pr = p._p.get_or_add_pPr()
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:fill"), fill)
+    p_pr.append(shd)
+    borders = OxmlElement("w:pBdr")
+    left = OxmlElement("w:left")
+    left.set(qn("w:val"), "single")
+    left.set(qn("w:sz"), "18")
+    left.set(qn("w:space"), "6")
+    left.set(qn("w:color"), BLUE if fill == PALE_BLUE else "E4A11B")
+    borders.append(left)
+    p_pr.append(borders)
     r = p.add_run(title)
     r.bold = True
-    r.font.size = Pt(8.3)
+    r.font.size = Pt(9)
     r.font.color.rgb = RGBColor.from_string(DARK_BLUE)
-    p2 = cell.add_paragraph(style="Summary Body")
-    p2.paragraph_format.space_after = Pt(0)
-    p2.add_run(text)
-    set_table_borders(table, color=fill, size="0")
+    p.add_run("\n")
+    p.add_run(text)
+    set_keep_together(p)
 
 
 def add_footer(section) -> None:
@@ -358,7 +372,7 @@ def build() -> Path:
     p = doc.add_paragraph(style="Summary Body")
     p.paragraph_format.space_before = Pt(2)
     p.add_run("Comparación homogénea: ").bold = True
-    p.add_run("ambos ajustados con el mismo 10% determinista de train y evaluados en las mismas 29.315 filas.")
+    p.add_run("ambos ajustados con el mismo 25% determinista de train y evaluados en las mismas 29.315 filas.")
 
     # Force the following content into the second native page column.
     breaker = doc.add_paragraph()
@@ -368,11 +382,11 @@ def build() -> Path:
     add_heading(doc, "¿Por qué Ridge es la mejor elección actual?")
     add_bullet(
         doc,
-        "Mejor criterio combinado: MAE global y MAE de vuelos con más de 15 min pesan al 50%; Ridge obtiene 14,07 min.",
+        "Selección alineada al 10%: MAE global y MAE de vuelos con más de 15 min pesan al 50%; Ridge obtiene el mejor criterio combinado, 14,07 min.",
     )
     add_bullet(
         doc,
-        "CatBoost gana ligeramente en promedio global (MAE 9,54; RMSE 14,67), pero Ridge predice mejor los retrasos elevados (MAE 18,21 frente a 19,63).",
+        "En esa comparación al 10%, CatBoost gana ligeramente en promedio global (MAE 9,54; RMSE 14,67), pero Ridge predice mejor los retrasos elevados (MAE 18,21 frente a 19,63).",
     )
     add_bullet(
         doc,
@@ -386,19 +400,19 @@ def build() -> Path:
     add_callout(
         doc,
         "Interpretación ejecutiva",
-        "El modelo reduce el RMSE global en 1,03 minutos (6,5%) y el MAE de retrasos elevados en 4,47 minutos (19,7%). El mayor valor está en detectar mejor los casos operativamente difíciles.",
+        "Con 25% de train, Ridge reduce el RMSE global en 0,74 minutos (4,8%) y el MAE de retrasos elevados en 3,46 minutos (16,0%). El mayor valor está en detectar mejor los casos operativamente difíciles.",
     )
 
     add_heading(doc, "Siguientes pasos")
     add_numbered(
         doc,
         1,
-        "Escala 25% ya preparada con Ridge congelado; ejecutar al disponer de 4–5 GB de RAM y comparar contra el 10% sin retocar validación.",
+        "25% completado: 613.884 vuelos de train. El criterio combinado mejora solo 0,027 min frente al 10%; no continuar aún a 50%/100%.",
     )
     add_numbered(
         doc,
         2,
-        "Continuar a 50%/100% solo si el 25% reduce al menos 0,20 min el MAE combinado sin degradar el MAE global más de 0,25 min.",
+        "Priorizar más meses/años y nuevas señales operativas; el límite actual no parece ser la cantidad de filas dentro de los mismos meses.",
     )
     add_numbered(
         doc,
@@ -418,9 +432,9 @@ def build() -> Path:
 
     add_callout(
         doc,
-        "Decisión de escalado pendiente",
-        "El runner del 25% y sus artefactos separados están listos. La ejecución se ha detenido de forma segura porque Windows solo deja 1,37 GB libres; no se modifica ningún resultado del 10%.",
-        fill="FFF3D6",
+        "Decisión de escalado: no continuar todavía",
+        "Ridge 25% mejora el MAE y RMSE globales solo 0,049 min frente al 10%. Es una señal positiva, pero el beneficio práctico no compensa aún el coste de entrenar al 50%/100%. Test no leído.",
+        fill="DDF2EA",
     )
 
     doc.core_properties.title = "Summary Report — Predicción de retraso de llegada T−60"
