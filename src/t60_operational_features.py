@@ -361,7 +361,8 @@ def build_standard_t60_features(
         model_columns = [
             column
             for column in block.columns
-            if column == id_column or not column.startswith("_")
+            if column == id_column
+            or (column != cutoff_column and not column.startswith("_"))
         ]
         result = result.join(block.select(*model_columns), id_column, "left")
         audit.append(

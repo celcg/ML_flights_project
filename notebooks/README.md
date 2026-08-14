@@ -43,8 +43,11 @@ Due to licensing restrictions you must:
     ingestion and cleaning with the previous rules, raw/post-clean null audits,
     four temporal partitions and optional leakage-audited T-60 features.
 11. `11_expanded_arrival_pre_models_prediction.ipynb` — baseline, Ridge, Random
-    Forest, GBT, XGBoost and CatBoost on the expanded Parquet contract. December
-    selects the model; March and June 2023 are scored only after freezing it.
+    Forest, GBT, XGBoost and CatBoost on the expanded Parquet contract. It keeps
+    the minute-regression task and adds a separate classifier for arrival delay
+    above 15 minutes, with accuracy, balanced accuracy, precision, recall, F1,
+    ROC-AUC, PR-AUC and confusion counts. December selects both models; March and
+    June 2023 are scored only after freezing them.
 
 ## Scaling experiment: 25% of train
 
