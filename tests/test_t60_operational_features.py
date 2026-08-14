@@ -6,6 +6,7 @@ try:
     from src.t60_operational_features import (
         build_rolling_event_features,
         build_rotation_features,
+        build_standard_t60_features,
     )
 
     PYSPARK_AVAILABLE = True
@@ -111,6 +112,36 @@ class T60OperationalFeatureTests(unittest.TestCase):
         self.assertIsNone(result["rotation_previous_departure_delay"])
         self.assertIsNone(result["rotation_minutes_since_previous_arrival"])
         self.assertEqual(result["rotation_history_available"], 0)
+
+    def test_standard_feature_join_keeps_one_prediction_cutoff_column(self):
+        cutoff = datetime(2022, 1, 1, 9, 0)
+        targets = self.spark.createDataFrame(
+            [(2, "AAA", "BBB", "OP1", "REG1", cutoff)],
+            [
+                "ECTRL ID", "ADEP", "ADES", "AC Operator",
+                "AC Registration", "prediction_cutoff_t60",
+            ],
+        )
+        events = self.spark.createDataFrame(
+            [
+                (
+                    1, "AAA", "BBB", "OP1", "REG1",
+                    datetime(2022, 1, 1, 8, 10),
+                    datetime(2022, 1, 1, 8, 30), 5.0, 8.0,
+                )
+            ],
+            [
+                "ECTRL ID", "ADEP", "ADES", "AC Operator", "AC Registration",
+                "ACTUAL OFF BLOCK TIME", "ACTUAL ARRIVAL TIME",
+                "Departure_Delay_Min", "Arrival_Delay_Min",
+            ],
+        )
+        result, audit = build_standard_t60_features(
+            targets, events, windows_hours=(1,)
+        )
+        self.assertEqual(result.columns.count("prediction_cutoff_t60"), 1)
+        self.assertEqual(result.count(), 1)
+        self.assertEqual(len(audit), 6)
 
 
 if __name__ == "__main__":

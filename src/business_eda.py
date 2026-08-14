@@ -97,13 +97,22 @@ class BusinessAnalysisConfig:
     max_flight_level: float = 500.0
     min_distance_nm: float = 0.0
     delay_thresholds: tuple[int, ...] = (15, 30, 60)
-    route_volume_candidates: tuple[int, ...] = (100, 250, 500, 1_000)
+    route_volume_candidates: tuple[int, ...] = (20, 50, 100, 200, 500)
     period_candidates: tuple[int, ...] = (1, 2, 3)
-    executive_min_route_flights: int = 500
+    executive_min_route_flights: int = 20
     executive_min_route_periods: int = 3
     route_plot_min_flights: int = 2
-    airport_plot_min_flights: int = 30
+    executive_min_airport_flights: int = 200
+    executive_min_airport_periods: int = 3
+    airport_plot_min_flights: int = 200
+    airport_plot_top_n: int = 200
+    route_plot_top_n: int = 500
     executive_min_operator_flights: int = 1_000
+    adjusted_min_operator_flights: int = 5_000
+    practical_otp15_difference_pp: float = 3.0
+    practical_p90_difference_min: float = 5.0
+    practical_median_difference_min: float = 2.0
+    trend_min_periods: int = 6
     confidence_level: float = 0.95
     top_n: int = 20
 
@@ -360,6 +369,337 @@ def scan_route_volume(
     ).reset_index()
     routes["route"] = routes["ADEP"].astype(str) + " → " + routes["ADES"].astype(str)
     return routes.sort_values("flights", ascending=False, ignore_index=True)
+
+
+def scan_day_hour_otp15(
+    paths: Sequence[Path | str],
+    config: BusinessAnalysisConfig | None = None,
+    *,
+    chunksize: int = 100_000,
+    max_rows_per_file: int | None = None,
+) -> pd.DataFrame:
+    """Aggregate observed arrival OTP15 by scheduled departure weekday and hour.
+
+    The calculation reuses the report's cleaning function but retains only a
+    tiny grouped result from each chunk, so the complete dataset is never held
+    in memory.
+    """
+
+    config = config or BusinessAnalysisConfig()
+    partials: list[pd.DataFrame] = []
+    for raw_path in development_flight_paths(paths, config):
+        for chunk in pd.read_csv(
+            raw_path,
+            compression="gzip",
+            usecols=RAW_COLUMNS,
+            chunksize=chunksize,
+            nrows=max_rows_per_file,
+            low_memory=False,
+        ):
+            prepared = prepare_business_flights(chunk, config)
+            observed = prepared.loc[
+                prepared["Arrival_Delay_Min"].notna(),
+                ["departure_weekday", "departure_hour", "arrival_otp15"],
+            ]
+            if observed.empty:
+                continue
+            partials.append(
+                observed.groupby(
+                    ["departure_weekday", "departure_hour"],
+                    observed=True,
+                ).agg(
+                    flights=("arrival_otp15", "size"),
+                    otp15_count=("arrival_otp15", "sum"),
+                ).reset_index()
+            )
+
+    columns = [
+        "departure_weekday",
+        "departure_hour",
+        "flights",
+        "otp15_count",
+        "otp15_pct",
+        "otp15_ci_low_pct",
+        "otp15_ci_high_pct",
+    ]
+    if not partials:
+        return pd.DataFrame(columns=columns)
+
+    result = (
+        pd.concat(partials, ignore_index=True)
+        .groupby(["departure_weekday", "departure_hour"], observed=True, as_index=False)
+        [["flights", "otp15_count"]]
+        .sum()
+    )
+    result["otp15_pct"] = 100.0 * result["otp15_count"] / result["flights"]
+    intervals = result.apply(
+        lambda row: wilson_interval(row["otp15_count"], row["flights"], config.confidence_level),
+        axis=1,
+        result_type="expand",
+    )
+    result[["otp15_ci_low_pct", "otp15_ci_high_pct"]] = 100.0 * intervals
+    weekday_order = {
+        day: index
+        for index, day in enumerate(
+            ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        )
+    }
+    result["weekday_order"] = result["departure_weekday"].astype(str).map(weekday_order)
+    result = result.sort_values(["weekday_order", "departure_hour"]).drop(columns="weekday_order")
+    return result.loc[:, columns].reset_index(drop=True)
+
+
+def scan_duration_delay_performance(
+    paths: Sequence[Path | str],
+    config: BusinessAnalysisConfig | None = None,
+    *,
+    chunksize: int = 100_000,
+    max_rows_per_file: int | None = None,
+) -> pd.DataFrame:
+    """Aggregate arrival-delay severity by scheduled flight-duration band.
+
+    Only flights with an observed arrival delay and a positive scheduled
+    duration enter the denominator. The grouped partials keep memory bounded.
+    """
+
+    config = config or BusinessAnalysisConfig()
+    labels = ["0-90 min", "90-180 min", "180-360 min", ">360 min"]
+    partials: list[pd.DataFrame] = []
+    for raw_path in development_flight_paths(paths, config):
+        for chunk in pd.read_csv(
+            raw_path,
+            compression="gzip",
+            usecols=RAW_COLUMNS,
+            chunksize=chunksize,
+            nrows=max_rows_per_file,
+            low_memory=False,
+        ):
+            prepared = prepare_business_flights(chunk, config)
+            observed = prepared.loc[
+                prepared["Arrival_Delay_Min"].notna()
+                & prepared["scheduled_duration_min"].gt(0),
+                ["scheduled_duration_min", "Arrival_Delay_Min"],
+            ].copy()
+            if observed.empty:
+                continue
+            observed["duration_band"] = pd.cut(
+                observed["scheduled_duration_min"],
+                bins=[0, 90, 180, 360, np.inf],
+                labels=labels,
+                include_lowest=False,
+            )
+            for threshold in (15, 30, 60):
+                observed[f"delayed_{threshold}"] = observed["Arrival_Delay_Min"].gt(threshold)
+            partials.append(
+                observed.groupby("duration_band", observed=True).agg(
+                    flights=("Arrival_Delay_Min", "size"),
+                    delayed_15_count=("delayed_15", "sum"),
+                    delayed_30_count=("delayed_30", "sum"),
+                    delayed_60_count=("delayed_60", "sum"),
+                ).reset_index()
+            )
+
+    columns = [
+        "duration_band",
+        "flights",
+        "flight_share_pct",
+        "delayed_15_count",
+        "delayed_15_pct",
+        "delayed_15_ci_low_pct",
+        "delayed_15_ci_high_pct",
+        "delayed_30_count",
+        "delayed_30_pct",
+        "delayed_60_count",
+        "delayed_60_pct",
+    ]
+    if not partials:
+        return pd.DataFrame(columns=columns)
+
+    result = (
+        pd.concat(partials, ignore_index=True)
+        .groupby("duration_band", observed=True, as_index=False)
+        [["flights", "delayed_15_count", "delayed_30_count", "delayed_60_count"]]
+        .sum()
+    )
+    result["flight_share_pct"] = 100.0 * result["flights"] / result["flights"].sum()
+    for threshold in (15, 30, 60):
+        result[f"delayed_{threshold}_pct"] = (
+            100.0 * result[f"delayed_{threshold}_count"] / result["flights"]
+        )
+    intervals = result.apply(
+        lambda row: wilson_interval(
+            row["delayed_15_count"], row["flights"], config.confidence_level
+        ),
+        axis=1,
+        result_type="expand",
+    )
+    result[["delayed_15_ci_low_pct", "delayed_15_ci_high_pct"]] = 100.0 * intervals
+    order = {label: index for index, label in enumerate(labels)}
+    result["duration_order"] = result["duration_band"].astype(str).map(order)
+    result = result.sort_values("duration_order").drop(columns="duration_order")
+    return result.loc[:, columns].reset_index(drop=True)
+
+
+def scan_destination_relative_delay(
+    paths: Sequence[Path | str],
+    config: BusinessAnalysisConfig | None = None,
+    *,
+    chunksize: int = 100_000,
+    max_rows_per_file: int | None = None,
+) -> pd.DataFrame:
+    """Aggregate positive arrival-delay minutes relative to scheduled duration.
+
+    The principal metric is exposure-weighted: total positive arrival-delay
+    minutes divided by total scheduled flight minutes. Early arrivals cannot
+    cancel delay, and only observed arrivals with positive scheduled duration
+    enter the denominator.
+    """
+
+    config = config or BusinessAnalysisConfig()
+    partials: list[pd.DataFrame] = []
+    for raw_path in development_flight_paths(paths, config):
+        for chunk in pd.read_csv(
+            raw_path,
+            compression="gzip",
+            usecols=RAW_COLUMNS,
+            chunksize=chunksize,
+            nrows=max_rows_per_file,
+            low_memory=False,
+        ):
+            prepared = prepare_business_flights(chunk, config)
+            observed = prepared.loc[
+                prepared["Arrival_Delay_Min"].notna()
+                & prepared["scheduled_duration_min"].gt(0)
+                & prepared["ADES"].notna(),
+                ["ADES", "period", "scheduled_duration_min", "Arrival_Delay_Min"],
+            ].copy()
+            if observed.empty:
+                continue
+            observed["positive_delay_min"] = observed["Arrival_Delay_Min"].clip(lower=0)
+            observed["flight_relative_delay"] = (
+                observed["positive_delay_min"] / observed["scheduled_duration_min"]
+            )
+            observed["delay_exceeds_duration"] = observed["flight_relative_delay"].gt(1)
+            partials.append(
+                observed.groupby(["ADES", "period"], observed=True).agg(
+                    observed_arrivals=("Arrival_Delay_Min", "size"),
+                    positive_delay_minutes=("positive_delay_min", "sum"),
+                    scheduled_duration_minutes=("scheduled_duration_min", "sum"),
+                    flight_relative_delay_sum=("flight_relative_delay", "sum"),
+                    delay_exceeds_duration_count=("delay_exceeds_duration", "sum"),
+                ).reset_index()
+            )
+
+    columns = [
+        "airport",
+        "observed_arrivals",
+        "periods_active",
+        "positive_delay_minutes",
+        "scheduled_duration_minutes",
+        "relative_delay_burden_pct",
+        "mean_flight_relative_delay_pct",
+        "delay_exceeds_duration_count",
+        "delay_exceeds_duration_pct",
+    ]
+    if not partials:
+        return pd.DataFrame(columns=columns)
+
+    by_period = (
+        pd.concat(partials, ignore_index=True)
+        .groupby(["ADES", "period"], observed=True, as_index=False)
+        [[
+            "observed_arrivals",
+            "positive_delay_minutes",
+            "scheduled_duration_minutes",
+            "flight_relative_delay_sum",
+            "delay_exceeds_duration_count",
+        ]]
+        .sum()
+    )
+    result = by_period.groupby("ADES", observed=True).agg(
+        observed_arrivals=("observed_arrivals", "sum"),
+        periods_active=("period", "nunique"),
+        positive_delay_minutes=("positive_delay_minutes", "sum"),
+        scheduled_duration_minutes=("scheduled_duration_minutes", "sum"),
+        flight_relative_delay_sum=("flight_relative_delay_sum", "sum"),
+        delay_exceeds_duration_count=("delay_exceeds_duration_count", "sum"),
+    ).reset_index().rename(columns={"ADES": "airport"})
+    result["relative_delay_burden_pct"] = (
+        100.0 * result["positive_delay_minutes"] / result["scheduled_duration_minutes"]
+    )
+    result["mean_flight_relative_delay_pct"] = (
+        100.0 * result["flight_relative_delay_sum"] / result["observed_arrivals"]
+    )
+    result["delay_exceeds_duration_pct"] = (
+        100.0 * result["delay_exceeds_duration_count"] / result["observed_arrivals"]
+    )
+    return result.loc[:, columns].sort_values(
+        "observed_arrivals", ascending=False, ignore_index=True
+    )
+
+
+def plot_duration_delay_context(summary: pd.DataFrame) -> plt.Figure:
+    """Compare delay thresholds and traffic exposure across duration bands."""
+
+    apply_business_plot_style()
+    frame = summary.copy()
+    x = np.arange(len(frame))
+    width = 0.22
+    fig, (ax, volume_ax) = plt.subplots(
+        1,
+        2,
+        figsize=(12.5, 6.2),
+        gridspec_kw={"width_ratios": [3.2, 1.25]},
+    )
+    series = [
+        ("delayed_15_pct", ">15 min", "#ED7D31"),
+        ("delayed_30_pct", ">30 min", "#A5A5A5"),
+        ("delayed_60_pct", ">60 min", "#C00000"),
+    ]
+    for offset, (column, label, color) in zip((-width, 0, width), series):
+        bars = ax.bar(x + offset, frame[column], width, label=label, color=color)
+        ax.bar_label(bars, fmt="%.1f%%", padding=3, fontsize=8, color=BUSINESS_GREY)
+    ax.set_xticks(x, frame["duration_band"].astype(str))
+    ax.set_ylabel("Share of observed arrivals (%)")
+    ax.set_xlabel("Scheduled flight duration")
+    ax.set_title("Arrival-delay severity")
+    ax.legend(frameon=False, ncol=3, loc="upper left")
+    ax.grid(axis="y", color="#D9D9D9", linewidth=0.7, alpha=0.75)
+    ax.set_axisbelow(True)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    volume_bars = volume_ax.barh(
+        frame["duration_band"].astype(str),
+        frame["flight_share_pct"],
+        color=BUSINESS_BLUE,
+    )
+    volume_ax.bar_label(
+        volume_bars,
+        labels=[
+            f"{share:.1f}%  ({int(flights):,})"
+            for share, flights in zip(frame["flight_share_pct"], frame["flights"])
+        ],
+        padding=4,
+        fontsize=8,
+        color=BUSINESS_GREY,
+    )
+    volume_ax.invert_yaxis()
+    volume_ax.set_xlabel("Share of analysed flights (%)")
+    volume_ax.set_title("Traffic exposure")
+    volume_ax.grid(axis="x", color="#D9D9D9", linewidth=0.7, alpha=0.75)
+    volume_ax.set_axisbelow(True)
+    volume_ax.margins(x=0.32)
+    for spine in volume_ax.spines.values():
+        spine.set_visible(False)
+
+    fig.suptitle(
+        "Arrival delay by scheduled flight duration",
+        color=BUSINESS_DARK_BLUE,
+        fontweight="bold",
+    )
+    fig.tight_layout()
+    return fig
 
 
 def _percent(numerator: float, denominator: float) -> float:
@@ -677,14 +1017,248 @@ def benjamini_hochberg(p_values: Iterable[float]) -> np.ndarray:
     values = np.asarray(list(p_values), dtype=float)
     if values.size == 0:
         return values
-    order = np.argsort(values)
-    ranked = values[order]
+    adjusted = np.full(values.shape, np.nan, dtype=float)
+    finite_positions = np.flatnonzero(np.isfinite(values))
+    if finite_positions.size == 0:
+        return adjusted
+    finite_values = values[finite_positions]
+    order = np.argsort(finite_values)
+    ranked = finite_values[order]
     adjusted_ranked = np.minimum.accumulate(
-        (ranked * len(values) / np.arange(1, len(values) + 1))[::-1]
+        (ranked * len(finite_values) / np.arange(1, len(finite_values) + 1))[::-1]
     )[::-1]
-    adjusted = np.empty_like(adjusted_ranked)
-    adjusted[order] = np.clip(adjusted_ranked, 0, 1)
+    finite_adjusted = np.empty_like(adjusted_ranked)
+    finite_adjusted[order] = np.clip(adjusted_ranked, 0, 1)
+    adjusted[finite_positions] = finite_adjusted
     return adjusted
+
+
+def otp15_group_vs_rest_tests(
+    performance: pd.DataFrame,
+    group_column: str,
+    *,
+    minimum_flights: int,
+    minimum_periods: int = 1,
+    practical_difference_pp: float = 3.0,
+) -> pd.DataFrame:
+    """Compare every eligible group's OTP15 with the rest of the network."""
+
+    eligible = performance.loc[
+        performance["flights"].ge(minimum_flights)
+        & performance["periods_active"].ge(minimum_periods)
+    ].copy()
+    total_flights = int(performance["flights"].sum())
+    total_successes = int(performance["arrival_otp15_count"].sum())
+    rows: list[dict[str, object]] = []
+    for _, values in eligible.iterrows():
+        group_flights = int(values["flights"])
+        group_successes = int(values["arrival_otp15_count"])
+        rest_flights = total_flights - group_flights
+        rest_successes = total_successes - group_successes
+        comparison = two_proportion_z_test(
+            group_successes, group_flights, rest_successes, rest_flights
+        )
+        rows.append({
+            group_column: values[group_column],
+            "flights": group_flights,
+            "periods_active": int(values["periods_active"]),
+            "otp15_pct": comparison["rate_a_pct"],
+            "rest_of_network_otp15_pct": comparison["rate_b_pct"],
+            "difference_percentage_points": comparison["difference_percentage_points"],
+            "z_score": comparison["z_score"],
+            "p_value": comparison["p_value"],
+        })
+    result = pd.DataFrame(rows)
+    if result.empty:
+        return result
+    result["adjusted_p_value"] = benjamini_hochberg(result["p_value"])
+    result["statistically_significant"] = result["adjusted_p_value"].lt(0.05)
+    result["practically_material"] = result["difference_percentage_points"].abs().ge(
+        practical_difference_pp
+    )
+    result["decision_signal"] = np.select(
+        [
+            result["statistically_significant"]
+            & result["practically_material"]
+            & result["difference_percentage_points"].gt(0),
+            result["statistically_significant"]
+            & result["practically_material"]
+            & result["difference_percentage_points"].lt(0),
+        ],
+        ["reliably_above_network", "reliably_below_network"],
+        default="not_material_or_inconclusive",
+    )
+    return result.sort_values("difference_percentage_points", ascending=False, ignore_index=True)
+
+
+def weekday_otp15_analysis(
+    flights: pd.DataFrame,
+    config: BusinessAnalysisConfig | None = None,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Return weekday OTP15 estimates and each day-versus-rest test."""
+
+    config = config or BusinessAnalysisConfig()
+    observed = flights.loc[flights["Arrival_Delay_Min"].notna()].copy()
+    summary = observed.groupby("departure_weekday", observed=True).agg(
+        flights=("ECTRL ID", "size"),
+        otp15_count=("arrival_otp15", "sum"),
+    ).reset_index()
+    summary["otp15_pct"] = 100 * summary["otp15_count"] / summary["flights"]
+    bounds = [
+        wilson_interval(int(successes), int(total), config.confidence_level)
+        for successes, total in zip(summary["otp15_count"], summary["flights"])
+    ]
+    summary["otp15_ci_low_pct"] = [100 * value[0] for value in bounds]
+    summary["otp15_ci_high_pct"] = [100 * value[1] for value in bounds]
+
+    total_flights = int(summary["flights"].sum())
+    total_successes = int(summary["otp15_count"].sum())
+    tests = []
+    for row in summary.itertuples(index=False):
+        comparison = two_proportion_z_test(
+            int(row.otp15_count),
+            int(row.flights),
+            total_successes - int(row.otp15_count),
+            total_flights - int(row.flights),
+        )
+        tests.append({
+            "departure_weekday": str(row.departure_weekday),
+            **comparison,
+        })
+    tests = pd.DataFrame(tests)
+    tests["adjusted_p_value"] = benjamini_hochberg(tests["p_value"])
+    tests["practically_material"] = tests["difference_percentage_points"].abs().ge(
+        config.practical_otp15_difference_pp
+    )
+    tests["statistically_significant"] = tests["adjusted_p_value"].lt(0.05)
+    return summary, tests
+
+
+def period_otp15_trends(
+    flights: pd.DataFrame,
+    group_column: str,
+    *,
+    minimum_flights: int,
+    minimum_periods: int = 6,
+    practical_total_change_pp: float = 3.0,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Estimate snapshot-level OTP15 trends using elapsed calendar months."""
+
+    observed = flights.loc[flights["Arrival_Delay_Min"].notna()].copy()
+    by_period = observed.groupby([group_column, "period"], observed=True).agg(
+        flights=("ECTRL ID", "size"),
+        otp15_count=("arrival_otp15", "sum"),
+    ).reset_index()
+    by_period["otp15_pct"] = 100 * by_period["otp15_count"] / by_period["flights"]
+    period_dates = pd.to_datetime(by_period["period"].astype(str) + "-01")
+    origin = period_dates.min()
+    by_period["elapsed_months"] = (
+        (period_dates.dt.year - origin.year) * 12 + period_dates.dt.month - origin.month
+    ).astype(float)
+
+    totals = by_period.groupby(group_column, observed=True).agg(
+        total_flights=("flights", "sum"),
+        periods_active=("period", "nunique"),
+    )
+    eligible_groups = totals.loc[
+        totals["total_flights"].ge(minimum_flights)
+        & totals["periods_active"].ge(minimum_periods)
+    ].index
+    span_months = float(by_period["elapsed_months"].max() - by_period["elapsed_months"].min())
+    rows = []
+    for group, frame in by_period.loc[by_period[group_column].isin(eligible_groups)].groupby(
+        group_column, observed=True
+    ):
+        fit = stats.linregress(frame["elapsed_months"], frame["otp15_pct"])
+        fitted_start = float(np.clip(fit.intercept, 0, 100))
+        fitted_end = float(np.clip(fit.intercept + fit.slope * span_months, 0, 100))
+        observed_periods = sorted(frame["period"].astype(str).unique())
+        rows.append({
+            group_column: group,
+            "total_flights": int(frame["flights"].sum()),
+            "periods_active": int(frame["period"].nunique()),
+            "slope_pp_per_year": float(fit.slope * 12),
+            "estimated_total_change_pp": fitted_end - fitted_start,
+            "fitted_start_otp15_pct": fitted_start,
+            "fitted_end_otp15_pct": fitted_end,
+            "first_observed_period": observed_periods[0],
+            "last_observed_period": observed_periods[-1],
+            "extrapolated_to_full_window": observed_periods[0] != "2021-06" or observed_periods[-1] != "2023-06",
+            "r_squared": float(fit.rvalue**2),
+            "p_value": float(fit.pvalue),
+        })
+    trends = pd.DataFrame(rows)
+    if trends.empty:
+        return trends, by_period.iloc[0:0]
+    trends["adjusted_p_value"] = benjamini_hochberg(trends["p_value"])
+    trends["statistically_significant"] = trends["adjusted_p_value"].lt(0.05)
+    trends["practically_material"] = trends["estimated_total_change_pp"].abs().ge(
+        practical_total_change_pp
+    )
+    trends["trend_signal"] = np.select(
+        [
+            trends["statistically_significant"]
+            & trends["practically_material"]
+            & trends["estimated_total_change_pp"].lt(0),
+            trends["statistically_significant"]
+            & trends["practically_material"]
+            & trends["estimated_total_change_pp"].gt(0),
+        ],
+        ["material_deterioration", "material_improvement"],
+        default="not_material_or_inconclusive",
+    )
+    return trends.sort_values("estimated_total_change_pp", ignore_index=True), by_period
+
+
+def top_airport_leave_one_period_out_alerts(
+    flights: pd.DataFrame,
+    config: BusinessAnalysisConfig | None = None,
+    top_n: int = 10,
+) -> pd.DataFrame:
+    """Compare each top-volume origin airport period with its other periods."""
+
+    config = config or BusinessAnalysisConfig()
+    observed = flights.loc[flights["Arrival_Delay_Min"].notna()].copy()
+    top_airports = observed["ADEP"].value_counts().head(top_n).index
+    grouped = observed.loc[observed["ADEP"].isin(top_airports)].groupby(
+        ["ADEP", "period"], observed=True
+    ).agg(flights=("ECTRL ID", "size"), otp15_count=("arrival_otp15", "sum")).reset_index()
+    totals = grouped.groupby("ADEP", observed=True).agg(
+        all_flights=("flights", "sum"), all_otp15_count=("otp15_count", "sum")
+    ).reset_index()
+    result = grouped.merge(totals, on="ADEP", how="left")
+    rows = []
+    for row in result.itertuples(index=False):
+        reference_flights = int(row.all_flights - row.flights)
+        reference_successes = int(row.all_otp15_count - row.otp15_count)
+        comparison = two_proportion_z_test(
+            int(row.otp15_count), int(row.flights), reference_successes, reference_flights
+        )
+        rows.append({
+            "airport": row.ADEP,
+            "period": str(row.period),
+            "flights": int(row.flights),
+            "otp15_pct": comparison["rate_a_pct"],
+            "leave_one_period_out_otp15_pct": comparison["rate_b_pct"],
+            "difference_percentage_points": comparison["difference_percentage_points"],
+            "p_value": comparison["p_value"],
+        })
+    alerts = pd.DataFrame(rows)
+    alerts["adjusted_p_value"] = benjamini_hochberg(alerts["p_value"])
+    material = alerts["difference_percentage_points"].abs().ge(
+        config.practical_otp15_difference_pp
+    ) & alerts["adjusted_p_value"].lt(0.05)
+    alerts["status"] = np.select(
+        [material & alerts["difference_percentage_points"].lt(0),
+         material & alerts["difference_percentage_points"].gt(0)],
+        ["red_material_deterioration", "blue_material_improvement"],
+        default="grey_not_conclusive",
+    )
+    alerts.loc[
+        alerts["difference_percentage_points"].abs().lt(config.practical_otp15_difference_pp),
+        "status",
+    ] = "green_within_3pp"
+    return alerts.sort_values(["airport", "period"], ignore_index=True)
 
 
 def hypothesis_test_catalog() -> pd.DataFrame:
@@ -722,46 +1296,46 @@ def hypothesis_test_catalog() -> pd.DataFrame:
             "test_id": "H04",
             "business_question": "Is origin-airport punctuality associated with the airport used?",
             "null_hypothesis": "Arrival OTP15 is independent of origin airport.",
-            "method": "Chi-square test of independence",
-            "effect_size": "Cramér's V",
-            "recommendation": "Recommended optional",
-            "implementation": "Awaiting selection",
+            "method": "Each eligible airport vs rest: two-proportion z + BH",
+            "effect_size": "OTP15 difference in percentage points",
+            "recommendation": "Core executive comparison",
+            "implementation": "Automated",
         },
         {
             "test_id": "H05",
             "business_question": "Is destination-airport punctuality associated with the airport used?",
             "null_hypothesis": "Arrival OTP15 is independent of destination airport.",
-            "method": "Chi-square test of independence",
-            "effect_size": "Cramér's V",
-            "recommendation": "Recommended optional",
-            "implementation": "Awaiting selection",
+            "method": "Each eligible airport vs rest: two-proportion z + BH",
+            "effect_size": "OTP15 difference in percentage points",
+            "recommendation": "Core executive comparison",
+            "implementation": "Automated",
         },
         {
             "test_id": "H06",
             "business_question": "Is punctuality associated with the operating carrier?",
             "null_hypothesis": "Arrival OTP15 is independent of AC Operator.",
-            "method": "Chi-square test of independence",
-            "effect_size": "Cramér's V",
-            "recommendation": "Optional; route mix is a confounder",
-            "implementation": "Awaiting selection",
+            "method": "Each eligible carrier vs rest: two-proportion z + BH",
+            "effect_size": "OTP15 difference in percentage points",
+            "recommendation": "Descriptive; route mix is a confounder",
+            "implementation": "Automated",
         },
         {
             "test_id": "H07",
             "business_question": "Are route reliability rates stable across observed periods?",
             "null_hypothesis": "For each eligible route, OTP15 is equal across periods.",
-            "method": "Per-route chi-square tests + Benjamini-Hochberg",
-            "effect_size": "Maximum percentage-point change",
-            "recommendation": "Recommended optional",
-            "implementation": "Awaiting selection",
+            "method": "Snapshot-level linear OTP15 slope + Benjamini-Hochberg",
+            "effect_size": "Estimated June 2021 to June 2023 change",
+            "recommendation": "Require at least six observed periods",
+            "implementation": "Automated",
         },
         {
             "test_id": "H08",
-            "business_question": "Does punctuality differ across scheduled departure-hour bands?",
-            "null_hypothesis": "Arrival-delay distributions are equal across hour bands.",
-            "method": "Kruskal-Wallis test",
-            "effect_size": "Epsilon squared",
-            "recommendation": "Optional",
-            "implementation": "Awaiting selection",
+            "business_question": "Does OTP15 differ by scheduled departure weekday?",
+            "null_hypothesis": "Each weekday has the same OTP15 as the other six days.",
+            "method": "Each weekday vs rest: two-proportion z + BH",
+            "effect_size": "OTP15 difference in percentage points",
+            "recommendation": "Pair with day-by-hour heatmap",
+            "implementation": "Automated",
         },
         {
             "test_id": "H09",
@@ -916,6 +1490,7 @@ def _route_plot_frame(
             eligible["flights"].ge(config.executive_min_route_flights)
             & eligible["periods_active"].ge(config.executive_min_route_periods)
         ]
+        eligible = eligible.nlargest(config.route_plot_top_n, "flights")
     return eligible
 
 
@@ -963,7 +1538,7 @@ def plot_top_route_comparison(
 
     config = config or BusinessAnalysisConfig()
     apply_business_plot_style()
-    eligible = _route_plot_frame(routes, config, executive=False)
+    eligible = _route_plot_frame(routes, config, executive=True)
     top = eligible.nlargest(config.top_n, "flights").sort_values("flights")
     fig, (left, right) = plt.subplots(1, 2, figsize=(14, 8), sharey=True)
     left.barh(top["route"].astype(str), top["flights"], color=BUSINESS_BLUE)
@@ -990,7 +1565,8 @@ def plot_airport_volume_reliability(
     apply_business_plot_style()
     eligible = airports.loc[
         airports["flights"].ge(config.airport_plot_min_flights)
-    ].copy()
+        & airports["periods_active"].ge(config.executive_min_airport_periods)
+    ].nlargest(config.airport_plot_top_n, "flights").copy()
     fig, ax = plt.subplots(figsize=(11, 7))
     if not eligible.empty:
         size = np.clip(eligible["arrival_delay_p90"].fillna(0), 5, 90) * 5
@@ -1043,11 +1619,16 @@ def plot_airport_reliability_rankings(
         raise ValueError("role must be 'origin' or 'destination'")
     apply_business_plot_style()
     eligible = airports.loc[
-        airports["flights"].ge(config.airport_plot_min_flights)
+        airports["flights"].ge(config.executive_min_airport_flights)
+        & airports["periods_active"].ge(config.executive_min_airport_periods)
     ].copy()
-    reliable = eligible.nlargest(10, "arrival_otp15_ci_low_pct").sort_values("arrival_otp15_pct")
+    # Sort by the same conservative Wilson bound used for selection.  With a
+    # horizontal categorical axis, the final row is rendered at the top.
+    reliable = eligible.nlargest(10, "arrival_otp15_ci_low_pct").sort_values(
+        "arrival_otp15_ci_low_pct"
+    )
     problematic = eligible.nsmallest(10, "arrival_otp15_ci_high_pct").sort_values(
-        "arrival_otp15_pct", ascending=False
+        "arrival_otp15_ci_high_pct", ascending=False
     )
     fig, axes = plt.subplots(1, 2, figsize=(14, 8))
     for ax, data, title, color in (
@@ -1105,6 +1686,164 @@ def plot_time_reliability_heatmap(flights: pd.DataFrame) -> plt.Figure:
     ax.set_title("Arrival punctuality by scheduled departure day and hour")
     ax.set_xlabel("Scheduled departure hour")
     ax.set_ylabel("")
+    fig.tight_layout()
+    return fig
+
+
+def plot_weekday_otp15_performance(
+    summary: pd.DataFrame,
+    network_otp15_pct: float,
+) -> plt.Figure:
+    """Show weekday OTP15 with Wilson intervals and the network reference."""
+
+    apply_business_plot_style()
+    frame = summary.copy()
+    labels = frame["departure_weekday"].astype(str)
+    lower = np.maximum(frame["otp15_pct"] - frame["otp15_ci_low_pct"], 0)
+    upper = np.maximum(frame["otp15_ci_high_pct"] - frame["otp15_pct"], 0)
+    fig, ax = plt.subplots(figsize=(10.5, 5.5))
+    bars = ax.bar(labels, frame["otp15_pct"], color=BUSINESS_BLUE, alpha=0.88)
+    ax.errorbar(
+        labels,
+        frame["otp15_pct"],
+        yerr=np.vstack([lower, upper]),
+        fmt="none",
+        ecolor=BUSINESS_DARK_BLUE,
+        capsize=4,
+    )
+    ax.axhline(network_otp15_pct, color=BUSINESS_GREEN, linestyle="--", label="Network OTP15")
+    ax.set_ylim(max(0, frame["otp15_pct"].min() - 4), min(100, frame["otp15_pct"].max() + 3))
+    ax.set_xlabel("Scheduled departure weekday")
+    ax.set_ylabel("Arrival OTP15 (%)")
+    ax.set_title("Weekday punctuality with 95% Wilson intervals")
+    for bar, value in zip(bars, frame["otp15_pct"]):
+        ax.text(bar.get_x() + bar.get_width() / 2, value + .25, f"{value:.1f}%", ha="center", fontsize=9)
+    ax.legend(frameon=False)
+    fig.tight_layout()
+    return fig
+
+
+def plot_otp15_trend_extremes(
+    trends: pd.DataFrame,
+    group_column: str,
+    title: str,
+    top_n: int = 3,
+    volume_pool: int | None = None,
+) -> plt.Figure:
+    """Plot only the three largest estimated improvements and deteriorations."""
+
+    apply_business_plot_style()
+    candidates = trends.copy()
+    if volume_pool is not None:
+        candidates = candidates.nlargest(volume_pool, "total_flights")
+    decision_relevant = candidates.loc[
+        candidates["trend_signal"].isin(["material_deterioration", "material_improvement"])
+    ]
+    deteriorated = decision_relevant.loc[
+        decision_relevant["trend_signal"].eq("material_deterioration")
+    ].nsmallest(top_n, "estimated_total_change_pp")
+    improved = decision_relevant.loc[
+        decision_relevant["trend_signal"].eq("material_improvement")
+    ].nlargest(top_n, "estimated_total_change_pp")
+    frame = pd.concat([deteriorated, improved]).drop_duplicates(group_column)
+    frame = frame.sort_values("estimated_total_change_pp")
+    colors = [
+        "#C00000" if signal == "material_deterioration"
+        else BUSINESS_GREEN if signal == "material_improvement"
+        else "#A5A5A5"
+        for signal in frame["trend_signal"]
+    ]
+    fig, ax = plt.subplots(figsize=(10.5, 5.8))
+    if frame.empty:
+        ax.text(.5, .5, "No group passes both the adjusted-p and ±3 pp decision thresholds.",
+                transform=ax.transAxes, ha="center", va="center", color=BUSINESS_GREY)
+        ax.set_axis_off()
+        ax.set_title(title)
+        fig.tight_layout()
+        return fig
+    bars = ax.barh(frame[group_column].astype(str), frame["estimated_total_change_pp"], color=colors)
+    ax.axvline(0, color=BUSINESS_GREY, linewidth=1)
+    ax.axvline(-3, color="#C00000", linestyle="--", linewidth=1, label="±3 pp material threshold")
+    ax.axvline(3, color=BUSINESS_GREEN, linestyle="--", linewidth=1)
+    ax.set_xlabel("Estimated OTP15 change, June 2021 to June 2023 (percentage points)")
+    if improved.empty and not deteriorated.empty:
+        display_title = title.replace("improvements and deteriorations", "material deteriorations")
+    elif deteriorated.empty and not improved.empty:
+        display_title = title.replace("improvements and deteriorations", "material improvements")
+    else:
+        display_title = title
+    ax.set_title(display_title)
+    xmin, xmax = ax.get_xlim()
+    span = xmax - xmin
+    for bar, (_, row) in zip(bars, frame.iterrows()):
+        value = row["estimated_total_change_pp"]
+        marker = "*" if row["statistically_significant"] and row["practically_material"] else ""
+        label = f"{value:+.1f} pp{marker} · n={int(row['total_flights']):,}"
+        if value < 0:
+            x = min(-0.7, value + 0.04 * span)
+            ha = "left"
+        else:
+            x = max(0.7, value - 0.04 * span)
+            ha = "right"
+        ax.text(
+            x,
+            bar.get_y() + bar.get_height()/2,
+            label,
+            va="center",
+            ha=ha,
+            fontsize=9,
+            color="white" if abs(value) > 0.15 * span else BUSINESS_GREY,
+        )
+    ax.legend(frameon=False, loc="best")
+    fig.tight_layout()
+    return fig
+
+
+def plot_top_airport_period_alerts(alerts: pd.DataFrame) -> plt.Figure:
+    """Plot leave-one-period-out OTP15 differences for ten busy airports."""
+
+    apply_business_plot_style()
+    matrix = alerts.pivot(index="airport", columns="period", values="difference_percentage_points")
+    status = alerts.pivot(index="airport", columns="period", values="status").reindex_like(matrix)
+    annotation = matrix.map(lambda value: f"{value:+.1f}" if pd.notna(value) else "")
+    for airport in matrix.index:
+        for period in matrix.columns:
+            if status.loc[airport, period] in {
+                "red_material_deterioration", "blue_material_improvement"
+            }:
+                annotation.loc[airport, period] += "*"
+    status_to_code = {
+        "red_material_deterioration": 0,
+        "blue_material_improvement": 1,
+        "green_within_3pp": 2,
+        "grey_not_conclusive": 3,
+    }
+    status_codes = status.map(status_to_code.get).astype(float)
+    from matplotlib.colors import ListedColormap
+    from matplotlib.patches import Patch
+
+    fig, ax = plt.subplots(figsize=(13, 6.5))
+    sns.heatmap(
+        status_codes,
+        cmap=ListedColormap(["#C00000", BUSINESS_BLUE, BUSINESS_GREEN, "#A5A5A5"]),
+        vmin=0,
+        vmax=3,
+        annot=annotation,
+        fmt="",
+        linewidths=.5,
+        linecolor="white",
+        cbar=False,
+        ax=ax,
+    )
+    ax.set_title("Top-10 origin-airport alerts versus leave-one-period-out history")
+    ax.set_xlabel("Observed monthly snapshot")
+    ax.set_ylabel("Origin airport")
+    ax.legend(handles=[
+        Patch(color="#C00000", label="Material deterioration"),
+        Patch(color=BUSINESS_BLUE, label="Material improvement"),
+        Patch(color=BUSINESS_GREEN, label="Within ±3 pp"),
+        Patch(color="#A5A5A5", label="Inconclusive"),
+    ], frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(.5, -0.14))
     fig.tight_layout()
     return fig
 
@@ -1211,6 +1950,53 @@ def export_business_analysis(
     test_catalog = hypothesis_test_catalog()
     hypothesis_tests = business_hypothesis_tests(flights)
     route_views = executive_route_views(routes, float(kpis["arrival_otp15_pct"]), config)
+    origin_airport_tests = otp15_group_vs_rest_tests(
+        origin_airports,
+        "airport",
+        minimum_flights=config.executive_min_airport_flights,
+        minimum_periods=config.executive_min_airport_periods,
+        practical_difference_pp=config.practical_otp15_difference_pp,
+    )
+    destination_airport_tests = otp15_group_vs_rest_tests(
+        destination_airports,
+        "airport",
+        minimum_flights=config.executive_min_airport_flights,
+        minimum_periods=config.executive_min_airport_periods,
+        practical_difference_pp=config.practical_otp15_difference_pp,
+    )
+    operator_tests = otp15_group_vs_rest_tests(
+        operators,
+        "AC Operator",
+        minimum_flights=config.executive_min_operator_flights,
+        minimum_periods=3,
+        practical_difference_pp=config.practical_otp15_difference_pp,
+    )
+    weekday_summary, weekday_tests = weekday_otp15_analysis(flights, config)
+    airport_trends, airport_trend_periods = period_otp15_trends(
+        flights,
+        "ADEP",
+        minimum_flights=config.executive_min_airport_flights,
+        minimum_periods=config.trend_min_periods,
+        practical_total_change_pp=config.practical_otp15_difference_pp,
+    )
+    named_operator_flights = flights.loc[
+        ~flights["AC Operator"].astype(str).isin(["ZZZ", "Unknown", "UNKNOWN", "UNK"])
+    ]
+    operator_trends, operator_trend_periods = period_otp15_trends(
+        named_operator_flights,
+        "AC Operator",
+        minimum_flights=config.executive_min_operator_flights,
+        minimum_periods=config.trend_min_periods,
+        practical_total_change_pp=config.practical_otp15_difference_pp,
+    )
+    route_trends, route_trend_periods = period_otp15_trends(
+        flights,
+        "route",
+        minimum_flights=max(config.executive_min_route_flights, 200),
+        minimum_periods=config.trend_min_periods,
+        practical_total_change_pp=config.practical_otp15_difference_pp,
+    )
+    airport_alerts = top_airport_leave_one_period_out_alerts(flights, config, top_n=10)
 
     kpis.to_frame().to_csv(tables / "network_kpis.csv")
     routes.to_csv(tables / "route_performance.csv", index=False)
@@ -1223,6 +2009,18 @@ def export_business_analysis(
     correlations.to_csv(tests_root / "numeric_correlations.csv", index=False)
     test_catalog.to_csv(tests_root / "hypothesis_test_catalog.csv", index=False)
     hypothesis_tests.to_csv(tests_root / "hypothesis_tests.csv", index=False)
+    origin_airport_tests.to_csv(tests_root / "origin_airport_vs_rest_otp15_tests.csv", index=False)
+    destination_airport_tests.to_csv(tests_root / "destination_airport_vs_rest_otp15_tests.csv", index=False)
+    operator_tests.to_csv(tests_root / "operator_vs_rest_otp15_tests.csv", index=False)
+    weekday_tests.to_csv(tests_root / "weekday_vs_rest_otp15_tests.csv", index=False)
+    weekday_summary.to_csv(tables / "weekday_network_performance.csv", index=False)
+    airport_trends.to_csv(tables / "origin_airport_otp15_trends.csv", index=False)
+    airport_trend_periods.to_csv(tables / "origin_airport_period_performance.csv", index=False)
+    operator_trends.to_csv(tables / "operator_otp15_trends.csv", index=False)
+    operator_trend_periods.to_csv(tables / "operator_period_performance.csv", index=False)
+    route_trends.to_csv(tables / "route_otp15_trends.csv", index=False)
+    route_trend_periods.to_csv(tables / "route_period_performance.csv", index=False)
+    airport_alerts.to_csv(tables / "top10_origin_airport_period_alerts.csv", index=False)
 
     save_figure(
         plot_route_volume_reliability(routes, float(kpis["arrival_otp15_pct"]), config),
@@ -1250,6 +2048,35 @@ def export_business_analysis(
         figures / "destination_airport_reliability_rankings.png",
     )
     save_figure(plot_time_reliability_heatmap(flights), figures / "time_reliability_heatmap.png")
+    save_figure(
+        plot_weekday_otp15_performance(weekday_summary, float(kpis["arrival_otp15_pct"])),
+        figures / "weekday_otp15_performance.png",
+    )
+    save_figure(
+        plot_otp15_trend_extremes(
+            airport_trends, "ADEP", "Top-3 origin-airport OTP15 improvements and deteriorations",
+            volume_pool=200,
+        ),
+        figures / "origin_airport_otp15_trend_extremes.png",
+    )
+    save_figure(
+        plot_otp15_trend_extremes(
+            operator_trends, "AC Operator", "Top-3 operating-carrier OTP15 improvements and deteriorations",
+            volume_pool=100,
+        ),
+        figures / "operator_otp15_trend_extremes.png",
+    )
+    save_figure(
+        plot_otp15_trend_extremes(
+            route_trends, "route", "Top-3 route OTP15 improvements and deteriorations",
+            volume_pool=500,
+        ),
+        figures / "route_otp15_trend_extremes.png",
+    )
+    save_figure(
+        plot_top_airport_period_alerts(airport_alerts),
+        figures / "top10_origin_airport_period_alerts.png",
+    )
     save_figure(plot_departure_arrival_recovery(flights), figures / "departure_arrival_recovery.png")
     save_figure(plot_statistical_method_explainer(), figures / "statistical_method_explainer.png")
 
@@ -1263,6 +2090,15 @@ def export_business_analysis(
         "correlations": correlations,
         "hypothesis_test_catalog": test_catalog,
         "hypothesis_tests": hypothesis_tests,
+        "origin_airport_tests": origin_airport_tests,
+        "destination_airport_tests": destination_airport_tests,
+        "operator_tests": operator_tests,
+        "weekday_summary": weekday_summary,
+        "weekday_tests": weekday_tests,
+        "airport_trends": airport_trends,
+        "operator_trends": operator_trends,
+        "route_trends": route_trends,
+        "airport_alerts": airport_alerts,
         "route_views": route_views,
         "output_root": root,
         "memory_mb": flights.memory_usage(deep=True).sum() / 1024**2,

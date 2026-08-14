@@ -11,6 +11,16 @@ import pandas as pd
 from scipy import sparse
 from sklearn.feature_extraction import FeatureHasher
 from sklearn.linear_model import Ridge
+from sklearn.metrics import (
+    accuracy_score,
+    average_precision_score,
+    balanced_accuracy_score,
+    confusion_matrix,
+    f1_score,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
@@ -80,6 +90,75 @@ def compact_score(metrics: pd.DataFrame) -> dict[str, float]:
         "delayed_MAE": delayed_mae,
         "combined_MAE_score": 0.5 * (global_mae + delayed_mae),
     }
+
+
+def delay_classification_metrics(
+    y_true_minutes: Sequence[float],
+    scores: Sequence[float],
+    model: str,
+    evaluation_scope: str,
+    *,
+    delay_threshold_minutes: float = 15.0,
+    decision_threshold: float = 0.5,
+    scores_are_probabilities: bool = True,
+) -> pd.DataFrame:
+    """Measure whether an arrival exceeds the operational delay threshold.
+
+    Probability models use ``decision_threshold`` (normally 0.5). A regression
+    model can also be evaluated as a classifier by passing predicted minutes and
+    setting ``scores_are_probabilities=False``; in that case the operational
+    delay threshold is used for the binary decision.
+    """
+
+    y_minutes = np.asarray(y_true_minutes, dtype=float)
+    score_array = np.asarray(scores, dtype=float)
+    if y_minutes.shape != score_array.shape:
+        raise ValueError("y_true_minutes and scores must have the same shape")
+    if not np.isfinite(y_minutes).all() or not np.isfinite(score_array).all():
+        raise ValueError("Classification metrics require finite targets and scores")
+    if scores_are_probabilities and not np.logical_and(
+        score_array >= 0.0, score_array <= 1.0
+    ).all():
+        raise ValueError("Probability scores must be between zero and one")
+
+    actual = y_minutes > delay_threshold_minutes
+    threshold = (
+        decision_threshold if scores_are_probabilities else delay_threshold_minutes
+    )
+    predicted = (
+        score_array >= threshold if scores_are_probabilities else score_array > threshold
+    )
+    tn, fp, fn, tp = confusion_matrix(actual, predicted, labels=[False, True]).ravel()
+    has_both_classes = np.unique(actual).size == 2
+    return pd.DataFrame(
+        [{
+            "model": model,
+            "evaluation_scope": evaluation_scope,
+            "rows": int(actual.size),
+            "delay_threshold_minutes": float(delay_threshold_minutes),
+            "decision_threshold": float(threshold),
+            "actual_delay_rate": float(actual.mean()),
+            "predicted_delay_rate": float(predicted.mean()),
+            "accuracy": float(accuracy_score(actual, predicted)),
+            "balanced_accuracy": float(balanced_accuracy_score(actual, predicted)),
+            "precision": float(precision_score(actual, predicted, zero_division=0)),
+            "recall": float(recall_score(actual, predicted, zero_division=0)),
+            "specificity": float(tn / (tn + fp)) if tn + fp else np.nan,
+            "f1": float(f1_score(actual, predicted, zero_division=0)),
+            "roc_auc": (
+                float(roc_auc_score(actual, score_array))
+                if has_both_classes else np.nan
+            ),
+            "average_precision": (
+                float(average_precision_score(actual, score_array))
+                if has_both_classes else np.nan
+            ),
+            "true_negative": int(tn),
+            "false_positive": int(fp),
+            "false_negative": int(fn),
+            "true_positive": int(tp),
+        }]
+    )
 
 
 @dataclass
