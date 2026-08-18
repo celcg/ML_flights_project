@@ -6,6 +6,7 @@ try:
     from src.t60_operational_features import (
         build_rolling_event_features,
         build_rotation_features,
+        build_scheduled_airport_pressure_features,
         build_standard_t60_features,
     )
 
@@ -84,6 +85,7 @@ class T60OperationalFeatureTests(unittest.TestCase):
             result["rotation_minutes_since_previous_arrival"], 30.0
         )
         self.assertEqual(result["rotation_history_available"], 1)
+        self.assertAlmostEqual(result["rotation_accumulated_positive_delay"], 17.0)
         self.assertEqual(result["_rotation_self_match"], 0)
 
     def test_rotation_nulls_anomalous_self_match_instead_of_leaking_target(self):
@@ -112,6 +114,26 @@ class T60OperationalFeatureTests(unittest.TestCase):
         self.assertIsNone(result["rotation_previous_departure_delay"])
         self.assertIsNone(result["rotation_minutes_since_previous_arrival"])
         self.assertEqual(result["rotation_history_available"], 0)
+        self.assertIsNone(result["rotation_accumulated_positive_delay"])
+
+    def test_scheduled_airport_pressure_counts_same_hour_movements(self):
+        targets = self.spark.createDataFrame(
+            [(2, "AAA", "BBB", datetime(2022, 1, 1, 8, 10),
+              datetime(2022, 1, 1, 10, 15))],
+            ["ECTRL ID", "ADEP", "ADES", "FILED OFF BLOCK TIME", "FILED ARRIVAL TIME"],
+        )
+        schedules = self.spark.createDataFrame(
+            [
+                (1, "AAA", "CCC", datetime(2022, 1, 1, 8, 5), datetime(2022, 1, 1, 9, 0)),
+                (2, "AAA", "BBB", datetime(2022, 1, 1, 8, 10), datetime(2022, 1, 1, 10, 15)),
+                (3, "DDD", "BBB", datetime(2022, 1, 1, 9, 0), datetime(2022, 1, 1, 10, 40)),
+            ],
+            ["ECTRL ID", "ADEP", "ADES", "FILED OFF BLOCK TIME", "FILED ARRIVAL TIME"],
+        )
+        result = build_scheduled_airport_pressure_features(targets, schedules).first()
+        self.assertEqual(result["adep_scheduled_departures_same_hour"], 2)
+        self.assertEqual(result["ades_scheduled_arrivals_same_hour"], 2)
+        self.assertEqual(result["scheduled_airport_pressure_same_hour"], 4)
 
     def test_standard_feature_join_keeps_one_prediction_cutoff_column(self):
         cutoff = datetime(2022, 1, 1, 9, 0)
