@@ -4,7 +4,9 @@ import pandas as pd
 
 from src.t60_modeling import (
     MixedCategoricalRidgePreprocessor,
+    add_schedule_features,
     delay_classification_metrics,
+    haul_direction_segment_metrics,
 )
 
 
@@ -28,6 +30,44 @@ class MixedCategoricalRidgePreprocessorTests(unittest.TestCase):
         self.assertEqual(train_matrix.shape[0], 3)
         self.assertEqual(validation_matrix.shape[0], 1)
         self.assertEqual(train_matrix.shape[1], validation_matrix.shape[1])
+
+
+class ScheduleAndSegmentFeatureTests(unittest.TestCase):
+    def test_schedule_features_add_arrival_hour_duration_band_and_interactions(self):
+        frame = pd.DataFrame({
+            "FILED OFF BLOCK TIME": ["2023-01-01 08:00", "2023-01-01 09:00"],
+            "FILED ARRIVAL TIME": ["2023-01-01 10:00", "2023-01-01 17:00"],
+            "Transatlantic_Direction": [
+                "NON_TRANSATLANTIC", "EUROPE_TO_AMERICAS"
+            ],
+        })
+        result = add_schedule_features(frame)
+        self.assertEqual(result["Duration_Band"].tolist(), [
+            "SHORT_MEDIUM_<=6H", "LONG_HAUL_>6H"
+        ])
+        self.assertAlmostEqual(result.loc[1, "duration_x_europe_to_americas"], 480.0)
+        self.assertAlmostEqual(result.loc[0, "duration_x_europe_to_americas"], 0.0)
+        self.assertIn("scheduled_arrival_hour_sin", result)
+
+    def test_haul_direction_metrics_publish_requested_four_segments(self):
+        frame = add_schedule_features(pd.DataFrame({
+            "FILED OFF BLOCK TIME": ["2023-01-01 08:00"] * 4,
+            "FILED ARRIVAL TIME": [
+                "2023-01-01 10:00", "2023-01-01 16:00",
+                "2023-01-01 15:00", "2023-01-01 17:00",
+            ],
+            "Transatlantic_Direction": [
+                "NON_TRANSATLANTIC", "NON_TRANSATLANTIC",
+                "EUROPE_TO_AMERICAS", "AMERICAS_TO_EUROPE",
+            ],
+        }))
+        metrics = haul_direction_segment_metrics(
+            frame, [0, 10, 20, 30], [1, 12, 17, 35], "ridge", "validation"
+        )
+        self.assertEqual(set(metrics["segment"]), {
+            "short_medium_<=6h", "long_haul_>6h",
+            "europe_to_americas", "americas_to_europe",
+        })
 
 
 class DelayClassificationMetricsTests(unittest.TestCase):

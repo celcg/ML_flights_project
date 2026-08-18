@@ -40,7 +40,66 @@ def add_schedule_features(frame: pd.DataFrame) -> pd.DataFrame:
     result["departure_dow_sin"] = np.sin(2 * np.pi * day_of_week / 7.0)
     result["departure_dow_cos"] = np.cos(2 * np.pi * day_of_week / 7.0)
     result["departure_month"] = filed_off.dt.month.astype(float)
+    arrival_hour = filed_arrival.dt.hour + filed_arrival.dt.minute / 60.0
+    result["scheduled_arrival_hour_sin"] = np.sin(2 * np.pi * arrival_hour / 24.0)
+    result["scheduled_arrival_hour_cos"] = np.cos(2 * np.pi * arrival_hour / 24.0)
+    result["Duration_Band"] = np.where(
+        result["scheduled_duration_min"] > 360.0,
+        "LONG_HAUL_>6H",
+        "SHORT_MEDIUM_<=6H",
+    )
+    if "Transatlantic_Direction" in result:
+        direction = result["Transatlantic_Direction"].fillna("NON_TRANSATLANTIC")
+        result["duration_x_europe_to_americas"] = result["scheduled_duration_min"] * (
+            direction == "EUROPE_TO_AMERICAS"
+        ).astype(float)
+        result["duration_x_americas_to_europe"] = result["scheduled_duration_min"] * (
+            direction == "AMERICAS_TO_EUROPE"
+        ).astype(float)
     return result
+
+
+def haul_direction_segment_metrics(
+    frame: pd.DataFrame,
+    y_true: Sequence[float],
+    predictions: Sequence[float],
+    model: str,
+    training_scope: str,
+) -> pd.DataFrame:
+    """Publish errors by haul band and transatlantic direction."""
+
+    y = np.asarray(y_true, dtype=float)
+    pred = np.asarray(predictions, dtype=float)
+    duration = np.asarray(frame["scheduled_duration_min"], dtype=float)
+    direction = frame.get(
+        "Transatlantic_Direction",
+        pd.Series("NON_TRANSATLANTIC", index=frame.index),
+    ).fillna("NON_TRANSATLANTIC").to_numpy()
+    masks = {
+        "short_medium_<=6h": duration <= 360.0,
+        "long_haul_>6h": duration > 360.0,
+        "europe_to_americas": direction == "EUROPE_TO_AMERICAS",
+        "americas_to_europe": direction == "AMERICAS_TO_EUROPE",
+    }
+    rows = []
+    for name, mask in masks.items():
+        if not mask.any():
+            continue
+        error = y[mask] - pred[mask]
+        absolute_error = np.abs(error)
+        rows.append(
+            {
+                "model": model,
+                "training_scope": training_scope,
+                "segment": name,
+                "rows": int(mask.sum()),
+                "MAE": float(absolute_error.mean()),
+                "RMSE": float(np.sqrt(np.square(error).mean())),
+                "median_absolute_error": float(np.median(absolute_error)),
+                "p90_absolute_error": float(np.quantile(absolute_error, 0.9)),
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def segment_metrics(
@@ -159,6 +218,41 @@ def delay_classification_metrics(
             "true_positive": int(tp),
         }]
     )
+
+
+def haul_direction_classification_metrics(
+    frame: pd.DataFrame,
+    y_true_minutes: Sequence[float],
+    scores: Sequence[float],
+    model: str,
+    evaluation_scope: str,
+    **metric_options,
+) -> pd.DataFrame:
+    """Publish OTP15 classification metrics by haul and direction."""
+
+    duration = np.asarray(frame["scheduled_duration_min"], dtype=float)
+    direction = frame.get(
+        "Transatlantic_Direction",
+        pd.Series("NON_TRANSATLANTIC", index=frame.index),
+    ).fillna("NON_TRANSATLANTIC").to_numpy()
+    y = np.asarray(y_true_minutes, dtype=float)
+    score_array = np.asarray(scores, dtype=float)
+    masks = {
+        "short_medium_<=6h": duration <= 360.0,
+        "long_haul_>6h": duration > 360.0,
+        "europe_to_americas": direction == "EUROPE_TO_AMERICAS",
+        "americas_to_europe": direction == "AMERICAS_TO_EUROPE",
+    }
+    rows = []
+    for segment, mask in masks.items():
+        if not mask.any():
+            continue
+        current = delay_classification_metrics(
+            y[mask], score_array[mask], model, evaluation_scope, **metric_options
+        )
+        current.insert(2, "segment", segment)
+        rows.append(current)
+    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
 
 
 @dataclass

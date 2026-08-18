@@ -297,6 +297,14 @@ def build_rotation_features(
             "rotation_history_available",
             (F.col("rotation_minutes_since_previous_arrival").isNotNull()).cast("long"),
         )
+        .withColumn(
+            "rotation_accumulated_positive_delay",
+            F.when(
+                F.col("rotation_history_available") == 1,
+                F.greatest(F.col("rotation_previous_arrival_delay"), F.lit(0.0))
+                + F.greatest(F.col("rotation_previous_departure_delay"), F.lit(0.0)),
+            ),
+        )
     )
     return enriched.select(
         F.col("_target_id").alias(id_column),
@@ -305,8 +313,79 @@ def build_rotation_features(
         "rotation_previous_departure_delay",
         "rotation_minutes_since_previous_arrival",
         "rotation_history_available",
+        "rotation_accumulated_positive_delay",
         F.col("_previous_event_time").alias("_rotation_previous_event_time"),
         "_rotation_self_match",
+    )
+
+
+def build_scheduled_airport_pressure_features(
+    targets: DataFrame,
+    schedules: DataFrame,
+    *,
+    id_column: str = "ECTRL ID",
+) -> DataFrame:
+    """Count scheduled movements in each target airport-hour.
+
+    Filed schedule times are known before T-60, so these congestion proxies do
+    not expose actual outcomes or post-cutoff information.
+    """
+
+    departures = (
+        schedules.where(F.col("FILED OFF BLOCK TIME").isNotNull())
+        .groupBy(
+            F.col("ADEP").alias("_pressure_airport"),
+            F.date_trunc("hour", F.col("FILED OFF BLOCK TIME")).alias("_pressure_hour"),
+        )
+        .agg(F.countDistinct(id_column).alias("adep_scheduled_departures_same_hour"))
+    )
+    arrivals = (
+        schedules.where(F.col("FILED ARRIVAL TIME").isNotNull())
+        .groupBy(
+            F.col("ADES").alias("_pressure_airport"),
+            F.date_trunc("hour", F.col("FILED ARRIVAL TIME")).alias("_pressure_hour"),
+        )
+        .agg(F.countDistinct(id_column).alias("ades_scheduled_arrivals_same_hour"))
+    )
+    target_pressure = (
+        targets.select(
+            id_column,
+            F.col("ADEP").alias("_adep_pressure_airport"),
+            F.date_trunc("hour", F.col("FILED OFF BLOCK TIME")).alias("_adep_pressure_hour"),
+            F.col("ADES").alias("_ades_pressure_airport"),
+            F.date_trunc("hour", F.col("FILED ARRIVAL TIME")).alias("_ades_pressure_hour"),
+        )
+        .join(
+            departures,
+            (F.col("_adep_pressure_airport") == F.col("_pressure_airport"))
+            & (F.col("_adep_pressure_hour") == F.col("_pressure_hour")),
+            "left",
+        )
+        .drop("_pressure_airport", "_pressure_hour")
+        .join(
+            arrivals,
+            (F.col("_ades_pressure_airport") == F.col("_pressure_airport"))
+            & (F.col("_ades_pressure_hour") == F.col("_pressure_hour")),
+            "left",
+        )
+        .fillna(
+            0,
+            subset=[
+                "adep_scheduled_departures_same_hour",
+                "ades_scheduled_arrivals_same_hour",
+            ],
+        )
+        .withColumn(
+            "scheduled_airport_pressure_same_hour",
+            F.col("adep_scheduled_departures_same_hour")
+            + F.col("ades_scheduled_arrivals_same_hour"),
+        )
+    )
+    return target_pressure.select(
+        id_column,
+        "adep_scheduled_departures_same_hour",
+        "ades_scheduled_arrivals_same_hour",
+        "scheduled_airport_pressure_same_hour",
     )
 
 
@@ -334,6 +413,19 @@ def build_standard_t60_features(
     ]
     result = targets
     audit: list[dict[str, int | str]] = []
+    schedule_columns = {"FILED OFF BLOCK TIME", "FILED ARRIVAL TIME"}
+    if schedule_columns.issubset(targets.columns) and schedule_columns.issubset(events.columns):
+        pressure = build_scheduled_airport_pressure_features(
+            targets, events, id_column=id_column
+        )
+        result = result.join(pressure, id_column, "left")
+        audit.append(
+            {
+                "block": "scheduled_airport_pressure",
+                "leakage_violations": 0,
+                "self_contributions_removed": 0,
+            }
+        )
     for prefix, keys, event_time, value in specifications:
         block = build_rolling_event_features(
             targets,
@@ -391,6 +483,7 @@ def build_standard_t60_features(
             "rotation_previous_departure_delay",
             "rotation_minutes_since_previous_arrival",
             "rotation_history_available",
+            "rotation_accumulated_positive_delay",
         ),
         id_column,
         "left",
