@@ -13,7 +13,10 @@ RUN pip install --no-cache-dir -r requirements-dashboard.txt
 RUN useradd --create-home --uid 10001 appuser
 
 COPY --chown=appuser:appuser streamlit_app/app.py ./streamlit_app/app.py
+COPY --chown=appuser:appuser streamlit_app/styles.css ./streamlit_app/styles.css
+COPY --chown=appuser:appuser streamlit_app/dashboard ./streamlit_app/dashboard
 COPY --chown=appuser:appuser streamlit_app/public_data ./streamlit_app/public_data
+COPY --chown=appuser:appuser streamlit_app/.streamlit ./.streamlit
 
 USER appuser
 
