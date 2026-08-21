@@ -1,6 +1,8 @@
-import pandas as pd
+"""Download a small METAR/SPECI weather extract for deferred experiments."""
+
+from pathlib import Path
+
 import requests
-from datetime import datetime
 
 
 airports = ['LEMD', 'LEBL', 'LEMG']
@@ -29,9 +31,14 @@ params = {
 # Descargar datos
 response = requests.get(base_url, params=params)
 
-# Guardar CSV
-with open('weather_data_2021.csv', 'wb') as f:
+# Keep downloaded source data outside the code folders.
+output_path = Path(__file__).resolve().parents[1] / "data" / "raw" / "weather" / "weather_data_2021.csv"
+output_path.parent.mkdir(parents=True, exist_ok=True)
+response.raise_for_status()
+with output_path.open("wb") as f:
     f.write(response.content)
+
+print(output_path)
 
 # Cargar en pandas
 df = pd.read_csv('weather_data_2021.csv')

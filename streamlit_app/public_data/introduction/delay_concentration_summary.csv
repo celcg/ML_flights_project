@@ -1,0 +1,3 @@
+segment,segment_order,flight_count,positive_delay_hours,share_of_positive_delay_pct
+Most delayed 10% of flights,1,254580,169672.4953,47.8071
+Remaining 90% of flights,2,2291219,185238.1178,52.1929

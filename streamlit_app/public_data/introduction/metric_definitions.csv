@@ -1,0 +1,8 @@
+metric,display_name,unit,description
+delay_over_15_pct,Flights delayed >15 min,%,Share of arrivals more than 15 minutes late
+median_arrival_delay_min,Median arrival delay,minutes,Median actual minus filed arrival time across all flights
+median_delayed_only_min,Median among delayed flights,minutes,Median arrival delay among flights delayed more than 15 minutes
+p90_arrival_delay_min,90th percentile delay,minutes,Ninety percent of flights have a delay at or below this value
+total_positive_delay_hours,Accumulated positive delay,hours,Sum of positive arrival-delay minutes; early arrivals do not offset delays
+wilson_95,Wilson 95% interval,percentage points,Uncertainty interval for the observed proportion delayed more than 15 minutes
+spearman_rho,Spearman rank correlation,coefficient,Monotonic association between scheduled duration and arrival-delay minutes; correlation does not imply causation

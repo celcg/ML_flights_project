@@ -1,0 +1,9 @@
+scope_id,scope_label,top_flight_pct,flight_count,positive_delay_hours,share_of_positive_delay_pct
+all_flights,All scheduled flights,1,25458,39060.4156,11.0057
+all_flights,All scheduled flights,5,127290,111878.5344,31.523
+all_flights,All scheduled flights,10,254580,169672.4953,47.8071
+all_flights,All scheduled flights,20,509160,246908.2219,69.5691
+scheduled_duration_under_3h,Scheduled duration under 3 hours,1,18874,23606.6522,11.3954
+scheduled_duration_under_3h,Scheduled duration under 3 hours,5,94368,66863.845,32.2765
+scheduled_duration_under_3h,Scheduled duration under 3 hours,10,188736,101360.0217,48.9285
+scheduled_duration_under_3h,Scheduled duration under 3 hours,20,377471,147989.9069,71.4376

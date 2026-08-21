@@ -51,3 +51,12 @@ config.ini
 secrets.json
 credentials.json
 
+
+# ===================================
+# Public dashboard aggregates
+# ===================================
+# These files contain licence-safe aggregated outputs used by Streamlit.
+!streamlit_app/public_data/
+!streamlit_app/public_data/**/*.csv
+!streamlit_app/public_data/**/*.CSV
+

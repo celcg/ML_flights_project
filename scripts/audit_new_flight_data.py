@@ -22,7 +22,11 @@ from src.flight_data_catalog import (
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-rows-per-file", type=int)
-    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "reports" / "new_data_audit")
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=PROJECT_ROOT / "reports" / "data_quality" / "expanded",
+    )
     args = parser.parse_args()
     args.output_root.mkdir(parents=True, exist_ok=True)
 

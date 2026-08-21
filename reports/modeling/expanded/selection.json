@@ -1,0 +1,8 @@
+{
+  "selected_model": "ridge_without_registration",
+  "selection_rule": "forced Ridge without AC Registration",
+  "selected_hyperparameters": {
+    "alpha": 1.0,
+    "includes_raw_registration": false
+  }
+}

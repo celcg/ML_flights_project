@@ -1,0 +1,2 @@
+metric_id,x_variable,y_variable,coefficient,absolute_strength,direction,flight_count
+scheduled_duration_vs_arrival_delay_spearman,Scheduled duration (minutes),Arrival delay (minutes),0.2435,Weak,Positive,2545794

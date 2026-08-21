@@ -1,0 +1,9 @@
+scope_id,scope_label,delay_band,band_order,flight_count,flight_pct
+all_flights,All scheduled flights,Early (<-5 min),0,635106,24.9472
+all_flights,All scheduled flights,Within 15 min (-5 to 15),1,1422991,55.8957
+all_flights,All scheduled flights,Moderate delay (>15 to 60),2,459234,18.0389
+all_flights,All scheduled flights,Severe delay (>60 min),3,28468,1.1182
+scheduled_duration_under_3h,Scheduled duration under 3 hours,Early (<-5 min),0,524310,27.7802
+scheduled_duration_under_3h,Scheduled duration under 3 hours,Within 15 min (-5 to 15),1,1090443,57.7763
+scheduled_duration_under_3h,Scheduled duration under 3 hours,Moderate delay (>15 to 60),2,260931,13.8252
+scheduled_duration_under_3h,Scheduled duration under 3 hours,Severe delay (>60 min),3,11669,0.6183

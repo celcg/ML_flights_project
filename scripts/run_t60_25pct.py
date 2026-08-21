@@ -26,7 +26,8 @@ from IPython.display import display
 
 
 NOTEBOOK = PROJECT_ROOT / "notebooks" / "08_arrival_pre_t60_operational_features.ipynb"
-EXECUTION_SUMMARY = PROJECT_ROOT / "reports" / "09_t60_25pct_execution_summary.json"
+REPORT_ROOT_25PCT = PROJECT_ROOT / "reports" / "modeling" / "legacy" / "t60_25pct"
+EXECUTION_SUMMARY = REPORT_ROOT_25PCT / "09_t60_25pct_execution_summary.json"
 
 
 def code_cell(notebook, index: int) -> str:
@@ -61,6 +62,10 @@ def main() -> None:
     }
     for old, new in replacements.items():
         config = config.replace(old, new)
+    config = config.replace(
+        "REPORT_ROOT = PROJECT_ROOT / 'reports' / 'modeling' / 'legacy' / 't60_operational'",
+        "REPORT_ROOT = PROJECT_ROOT / 'reports' / 'modeling' / 'legacy' / 't60_25pct'",
+    )
     config += "\nVALIDATION_METRICS_REPORT = REPORT_ROOT / '09_t60_25pct_validation_metrics.csv'\n"
     execute(config, namespace, "configuration_25pct")
     execute(code_cell(notebook, 3), namespace, "preflight")
@@ -200,7 +205,10 @@ new_summary_pd = pd.DataFrame([
     }
     for model_name, model_metrics in validation_metrics.groupby('model')
 ])
-prior_pd = pd.read_csv(REPORT_ROOT / '08_t60_operational_model_comparison.csv')
+prior_pd = pd.read_csv(
+    PROJECT_ROOT / 'reports' / 'modeling' / 'legacy' / 't60_operational'
+    / '08_t60_operational_model_comparison.csv'
+)
 prior_columns = [
     'candidate', 'training_scope', 'global_MAE',
     'delayed_MAE', 'combined_MAE_score',
