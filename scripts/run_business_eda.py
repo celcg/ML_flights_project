@@ -46,7 +46,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-root",
         type=Path,
-        default=PROJECT_ROOT / "reports" / "business_eda",
+        default=PROJECT_ROOT / "reports" / "business" / "analysis",
     )
     return parser.parse_args()
 

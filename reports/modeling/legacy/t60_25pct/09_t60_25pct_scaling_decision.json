@@ -1,0 +1,9 @@
+{
+  "comparison": "ridge_25pct_vs_ridge_10pct",
+  "combined_MAE_improvement_minutes": 0.026983897785477495,
+  "global_MAE_change_minutes": -0.0487182858802786,
+  "required_combined_improvement_minutes": 0.2,
+  "maximum_global_degradation_minutes": 0.25,
+  "scale_beyond_25pct": false,
+  "test_processed_read": false
+}

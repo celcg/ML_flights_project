@@ -36,8 +36,8 @@ from src.business_eda import (  # noqa: E402
 from src.flight_data_catalog import discover_monthly_flights  # noqa: E402
 
 
-SOURCE = ROOT / "reports" / "business_eda"
-OUTPUT = ROOT / "reports" / "business_report_full"
+SOURCE = ROOT / "reports" / "business" / "analysis"
+OUTPUT = ROOT / "reports" / "business" / "report_assets"
 TABLES = OUTPUT / "tables"
 FIGURES = OUTPUT / "figures"
 BLUE = "#5B9BD5"

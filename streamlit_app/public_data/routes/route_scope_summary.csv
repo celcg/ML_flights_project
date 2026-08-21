@@ -1,0 +1,4 @@
+scope_id,scope_label,flight_count,route_count,delay_over_15_pct,median_arrival_delay_min
+all_flights,All scheduled flights,2545799,27105,19.1571,2.85
+scheduled_duration_under_3h,Under 3 hours,1887353,18298,14.4435,1.4667
+scheduled_duration_3h_or_more,3 hours or more,658441,12399,32.6679,7.8333

@@ -1,0 +1,52 @@
+{
+  "train_percent": 25,
+  "train_rows": 613884,
+  "validation_percent": 5,
+  "validation_rows": 29315,
+  "frozen_configuration": true,
+  "selected_features": "all_without_6h",
+  "ridge_alpha": 10.0,
+  "models": [
+    {
+      "model": "ridge_t60_ops_25pct",
+      "training_scope": "deterministic_25pct_train",
+      "segment": "all",
+      "rows": 29315,
+      "MAE": 9.891789965047952,
+      "RMSE": 14.749256968984136,
+      "median_absolute_error": 7.364616808418285,
+      "p90_absolute_error": 20.068150152710057
+    },
+    {
+      "model": "ridge_t60_ops_25pct",
+      "training_scope": "deterministic_25pct_train",
+      "segment": "delayed_>15",
+      "rows": 5668,
+      "MAE": 18.202186655466694,
+      "RMSE": 25.85932365149494,
+      "median_absolute_error": 14.336151691292866,
+      "p90_absolute_error": 35.416629881022125
+    },
+    {
+      "model": "baseline_25pct",
+      "training_scope": "deterministic_25pct_train",
+      "segment": "all",
+      "rows": 29315,
+      "MAE": 10.129785377224401,
+      "RMSE": 15.491598528761033,
+      "median_absolute_error": 7.316666666666666,
+      "p90_absolute_error": 20.88833333333335
+    },
+    {
+      "model": "baseline_25pct",
+      "training_scope": "deterministic_25pct_train",
+      "segment": "delayed_>15",
+      "rows": 5668,
+      "MAE": 21.658014290755116,
+      "RMSE": 29.108592795848388,
+      "median_absolute_error": 17.299999999999997,
+      "p90_absolute_error": 39.86583333333334
+    }
+  ],
+  "test_processed_read": false
+}

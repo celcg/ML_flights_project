@@ -1,0 +1,13 @@
+key,value
+dataset_start,2022-03
+dataset_end,2022-12
+available_periods,"202203, 202206, 202209, 202212"
+study_year,2022
+source,EUROCONTROL Aviation Data Repository for Research (ADRR)
+source_url,https://www.eurocontrol.int/dashboard/aviation-data-research
+terms_url,https://www.eurocontrol.int/publication/eurocontrol-aviation-data-repository-research-terms-use
+publication_constraint,The accepted ADRR Terms of Use prohibit sharing or distributing the repository; only aggregated outputs are published
+population_filter,Scheduled flights (ICAO Flight Type S) passing notebook-10 quality rules
+delay_definition,Actual arrival more than 15 minutes after filed arrival
+short_flight_definition,Positive scheduled duration below 180 minutes
+data_granularity,Aggregated statistics only; no flight-level records

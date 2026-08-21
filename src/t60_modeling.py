@@ -24,6 +24,74 @@ from sklearn.metrics import (
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
+def align_predictions_to_index(
+    predictions: Sequence[float],
+    prediction_index: Sequence,
+    target_index: Sequence,
+) -> np.ndarray:
+    """Restore predictions made on a sorted frame to the target row order."""
+
+    values = np.asarray(predictions)
+    source_index = pd.Index(prediction_index)
+    destination_index = pd.Index(target_index)
+    if len(values) != len(source_index):
+        raise ValueError("Prediction values and prediction_index must have equal length")
+    if not source_index.is_unique or not destination_index.is_unique:
+        raise ValueError("Prediction alignment requires unique row indices")
+    if len(source_index) != len(destination_index) or not source_index.isin(
+        destination_index
+    ).all():
+        raise ValueError("Prediction and target indices must contain the same rows")
+    return pd.Series(values, index=source_index).reindex(destination_index).to_numpy()
+
+
+def weighted_prediction_blend(
+    first_predictions: Sequence[float],
+    second_predictions: Sequence[float],
+    first_weight: float,
+) -> np.ndarray:
+    """Blend two aligned regression predictions with a bounded first weight."""
+
+    if not 0.0 <= first_weight <= 1.0:
+        raise ValueError("first_weight must be between zero and one")
+    first = np.asarray(first_predictions, dtype=float)
+    second = np.asarray(second_predictions, dtype=float)
+    if first.shape != second.shape:
+        raise ValueError("The two prediction arrays must have the same shape")
+    if not np.isfinite(first).all() or not np.isfinite(second).all():
+        raise ValueError("Prediction blending requires finite values")
+    return first_weight * first + (1.0 - first_weight) * second
+
+
+def hurdle_expected_delay(
+    delay_probability: Sequence[float],
+    delayed_severity_prediction: Sequence[float],
+    non_delayed_reference: float,
+    *,
+    delay_threshold_minutes: float = 15.0,
+    maximum_delay_minutes: float | None = None,
+) -> np.ndarray:
+    """Combine P(delay) with E[minutes | delay] into expected delay minutes."""
+
+    probability = np.asarray(delay_probability, dtype=float)
+    severity = np.asarray(delayed_severity_prediction, dtype=float)
+    if probability.shape != severity.shape:
+        raise ValueError("Probability and severity arrays must have the same shape")
+    if not np.logical_and(probability >= 0.0, probability <= 1.0).all():
+        raise ValueError("Delay probabilities must be between zero and one")
+    if not np.isfinite(severity).all() or not np.isfinite(non_delayed_reference):
+        raise ValueError("Hurdle predictions require finite values")
+    coherent_severity = np.maximum(severity, float(delay_threshold_minutes))
+    if maximum_delay_minutes is not None:
+        if maximum_delay_minutes <= delay_threshold_minutes:
+            raise ValueError("maximum_delay_minutes must exceed the delay threshold")
+        coherent_severity = np.minimum(coherent_severity, maximum_delay_minutes)
+    return (
+        probability * coherent_severity
+        + (1.0 - probability) * float(non_delayed_reference)
+    )
+
+
 def add_schedule_features(frame: pd.DataFrame) -> pd.DataFrame:
     """Create schedule-derived numeric features available at T-60."""
 
@@ -78,6 +146,8 @@ def haul_direction_segment_metrics(
     masks = {
         "short_medium_<=6h": duration <= 360.0,
         "long_haul_>6h": duration > 360.0,
+        "short_haul_<=3h": duration <= 180.0,
+        "medium_haul_3_6h": (duration > 180.0) & (duration <= 360.0),
         "europe_to_americas": direction == "EUROPE_TO_AMERICAS",
         "americas_to_europe": direction == "AMERICAS_TO_EUROPE",
     }
@@ -117,8 +187,6 @@ def segment_metrics(
     segments = {
         "all": np.ones(len(y), dtype=bool),
         "punctual_<=15": y <= 15,
-        "moderate_15_60": (y > 15) & (y <= 60),
-        "severe_>60": y > 60,
         "delayed_>15": y > 15,
     }
     rows = []
@@ -220,6 +288,44 @@ def delay_classification_metrics(
     )
 
 
+def classification_threshold_table(
+    y_true_minutes: Sequence[float],
+    scores: Sequence[float],
+    model: str,
+    evaluation_scope: str,
+    *,
+    delay_threshold_minutes: float = 15.0,
+    thresholds: Sequence[float] | None = None,
+    false_negative_cost: float = 3.0,
+    false_positive_cost: float = 1.0,
+) -> pd.DataFrame:
+    """Evaluate probability thresholds, including an explicit operational cost."""
+
+    if thresholds is None:
+        thresholds = np.linspace(0.05, 0.75, 71)
+    rows = []
+    for threshold in sorted({float(value) for value in thresholds} | {0.5}):
+        current = delay_classification_metrics(
+            y_true_minutes,
+            scores,
+            model,
+            evaluation_scope,
+            delay_threshold_minutes=delay_threshold_minutes,
+            decision_threshold=threshold,
+        ).iloc[0].to_dict()
+        current["false_negative_cost"] = float(false_negative_cost)
+        current["false_positive_cost"] = float(false_positive_cost)
+        current["cost_per_flight"] = float(
+            (
+                false_negative_cost * current["false_negative"]
+                + false_positive_cost * current["false_positive"]
+            )
+            / current["rows"]
+        )
+        rows.append(current)
+    return pd.DataFrame(rows)
+
+
 def haul_direction_classification_metrics(
     frame: pd.DataFrame,
     y_true_minutes: Sequence[float],
@@ -240,6 +346,8 @@ def haul_direction_classification_metrics(
     masks = {
         "short_medium_<=6h": duration <= 360.0,
         "long_haul_>6h": duration > 360.0,
+        "short_haul_<=3h": duration <= 180.0,
+        "medium_haul_3_6h": (duration > 180.0) & (duration <= 360.0),
         "europe_to_americas": direction == "EUROPE_TO_AMERICAS",
         "americas_to_europe": direction == "AMERICAS_TO_EUROPE",
     }

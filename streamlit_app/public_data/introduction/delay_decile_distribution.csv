@@ -1,0 +1,11 @@
+delay_rank_decile,decile_label,interpretation,flight_count,positive_delay_hours,share_of_positive_delay_pct
+1,D1,Most delayed 10%,254580,169672.4953,47.8071
+2,D2,Delay-ranked decile 2,254580,77235.7267,21.762
+3,D3,Delay-ranked decile 3,254580,50570.0739,14.2487
+4,D4,Delay-ranked decile 4,254580,32948.8797,9.2837
+5,D5,Delay-ranked decile 5,254580,18701.2583,5.2693
+6,D6,Delay-ranked decile 6,254580,5782.1792,1.6292
+7,D7,Delay-ranked decile 7,254580,0.0,0.0
+8,D8,Delay-ranked decile 8,254580,0.0,0.0
+9,D9,Delay-ranked decile 9,254580,0.0,0.0
+10,D10,Least delayed 10%,254579,0.0,0.0
