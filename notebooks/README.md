@@ -46,3 +46,8 @@ Due to licensing restrictions you must:
     above 15 minutes, with accuracy, balanced accuracy, precision, recall, F1,
     ROC-AUC, PR-AUC and confusion counts. December selects both models; March and
     June 2023 are scored only after freezing them.
+12. `12_prophet_airport_daily_experiment.ipynb` — isolated Prophet proof of
+    concept for the daily delayed-arrival percentage at a high-volume airport.
+    It selects the airport from training only, applies the 20-flight daily
+    threshold, compares against temporal baselines on December 2022 and keeps
+    the 2023 partitions locked by default.
