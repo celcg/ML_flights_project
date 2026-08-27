@@ -9,11 +9,10 @@ STYLE_PATH = Path(__file__).resolve().parents[1] / "styles.css"
 
 
 def apply_base_styles() -> None:
-    css = STYLE_PATH.read_text(encoding="utf-8")
-    st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+    st.html(STYLE_PATH)
 
 
-def apply_layout_styles(current_page: str, index_expanded: bool) -> None:
+def apply_layout_styles(index_expanded: bool) -> None:
     desktop_left = 248 if index_expanded else 88
     tablet_left = 205 if index_expanded else 88
     toggle_left = 178 if index_expanded else 15
@@ -23,15 +22,13 @@ def apply_layout_styles(current_page: str, index_expanded: bool) -> None:
     text_display = "block" if index_expanded else "none"
     alignment = "flex-start" if index_expanded else "center"
     navigation_padding = "0 12px" if index_expanded else "0"
-    main_top_padding = "0.5rem" if current_page == "introduction" else "4.8rem"
-    journey_margin = "10px" if current_page == "introduction" else "20px"
-    brand_margin = "3px" if current_page == "introduction" else "14px"
+    main_top_padding = "0.5rem"
+    brand_margin = "3px"
 
-    st.markdown(
+    st.html(
         f"""
         <style>
         [data-testid="stMainBlockContainer"] {{ padding-top: {main_top_padding} !important; }}
-        .journey-map {{ margin-bottom: {journey_margin} !important; }}
         .brand-bar {{ margin-bottom: {brand_margin} !important; }}
         @media (min-width: 901px) {{
             [data-testid="stMainBlockContainer"] {{ padding-left: {desktop_left}px !important; }}
@@ -50,7 +47,5 @@ def apply_layout_styles(current_page: str, index_expanded: bool) -> None:
         }}
         .st-key-page_navigation button p {{ display: {text_display}; }}
         </style>
-        """,
-        unsafe_allow_html=True,
+        """
     )
-

@@ -1,4 +1,3 @@
-streamlit>=1.40,<2.0
-pandas>=2.2,<3.0
-altair>=5,<7
-pydeck>=0.9,<1.0
+# Compatibility entrypoint for local dashboard installs.
+# The generated, hash-locked dependency set lives next to the Streamlit app.
+-r streamlit_app/requirements.txt

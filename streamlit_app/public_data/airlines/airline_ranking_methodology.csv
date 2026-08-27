@@ -1,0 +1,2 @@
+minimum_flights,minimum_periods,ranking_unit,delay_threshold
+500,3,Identified ICAO airline operator,Arrival delay greater than 15 minutes

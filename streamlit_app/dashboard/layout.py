@@ -1,5 +1,7 @@
 """Persistent page navigation and shared dashboard chrome."""
 
+import html
+
 import streamlit as st
 
 from dashboard.styles import apply_layout_styles
@@ -10,7 +12,7 @@ def render_page_chrome(current_page: str, study_year: str) -> None:
         st.session_state.page_index_expanded = True
 
     expanded = st.session_state.page_index_expanded
-    apply_layout_styles(current_page, expanded)
+    apply_layout_styles(expanded)
 
     with st.container(key="page_index_toggle"):
         st.button(
@@ -23,16 +25,18 @@ def render_page_chrome(current_page: str, study_year: str) -> None:
     with st.container(key="page_navigation"):
         _page_button("Introduction", "home", "introduction", current_page)
         _page_button("Routes", "map", "routes", current_page)
+        _page_button("Airlines", "flight_takeoff", "airlines", current_page)
+        _page_button("Airports", "location_on", "airports", current_page)
+        _page_button("Flight search", "search", "search", current_page)
 
     index_class = "expanded" if expanded else "collapsed"
-    st.markdown(
+    st.html(
         f"""
         <aside class="left-index {index_class}" aria-label="Page index">
             <div class="index-title">Pages</div>
         </aside>
         {_top_navigation(current_page, study_year)}
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
@@ -58,24 +62,38 @@ def _page_button(label: str, icon: str, page: str, current_page: str) -> None:
 
 
 def _top_navigation(current_page: str, study_year: str) -> str:
+    safe_year = html.escape(str(study_year))
     if current_page == "routes":
         return f"""
         <div class="brand-bar" id="routes-top">
             <span>European aviation intelligence</span>
-            <span class="edition">Routes · ADRR {study_year}</span>
+            <span class="edition">Routes · ADRR {safe_year}</span>
         </div>
-        <div class="journey-map">
-            <span class="map-label">ROUTES MAP</span>
-            <a href="#route-scope">Scope</a><span class="arrow">→</span>
-            <a href="#route-rankings">Rankings</a><span class="arrow">→</span>
-            <a href="#route-impact">Impact</a><span class="arrow">→</span>
-            <a href="#route-geography">Route map</a>
+        """
+    if current_page == "airlines":
+        return f"""
+        <div class="brand-bar" id="airlines-top">
+            <span>European aviation intelligence</span>
+            <span class="edition">Airlines · ADRR {safe_year}</span>
+        </div>
+        """
+    if current_page == "airports":
+        return f"""
+        <div class="brand-bar" id="airports-top">
+            <span>European aviation intelligence</span>
+            <span class="edition">Airports · ADRR {safe_year}</span>
+        </div>
+        """
+    if current_page == "search":
+        return f"""
+        <div class="brand-bar" id="search-top">
+            <span>European aviation intelligence</span>
+            <span class="edition">Flight search · ADRR {safe_year}</span>
         </div>
         """
     return f"""
     <div class="brand-bar" id="introduction">
         <span>European aviation intelligence</span>
-        <span class="edition">ADRR · {study_year} snapshots</span>
+        <span class="edition">ADRR · {safe_year} snapshots</span>
     </div>
     """
-

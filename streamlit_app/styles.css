@@ -6,9 +6,18 @@
     --text: #23364A;
     --muted: #66788A;
     --border: #D7E3ED;
+    --surface: #FFFFFF;
+    --surface-soft: #F7FAFC;
+    --shadow-card: 0 9px 26px rgba(30, 61, 87, 0.075);
+    --shadow-raised: 0 12px 32px rgba(20, 48, 72, 0.12);
 }
 
-[data-testid="stAppViewContainer"] { background: #EAF3FA; }
+[data-testid="stAppViewContainer"] {
+    background:
+        radial-gradient(circle at 92% 2%, rgba(127, 174, 216, 0.20), transparent 28rem),
+        linear-gradient(145deg, #F5F9FC 0%, #EAF3FA 58%, #EFF6FB 100%);
+    background-attachment: fixed;
+}
 [data-testid="stHeader"] {
     background: #0B0F14;
     border-bottom: 1px solid #28323D;
@@ -31,7 +40,7 @@ body, p, div, span, a, button, input, label {
 .stApp [data-testid="stMetricValue"], .stApp [data-testid="stMetricLabel"] {
     font-family: "Aptos", "Inter", "Segoe UI", Arial, sans-serif !important;
 }
-h1, h2, h3, .ranking-chart-title, .impact-chart-title {
+h1, h2, h3, .impact-chart-title {
     font-family: "Aptos Display", "Aptos", "Inter", "Segoe UI", Arial, sans-serif !important;
 }
 h1 {
@@ -45,11 +54,18 @@ h2, h3 {
     letter-spacing: -0.012em;
     font-weight: 650 !important;
 }
-p { color: var(--text); line-height: 1.55; }
+p { color: var(--text); line-height: 1.5; }
+a { text-underline-offset: 0.16em; }
+button, [role="button"] { transition: background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease; }
+button:focus-visible, [role="button"]:focus-visible {
+    outline: 3px solid rgba(47, 111, 176, 0.24) !important;
+    outline-offset: 2px !important;
+}
 
 .brand-bar {
-    background: #0B0F14;
+    background: linear-gradient(105deg, #0B0F14 0%, #101A24 58%, #15293B 100%);
     color: #FFFFFF;
+    border: 1px solid #23394B;
     border-radius: 12px;
     padding: 11px 17px;
     margin-bottom: 14px;
@@ -61,39 +77,9 @@ p { color: var(--text); line-height: 1.55; }
     letter-spacing: 0.10em;
     text-transform: uppercase;
     scroll-margin-top: 74px;
+    box-shadow: 0 8px 20px rgba(11, 15, 20, 0.14);
 }
 .brand-bar .edition { color: #A9BED0; font-weight: 500; }
-.journey-map {
-    background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    box-shadow: 0 5px 18px rgba(11, 31, 51, 0.05);
-}
-.journey-map .map-label {
-    color: var(--muted);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.09em;
-    margin-right: 5px;
-}
-.journey-map a {
-    color: var(--navy) !important;
-    text-decoration: none;
-    font-size: 0.84rem;
-    font-weight: 600;
-    padding: 5px 9px;
-    border-radius: 7px;
-    background: #F3F7FA;
-}
-.journey-map a:hover { background: var(--pale-blue); color: var(--blue) !important; }
-.journey-map .arrow { color: #9AAABA; }
-
 .st-key-page_index_toggle {
     position: fixed;
     left: 178px;
@@ -196,6 +182,7 @@ p { color: var(--text); line-height: 1.55; }
     border: 1px solid transparent;
     border-radius: 8px;
     padding: 0 12px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.015);
 }
 .st-key-page_navigation button:hover {
     color: #FFFFFF;
@@ -211,8 +198,41 @@ p { color: var(--text); line-height: 1.55; }
 .st-key-page_navigation button span[data-testid="stIconMaterial"] {
     color: #D8E9F5;
     font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 24px;
+    width: 24px;
+    min-width: 24px;
+    margin: 0;
 }
-.st-key-page_navigation button p { color: inherit !important; margin: 0; }
+.st-key-page_navigation button p {
+    color: inherit !important;
+    flex: 1 1 auto;
+    margin: 0;
+    text-align: left;
+}
+.stApp:has(.left-index.expanded) .st-key-page_navigation button > div,
+.stApp:has(.left-index.expanded) .st-key-page_navigation button > div > span[data-has-shortcut="false"] {
+    width: 100%;
+}
+.stApp:has(.left-index.expanded) .st-key-page_navigation button > div > span[data-has-shortcut="false"] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.stApp:has(.left-index.expanded) .st-key-page_navigation button > div > span[data-has-shortcut="false"] > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 24px;
+    width: 24px;
+    min-width: 24px;
+}
+.stApp:has(.left-index.expanded) .st-key-page_navigation [data-testid="stMarkdownContainer"] {
+    flex: 1 1 auto;
+    min-width: 0;
+}
 
 .hero {
     background: #D8E9F5;
@@ -233,58 +253,106 @@ p { color: var(--text); line-height: 1.55; }
 .hero p { margin: 0; }
 
 [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"]:not(.st-key-page_index_toggle):not(.st-key-page_navigation) {
-    background: #FFFFFF;
+    background: rgba(255, 255, 255, 0.965);
     border: 1px solid var(--border) !important;
     border-radius: 15px !important;
-    box-shadow: 0 7px 22px rgba(11, 31, 51, 0.06);
+    box-shadow: var(--shadow-card);
     padding: 7px 9px 10px;
     margin-bottom: 17px;
 }
 [data-testid="stMetric"] {
-    background: #F7FAFC;
+    background: linear-gradient(145deg, #FBFDFF 0%, #F3F8FC 100%);
     border: 1px solid #DDE7EF;
     border-radius: 11px;
     padding: 14px 15px;
     min-height: 112px;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.9);
 }
-[data-testid="stMetricLabel"] { color: var(--muted); }
-[data-testid="stMetricValue"] { color: var(--navy); letter-spacing: -0.025em; }
+[data-testid="stMetricLabel"] { color: var(--muted); font-weight: 550; }
+[data-testid="stMetricValue"] { color: var(--navy); letter-spacing: -0.03em; font-weight: 700; }
 [data-testid="stMetricDelta"] { white-space: normal; line-height: 1.25; }
 
 .st-key-overview_metrics { padding: 0 !important; }
-.st-key-overview_metrics [data-testid="stVerticalBlock"] { gap: 0.3rem; }
-.st-key-overview_metrics [data-testid="stMetric"] {
-    height: 76px;
-    min-height: 76px;
-    padding: 8px 11px;
-    overflow: visible;
+.st-key-overview_metrics [data-testid="stVerticalBlock"] { gap: 0; }
+.scale-metric-grid {
+    display: grid;
+    grid-template-rows: 82px 70px 70px;
+    gap: 6px;
+}
+.scale-metric-primary,
+.scale-metric-group {
+    border: 1px solid #D8E5EE;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.scale-metric-primary {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, #E9F4FB 0%, #F8FCFF 100%);
+    border-color: #BCD7E9;
+    box-shadow: inset 3px 0 0 var(--blue);
 }
-.st-key-overview_metrics [data-testid="stMetricLabel"],
-.st-key-overview_metrics [data-testid="stMetricLabel"] > div,
-.st-key-overview_metrics [data-testid="stMetricLabel"] p {
-    overflow: visible !important;
-    white-space: normal !important;
-    text-overflow: clip !important;
-    -webkit-line-clamp: unset !important;
+.scale-metric-primary strong {
+    color: var(--navy);
+    font-size: 2rem;
+    font-weight: 750;
+    letter-spacing: -0.045em;
+    line-height: 1;
 }
-.st-key-overview_metrics [data-testid="stMetricLabel"] p {
+.scale-metric-label {
+    color: var(--blue);
     font-size: 0.76rem;
-    line-height: 1.15;
-    text-align: center;
-    width: 100%;
+    font-weight: 700;
+    letter-spacing: 0.025em;
 }
-.st-key-overview_metrics [data-testid="stMetricLabel"] {
+.scale-metric-context {
+    color: var(--muted);
+    font-size: 0.64rem;
+    line-height: 1;
+    margin-top: 3px;
+}
+.scale-metric-group {
+    background: linear-gradient(145deg, #FBFDFF 0%, #F4F9FC 100%);
+    padding: 6px 9px 7px;
+}
+.scale-group-title {
+    display: block;
+    color: var(--muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.055em;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+}
+.scale-metric-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 5px;
+}
+.scale-metric-pair > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    width: 100%;
-}
-.st-key-overview_metrics [data-testid="stMetricValue"] {
-    font-size: 1.45rem;
-    line-height: 1.05;
+    min-width: 0;
     text-align: center;
-    width: 100%;
+}
+.scale-metric-pair > div + div { border-left: 1px solid #DDE7EF; }
+.scale-metric-pair strong {
+    color: var(--navy);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+}
+.scale-metric-pair span {
+    color: var(--muted);
+    font-size: 0.62rem;
+    line-height: 1.1;
+    margin-top: 3px;
 }
 .st-key-reliability_entity_filter,
 .st-key-reliability_view_filter {
@@ -303,9 +371,9 @@ p { color: var(--text); line-height: 1.55; }
 }
 .st-key-overview_kpi_card,
 .st-key-overview_rankings_card {
-    height: 310px;
-    min-height: 310px;
-    max-height: 310px;
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
     padding: 2px 6px 3px !important;
     box-sizing: border-box;
 }
@@ -319,11 +387,12 @@ p { color: var(--text); line-height: 1.55; }
     line-height: 1.12 !important;
 }
 .mini-ranking {
-    background: #F7FAFC;
+    background: linear-gradient(145deg, #FBFDFF 0%, #F4F9FC 100%);
     border: 2px solid var(--green);
     border-radius: 11px;
     padding: 5px 8px 4px;
     margin-top: 3px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
 }
 .mini-ranking.least-reliable { border-color: #C35D5D; }
 .stApp:has(.mini-ranking.most-reliable) .st-key-reliability_view_filter button[aria-pressed="true"],
@@ -332,6 +401,9 @@ p { color: var(--text); line-height: 1.55; }
     color: #FFFFFF !important;
     background: var(--green) !important;
     border-color: var(--green) !important;
+}
+.stApp:has(.mini-ranking.most-reliable) .st-key-reliability_view_filter button[data-selected="true"] p {
+    color: #FFFFFF !important;
 }
 .stApp:has(.mini-ranking.least-reliable) .st-key-reliability_view_filter button[aria-pressed="true"],
 .stApp:has(.mini-ranking.least-reliable) .st-key-reliability_view_filter button[data-selected="true"],
@@ -404,41 +476,99 @@ p { color: var(--text); line-height: 1.55; }
     margin: 0;
     padding: 4px 0 4px 8px;
 }
-[data-testid="stHorizontalBlock"]:has(.st-key-overview_kpi_card) { margin-bottom: -12px; }
+.country-delay-legend {
+    display: grid;
+    grid-template-columns: auto minmax(70px, 1fr) auto;
+    align-items: center;
+    column-gap: 6px;
+    row-gap: 1px;
+    padding: 1px 9px 0;
+    color: var(--muted);
+    font-size: 0.65rem;
+    font-weight: 650;
+}
+.country-delay-gradient {
+    height: 7px;
+    border: 1px solid rgba(35, 54, 74, 0.14);
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgb(54, 116, 180), rgb(226, 61, 92));
+}
+.country-delay-legend small {
+    grid-column: 1 / -1;
+    color: var(--muted);
+    font-size: 0.61rem;
+    line-height: 1;
+    text-align: center;
+}
+[data-testid="stHorizontalBlock"]:has(.st-key-overview_kpi_card) { margin-bottom: -20px; }
 
 [data-testid="stVegaLiteChart"] {
-    background: #FFFFFF;
-    border: 1px solid #E2EAF1;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAFCFE 100%);
+    border: 1px solid #DCE7F0;
     border-radius: 11px;
     padding: 8px 8px 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 .section-anchor { scroll-margin-top: 72px; }
-.route-section-anchor { scroll-margin-top: 148px; }
 .section-kicker {
     color: var(--blue);
     font-size: 0.73rem;
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    margin-bottom: -4px;
+    margin-bottom: -3px;
+    padding-left: 2px;
 }
 
-[data-testid="stLayoutWrapper"]:has(> .st-key-route_scope_filter) {
+/* Native controls keep the same interaction while sharing a tighter visual language. */
+[data-testid="stSegmentedControl"] {
+    border-radius: 10px;
+}
+[data-testid="stSegmentedControl"] button {
+    min-height: 35px;
+    border-color: #D5E1EB !important;
+    font-weight: 550;
+}
+[data-testid="stSegmentedControl"] button:not([data-selected="true"]):hover {
+    background: #EEF5FA !important;
+    border-color: #AFC9DD !important;
+}
+[data-testid="stSegmentedControl"] button[data-selected="true"] {
+    box-shadow: 0 2px 7px rgba(47, 111, 176, 0.16);
+}
+[data-testid="stExpander"] {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: #D5E1EB !important;
+    border-radius: 12px !important;
+    box-shadow: 0 5px 16px rgba(30, 61, 87, 0.045);
+}
+[data-testid="stExpander"] summary p { color: var(--navy); font-weight: 600; }
+[data-testid="stDataFrame"] {
+    border: 1px solid #D7E3ED;
+    border-radius: 11px;
+    overflow: hidden;
+    box-shadow: 0 5px 16px rgba(30, 61, 87, 0.055);
+}
+
+[data-testid="stLayoutWrapper"]:has(> .st-key-route_scope_filter),
+[data-testid="stLayoutWrapper"]:has(> .st-key-airline_scope_filter) {
     position: sticky !important;
     top: 62px;
     z-index: 995;
 }
-.st-key-route_scope_filter {
+.st-key-route_scope_filter,
+.st-key-airline_scope_filter {
     position: static !important;
     background: rgba(255, 255, 255, 0.97) !important;
     border: 1px solid #BFD2E2 !important;
     border-radius: 13px !important;
-    box-shadow: 0 8px 24px rgba(11, 31, 51, 0.13) !important;
-    padding: 9px 13px 11px !important;
-    margin: 0 0 17px !important;
+    box-shadow: var(--shadow-raised) !important;
+    padding: 7px 11px 8px !important;
+    margin: 0 0 8px !important;
     backdrop-filter: blur(8px);
 }
-.st-key-route_scope_filter [data-testid="stVerticalBlock"] { gap: 5px; }
+.st-key-route_scope_filter [data-testid="stVerticalBlock"],
+.st-key-airline_scope_filter [data-testid="stVerticalBlock"] { gap: 5px; }
 .floating-filter-label {
     color: var(--muted);
     font-size: 0.72rem;
@@ -446,79 +576,660 @@ p { color: var(--text); line-height: 1.55; }
     letter-spacing: 0.055em;
     text-transform: uppercase;
 }
-.route-identity-card {
-    width: 100%;
-    box-sizing: border-box;
-    background: linear-gradient(135deg, #F3F8FC 0%, #E8F2F8 100%);
-    border: 1px solid #C8DBE9;
-    border-radius: 12px;
-    padding: 15px 17px;
-    margin: 7px 0 12px;
-    overflow: visible;
+.st-key-route_scope_summary,
+.st-key-route_distribution_card,
+.st-key-route_explorer_card {
+    margin-bottom: 9px !important;
+    padding: 4px 7px 6px !important;
 }
-.route-identity-label {
+.st-key-route_explorer_card {
+    min-height: 559px;
+    padding-bottom: 14px !important;
+}
+.st-key-route_scope_summary {
+    padding-bottom: 16px !important;
+    overflow: hidden !important;
+}
+.st-key-route_scope_summary > [data-testid="stVerticalBlock"],
+.st-key-route_distribution_card > [data-testid="stVerticalBlock"],
+.st-key-route_explorer_card > [data-testid="stVerticalBlock"] {
+    gap: 0.5rem;
+}
+[data-testid="stHorizontalBlock"]:has(.st-key-route_scope_summary) {
+    flex-wrap: nowrap !important;
+    gap: 0.8rem !important;
+}
+[data-testid="stHorizontalBlock"]:has(.st-key-route_scope_summary) > [data-testid="stColumn"] {
+    min-width: 0 !important;
+}
+.combined-route-kpi {
+    min-height: 58px;
+    background: linear-gradient(145deg, #FBFDFF 0%, #F2F8FC 100%);
+    border: 1px solid #DDE7EF;
+    border-radius: 11px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.9);
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+.combined-route-label {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+.combined-route-value {
+    color: var(--navy);
+    font-size: 1.72rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+}
+.combined-route-number-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+.combined-route-total {
     color: var(--muted);
     font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-}
-.route-identity-code {
-    color: var(--navy);
-    font-size: clamp(1.55rem, 3vw, 2.25rem);
-    font-weight: 720;
-    letter-spacing: -0.025em;
-    line-height: 1.15;
-    white-space: normal;
-    overflow: visible;
-    overflow-wrap: anywhere;
-    text-overflow: clip;
-}
-.route-identity-names {
-    color: #40566B;
-    font-size: 0.95rem;
-    line-height: 1.35;
-    margin-top: 5px;
-    white-space: normal;
-    overflow-wrap: anywhere;
-}
-.ranking-chart-title {
-    min-height: 62px;
-    display: flex;
-    align-items: flex-end;
-    color: var(--navy);
-    font-size: 1.48rem;
     font-weight: 650;
-    letter-spacing: -0.018em;
-    line-height: 1.18;
-    padding: 4px 0 9px;
-    box-sizing: border-box;
+}
+.combined-route-unit {
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 500;
+    line-height: 1.1;
+}
+.combined-route-share {
+    color: var(--blue);
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-top: 2px;
 }
 .impact-chart-title {
-    min-height: 54px;
+    min-height: 25px;
     display: flex;
     align-items: flex-end;
     color: var(--navy);
-    font-size: 1.48rem;
+    font-size: 0.98rem;
     font-weight: 650;
     letter-spacing: -0.018em;
     line-height: 1.18;
-    padding: 4px 0 9px;
+    padding: 0 0 2px 8px;
     box-sizing: border-box;
 }
-.st-key-route_scatter_controls {
-    height: auto;
-    background: #F3F8FC !important;
-    border: 1px solid #D3E1EC !important;
-    border-radius: 12px !important;
-    padding: 12px 15px 9px !important;
-    margin-top: 10px !important;
+.st-key-route_ranking_metric_filter,
+.st-key-route_ranking_view_filter {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.st-key-route_ranking_filters > [data-testid="stVerticalBlock"] {
+    gap: 2px !important;
+}
+.st-key-route_ranking_metric_filter [data-testid="stSegmentedControl"] button {
+    min-height: 40px !important;
+}
+.st-key-route_ranking_metric_filter button p {
+    line-height: 1.2 !important;
+    overflow: visible !important;
+}
+.stApp:has(.route-ranking-state.most-popular) .st-key-route_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: var(--blue) !important;
+    border-color: var(--blue) !important;
+}
+.stApp:has(.route-ranking-state.most-reliable) .st-key-route_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: var(--green) !important;
+    border-color: var(--green) !important;
+}
+.stApp:has(.route-ranking-state.least-reliable) .st-key-route_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: #C35D5D !important;
+    border-color: #C35D5D !important;
+}
+.st-key-route_ranking_view_filter button[data-selected="true"] p { color: #FFFFFF !important; }
+.route-ranking-state { display: none; }
+.route-table-hint {
+    color: var(--muted);
+    font-size: 0.64rem;
+    line-height: 1.2;
+    padding: 0 3px 1px;
+}
+.st-key-route_distribution_card,
+.st-key-route_explorer_card {
+    min-width: 0 !important;
+    box-sizing: border-box;
+}
+.route-panel-title {
+    color: var(--navy);
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+    padding: 0 0 1px 4px;
+}
+.st-key-route_explorer_card [data-testid="stHorizontalBlock"] {
+    flex-wrap: nowrap !important;
+    gap: 0.55rem !important;
+}
+.st-key-route_explorer_card [data-testid="stColumn"] {
+    min-width: 0 !important;
+}
+.st-key-route_explorer_card > [data-testid="stVerticalBlock"] > [data-testid="stElementContainer"]:first-child {
+    margin-bottom: -5px;
+}
+.route-detail-panel {
+    background: linear-gradient(145deg, #F8FBFE 0%, #EEF6FB 100%);
+    border: 1px solid #D3E1EC;
+    border-radius: 11px;
+    padding: 7px 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    min-height: 165px;
+    box-sizing: border-box;
+}
+.route-detail-panel > strong {
+    color: var(--navy);
+    font-size: 0.88rem;
+}
+.route-airport-names {
+    color: var(--muted);
+    font-size: 0.68rem;
+    line-height: 1.22;
+    overflow-wrap: anywhere;
+}
+.route-detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    padding-top: 4px;
+    border-top: 1px solid #D7E3ED;
+}
+.route-detail-metrics span {
+    color: var(--muted);
+    font-size: 0.59rem;
+    line-height: 1.12;
+    text-align: center;
+}
+.route-detail-metrics b {
+    display: block;
+    color: var(--navy);
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+.route-trend-title {
+    color: var(--navy);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 0 0 8px;
+}
+.st-key-route_ranking_metric_filter button p {
+    font-size: 0.68rem !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+}
+.st-key-route_ranking_view_filter button p {
+    font-size: 0.68rem !important;
+    line-height: 1.08 !important;
+    white-space: normal !important;
+}
+.st-key-route_distribution_card [data-testid="stVegaLiteChart"],
+.st-key-route_explorer_card [data-testid="stVegaLiteChart"] {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+.st-key-route_map_footer > [data-testid="stVerticalBlock"] { gap: 0 !important; }
+.st-key-route_map_footer [data-testid="stPlotlyChart"] {
+    width: 100% !important;
+    margin: 0 !important;
+}
+@media (max-width: 900px) {
+    .st-key-route_explorer_card { min-height: auto; }
+    .st-key-route_map_footer [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+    }
+    .st-key-route_map_footer [data-testid="stColumn"] {
+        flex: 1 1 180px !important;
+    }
+    .route-detail-panel { min-height: auto; }
+}
+.st-key-airline_profile_card,
+.st-key-airline_ranking_card,
+.st-key-airline_detail_card {
+    min-width: 0 !important;
+    min-height: 575px;
+    margin-bottom: 9px !important;
+    padding: 5px 8px 10px !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.st-key-airline_profile_card > [data-testid="stVerticalBlock"],
+.st-key-airline_ranking_card > [data-testid="stVerticalBlock"],
+.st-key-airline_detail_card > [data-testid="stVerticalBlock"] {
+    gap: 0.24rem;
+}
+[data-testid="stHorizontalBlock"]:has(.st-key-airline_profile_card) {
+    flex-wrap: nowrap !important;
+    gap: 0.65rem !important;
+}
+[data-testid="stHorizontalBlock"]:has(.st-key-airline_profile_card) > [data-testid="stColumn"] {
+    min-width: 0 !important;
+}
+.airline-panel-title {
+    color: var(--navy);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.12;
+    padding: 0 0 2px 4px;
+}
+.st-key-airline_profile_card [data-testid="stPlotlyChart"],
+.st-key-airline_detail_card [data-testid="stPlotlyChart"] {
+    width: 100% !important;
+    margin: 0 !important;
+}
+.st-key-airline_ranking_filters > [data-testid="stVerticalBlock"] {
+    gap: 0 !important;
+}
+.st-key-airline_ranking_filters {
+    padding: 0 !important;
+    margin: 9px 0 -9.5px !important;
+    background: transparent !important;
+    border: 0 !important;
     box-shadow: none !important;
 }
-.st-key-route_scatter_controls [data-testid="stMetric"] {
-    min-height: 86px;
-    margin-top: 2px;
+.st-key-airline_ranking_card [data-testid="stElementContainer"]:has(.airline-ranking-state) {
+    display: none !important;
+}
+.st-key-airline_ranking_metric_filter,
+.st-key-airline_ranking_view_filter {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.st-key-airline_ranking_view_filter {
+    margin-top: -10px !important;
+}
+.st-key-airline_ranking_metric_filter [data-testid="stSegmentedControl"] button {
+    min-height: 40px !important;
+}
+.st-key-airline_ranking_metric_filter button p,
+.st-key-airline_ranking_view_filter button p {
+    font-size: 0.65rem !important;
+    line-height: 1.12 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+}
+.stApp:has(.airline-ranking-state.most-popular) .st-key-airline_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: var(--blue) !important;
+    border-color: var(--blue) !important;
+}
+.stApp:has(.airline-ranking-state.most-reliable) .st-key-airline_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: var(--green) !important;
+    border-color: var(--green) !important;
+}
+.stApp:has(.airline-ranking-state.least-reliable) .st-key-airline_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: #C35D5D !important;
+    border-color: #C35D5D !important;
+}
+.st-key-airline_ranking_view_filter button[data-selected="true"] p {
+    color: #FFFFFF !important;
+}
+.airline-ranking-state { display: none; }
+.airline-table-hint {
+    color: var(--muted);
+    font-size: 0.64rem;
+    line-height: 1.2;
+    padding: 0 3px;
+    margin-top: -2px;
+}
+.airline-detail-panel {
+    background: linear-gradient(145deg, #F8FBFE 0%, #EEF6FB 100%);
+    border: 1px solid #D3E1EC;
+    border-radius: 11px;
+    padding: 7px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    box-sizing: border-box;
+}
+.airline-detail-panel > strong {
+    color: var(--navy);
+    font-size: 0.86rem;
+    line-height: 1.15;
+}
+.airline-detail-panel > span {
+    color: var(--muted);
+    font-size: 0.66rem;
+}
+.airline-detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    padding-top: 4px;
+    border-top: 1px solid #D7E3ED;
+}
+.airline-detail-metrics span {
+    color: var(--muted);
+    font-size: 0.58rem;
+    line-height: 1.1;
+    text-align: center;
+}
+.airline-detail-metrics b {
+    display: block;
+    color: var(--navy);
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+.st-key-airline_detail_card [data-testid="stDeckGlJsonChart"] {
+    border-radius: 10px;
+    overflow: hidden;
+}
+.st-key-airline_profile_card [data-testid="stPlotlyChart"] {
+    width: 100% !important;
+}
+.entity-search-title {
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+    transform: translateY(-7.5px);
+}
+[data-testid="stHorizontalBlock"]:has(.entity-search-title) {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 0.42rem !important;
+}
+[data-testid="stHorizontalBlock"]:has(.entity-search-title) > [data-testid="stColumn"] {
+    min-width: 0 !important;
+}
+[data-testid="stHorizontalBlock"]:has(.entity-search-title) [data-testid="stSelectbox"] {
+    margin: 0 !important;
+}
+[data-testid="stHorizontalBlock"]:has(.entity-search-title) [data-baseweb="select"] > div {
+    min-height: 32px !important;
+    font-size: 0.68rem !important;
+}
+[data-testid="stHorizontalBlock"]:has(.entity-search-title) [data-baseweb="select"] span {
+    font-size: 0.68rem !important;
+}
+@media (max-width: 900px) {
+    [data-testid="stHorizontalBlock"]:has(.st-key-airline_profile_card) {
+        flex-wrap: wrap !important;
+    }
+    [data-testid="stHorizontalBlock"]:has(.st-key-airline_profile_card) > [data-testid="stColumn"] {
+        flex: 1 1 300px !important;
+    }
+    .st-key-airline_profile_card,
+    .st-key-airline_ranking_card,
+    .st-key-airline_detail_card { min-height: auto; }
+}
+
+/* Airports page */
+[data-testid="stLayoutWrapper"]:has(> .st-key-airport_global_filters) {
+    position: sticky !important;
+    top: 62px;
+    z-index: 995;
+}
+.st-key-airport_global_filters {
+    position: static !important;
+    background: rgba(255, 255, 255, 0.97) !important;
+    border: 1px solid #BFD2E2 !important;
+    border-radius: 13px !important;
+    box-shadow: var(--shadow-raised) !important;
+    padding: 7px 11px 8px !important;
+    margin: 0 0 8px !important;
+    backdrop-filter: blur(8px);
+}
+.st-key-airport_global_filters > [data-testid="stVerticalBlock"] { gap: 2px !important; }
+.st-key-airport_global_filters [data-testid="stHorizontalBlock"] {
+    flex-wrap: nowrap !important;
+    gap: 0.65rem !important;
+}
+.st-key-airport_global_filters [data-testid="stColumn"] { min-width: 0 !important; }
+.st-key-airport_map_card,
+.st-key-airport_detail_card,
+.st-key-airport_ranking_card {
+    min-width: 0 !important;
+    box-sizing: border-box;
+    margin-bottom: 9px !important;
+    padding: 5px 8px 10px !important;
+    overflow: hidden;
+}
+.st-key-airport_map_card {
+    padding-bottom: 18px !important;
+}
+.st-key-airport_map_card > [data-testid="stVerticalBlock"],
+.st-key-airport_detail_card > [data-testid="stVerticalBlock"],
+.st-key-airport_ranking_card > [data-testid="stVerticalBlock"] {
+    gap: 0.4rem;
+}
+.airport-panel-title {
+    color: var(--navy);
+    font-size: 0.86rem;
+    font-weight: 700;
+    line-height: 1.12;
+    padding: 0 0 2px 4px;
+}
+.st-key-airport_map_card [data-testid="stDeckGlJsonChart"] {
+    border-radius: 10px;
+    overflow: hidden;
+}
+.airport-map-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 0.62rem;
+    line-height: 1.35;
+    min-height: 22px;
+    padding: 4px 7px 5px;
+    box-sizing: border-box;
+}
+.airport-map-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.airport-map-legend i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.airport-map-legend .good { background: var(--green); }
+.airport-map-legend .mid { background: #DEA037; }
+.airport-map-legend .poor { background: #C35D5D; }
+.airport-map-legend em { font-style: normal; font-weight: 650; }
+[data-testid="stHorizontalBlock"]:has(.st-key-airport_detail_card) {
+    flex-wrap: nowrap !important;
+    gap: 0.65rem !important;
+}
+[data-testid="stHorizontalBlock"]:has(.st-key-airport_detail_card) > [data-testid="stColumn"] {
+    min-width: 0 !important;
+}
+.st-key-airport_detail_card,
+.st-key-airport_ranking_card { min-height: 585px; }
+.st-key-airport_ranking_view_filter {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 5px 0 6px !important;
+    margin: 8px 0 -8px !important;
+}
+.st-key-airport_ranking_view_filter button p {
+    font-size: 0.68rem !important;
+    white-space: normal !important;
+}
+.stApp:has(.airport-ranking-state.most-popular) .st-key-airport_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: var(--blue) !important;
+    border-color: var(--blue) !important;
+}
+.stApp:has(.airport-ranking-state.most-reliable) .st-key-airport_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: var(--green) !important;
+    border-color: var(--green) !important;
+}
+.stApp:has(.airport-ranking-state.least-reliable) .st-key-airport_ranking_view_filter button[data-selected="true"] {
+    color: #FFFFFF !important;
+    background: #C35D5D !important;
+    border-color: #C35D5D !important;
+}
+.st-key-airport_ranking_view_filter button[data-selected="true"] p { color: #FFFFFF !important; }
+.airport-ranking-state { display: none; }
+.st-key-airport_ranking_card [data-testid="stElementContainer"]:has(.airport-ranking-state) {
+    display: none !important;
+}
+.airport-table-hint {
+    color: var(--muted);
+    font-size: 0.64rem;
+    line-height: 1.2;
+    padding: 0 3px 1px;
+}
+
+/* Flight search page */
+.st-key-flight_search_controls,
+.st-key-flight_search_results {
+    min-width: 0 !important;
+    margin-bottom: 9px !important;
+    padding: 8px 11px 11px !important;
+    overflow: hidden;
+}
+.st-key-flight_search_controls > [data-testid="stVerticalBlock"],
+.st-key-flight_search_results > [data-testid="stVerticalBlock"] { gap: 0.5rem; }
+.search-panel-title,
+.search-route-title {
+    color: var(--navy);
+    font-size: 1rem;
+    font-weight: 750;
+    line-height: 1.2;
+    padding-left: 2px;
+}
+.st-key-flight_search_controls [data-testid="stHorizontalBlock"] {
+    flex-wrap: nowrap !important;
+    gap: 0.55rem !important;
+}
+.st-key-flight_search_controls [data-testid="stColumn"] { min-width: 0 !important; }
+.st-key-flight_search_controls label p {
+    color: var(--muted) !important;
+    font-size: 0.67rem !important;
+    font-weight: 700 !important;
+}
+.search-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+}
+.search-metric {
+    min-width: 0;
+    min-height: 105px;
+    border: 1px solid #D4E1EB;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #FFFFFF 0%, #F3F8FC 100%);
+    padding: 10px 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 5px 14px rgba(30, 61, 87, 0.05);
+}
+.search-metric span {
+    color: var(--muted);
+    font-size: 0.66rem;
+    font-weight: 700;
+    line-height: 1.15;
+}
+.search-metric strong {
+    color: var(--navy);
+    font-size: 1.45rem;
+    line-height: 1.2;
+    padding: 5px 0 3px;
+}
+.search-metric small { color: var(--muted); font-size: 0.61rem; }
+.search-metric:last-child {
+    border-color: #9BC9B5;
+    background: linear-gradient(145deg, #F8FFFB 0%, #EAF6F0 100%);
+}
+.search-model-note {
+    color: var(--text);
+    font-size: 0.69rem;
+    line-height: 1.35;
+    border-left: 3px solid var(--blue);
+    background: #F2F7FB;
+    border-radius: 0 8px 8px 0;
+    padding: 8px 10px;
+}
+@media (max-width: 1100px) {
+    .st-key-flight_search_controls [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; }
+    .st-key-flight_search_controls [data-testid="stColumn"] { flex: 1 1 190px !important; }
+    .search-metric-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+    .search-metric-grid { grid-template-columns: 1fr 1fr; }
+}
+.airport-detail-panel {
+    background: linear-gradient(145deg, #F8FBFE 0%, #EEF6FB 100%);
+    border: 1px solid #D3E1EC;
+    border-radius: 11px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    box-sizing: border-box;
+}
+.airport-detail-panel > strong {
+    color: var(--navy);
+    font-size: 0.86rem;
+    line-height: 1.16;
+}
+.airport-detail-panel > span { color: var(--muted); font-size: 0.66rem; }
+.airport-detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+    padding-top: 5px;
+    border-top: 1px solid #D7E3ED;
+}
+.airport-detail-metrics span {
+    color: var(--muted);
+    font-size: 0.59rem;
+    line-height: 1.12;
+    text-align: center;
+}
+.airport-detail-metrics b {
+    display: block;
+    color: var(--navy);
+    font-size: 0.74rem;
+    white-space: nowrap;
+}
+.st-key-airport_detail_card [data-testid="stPlotlyChart"] {
+    width: 100% !important;
+    margin: 0 !important;
+}
+@media (max-width: 900px) {
+    .st-key-airport_global_filters [data-testid="stHorizontalBlock"],
+    [data-testid="stHorizontalBlock"]:has(.st-key-airport_detail_card) {
+        flex-wrap: wrap !important;
+    }
+    .st-key-airport_global_filters [data-testid="stColumn"],
+    [data-testid="stHorizontalBlock"]:has(.st-key-airport_detail_card) > [data-testid="stColumn"] {
+        flex: 1 1 300px !important;
+    }
+    .st-key-airport_detail_card,
+    .st-key-airport_ranking_card { min-height: auto; }
 }
 [data-testid="stVegaLiteChart"],
 [data-testid="stVegaLiteChart"] > div {
@@ -560,5 +1271,12 @@ p { color: var(--text); line-height: 1.55; }
         padding: 0 !important;
     }
     .st-key-page_navigation button p { display: none !important; }
-    .journey-map .arrow { display: none; }
+    .brand-bar {
+        gap: 8px;
+        padding: 9px 11px;
+        font-size: 0.67rem;
+        letter-spacing: 0.075em;
+    }
+    [data-testid="stSegmentedControl"] button { min-height: 34px; }
+    [data-testid="stSegmentedControl"] button p { font-size: 0.75rem; }
 }

@@ -7,8 +7,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-COPY requirements-dashboard.txt .
-RUN pip install --no-cache-dir -r requirements-dashboard.txt
+COPY streamlit_app/requirements.txt ./streamlit_app/requirements.txt
+RUN pip install --no-cache-dir --require-hashes -r streamlit_app/requirements.txt
 
 RUN useradd --create-home --uid 10001 appuser
 
@@ -17,6 +17,7 @@ COPY --chown=appuser:appuser streamlit_app/styles.css ./streamlit_app/styles.css
 COPY --chown=appuser:appuser streamlit_app/dashboard ./streamlit_app/dashboard
 COPY --chown=appuser:appuser streamlit_app/public_data ./streamlit_app/public_data
 COPY --chown=appuser:appuser streamlit_app/.streamlit ./.streamlit
+COPY --chown=appuser:appuser models/expanded/arrival_pre_t60_expanded_selected.skops ./models/expanded/arrival_pre_t60_expanded_selected.skops
 
 USER appuser
 

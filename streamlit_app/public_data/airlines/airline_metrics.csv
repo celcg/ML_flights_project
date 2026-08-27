@@ -1,0 +1,951 @@
+operator_code,flight_count,periods_active,route_count,delayed_over_15_count,median_arrival_delay_min,median_scheduled_duration_min,delay_over_15_pct,scope_id,scope_label,operator_name,operator_country,executive_eligible
+AAB,1,1,1,1,25.1333,83.2833,100.0,all_flights,All scheduled flights,ABELAG AVIATION,BELGIUM,False
+AAE,1,1,1,1,33.95,378.35,100.0,all_flights,All scheduled flights,AIR ATLANTA EUROPE,MALTA,False
+AAL,11397,4,111,2654,4.0833,494.8167,23.2868,all_flights,All scheduled flights,AMERICAN AIRLINES INC.,UNITED STATES,True
+AAR,963,4,25,582,20.5333,667.4167,60.4361,all_flights,All scheduled flights,ASIANA AIRLINES,REPUBLIC OF KOREA,True
+AAW,413,4,10,188,13.2333,174.05,45.5206,all_flights,All scheduled flights,AFRICAN AIRLINES CORPORATION,LIBYA,False
+ABB,666,4,44,194,4.5167,522.3417,29.1291,all_flights,All scheduled flights,AIR BELGIUM SA,BELGIUM,True
+ABD,756,4,136,259,9.375,474.675,34.2593,all_flights,All scheduled flights,AIR ATLANTA ICELANDIC,ICELAND,True
+ABG,54,1,25,35,21.2917,399.6833,64.8148,all_flights,All scheduled flights,"ROYAL FLIGHT AIRLINES, CJSC",RUSSIAN FEDERATION,False
+ABS,1,1,1,0,-3.0,338.5333,0.0,all_flights,All scheduled flights,AFRIJET BUSINESS SERVICES (ABS),GABON,False
+ABV,139,4,2,2,-6.2,69.3833,1.4388,all_flights,All scheduled flights,ASL AIRLINES UK,UNITED KINGDOM,False
+ABY,2105,4,27,632,7.3,243.5167,30.0238,all_flights,All scheduled flights,AIR ARABIA,UNITED ARAB EMIRATES,True
+ACA,7938,4,119,5324,27.5167,451.5833,67.0698,all_flights,All scheduled flights,AIR CANADA,CANADA,True
+ACP,206,4,37,79,10.1333,401.2,38.3495,all_flights,All scheduled flights,ASTRAL AVIATION LIMITED,KENYA,False
+ACY,255,3,14,65,5.15,203.3167,25.4902,all_flights,All scheduled flights,ARMENIAN NATIONAL AIRLINES CJSC,ARMENIA,False
+ADY,323,3,14,57,-0.4333,244.95,17.6471,all_flights,All scheduled flights,AIR ARABIA ABU DHABI,UNITED ARAB EMIRATES,False
+ADZ,13,2,9,4,11.4,67.7833,30.7692,all_flights,All scheduled flights,COMPASS CARGO AIRLINES,BULGARIA,False
+AEA,21250,4,146,3010,2.7,74.7833,14.1647,all_flights,All scheduled flights,AIR EUROPA,SPAIN,True
+AEE,25407,4,322,2899,0.7833,94.35,11.4102,all_flights,All scheduled flights,AEGEAN AIRLINES,GREECE,True
+AFG,131,4,18,46,5.5667,270.5667,35.1145,all_flights,All scheduled flights,ARIANA AFGHAN AIRLINES,AFGHANISTAN,False
+AFL,4803,4,77,733,-2.85,235.3333,15.2613,all_flights,All scheduled flights,AEROFLOT - RUSSIAN AIRLINES,RUSSIAN FEDERATION,True
+AFR,92257,4,610,25863,6.9833,88.9833,28.0336,all_flights,All scheduled flights,AIR FRANCE,FRANCE,True
+AHO,5,2,5,2,7.8,110.4333,40.0,all_flights,All scheduled flights,"AIR HAMBURG, HAMBURG",GERMANY,False
+AHY,6233,4,104,748,2.1667,137.4,12.0006,all_flights,All scheduled flights,"AZERBAIJAN HAVA YOLLARI, NATIONAL AIRLINE",AZERBAIJAN,True
+AIA,487,2,18,85,4.95,56.7,17.4538,all_flights,All scheduled flights,AMELIA,FRANCE,False
+AIC,3062,4,53,1296,11.8667,561.925,42.3253,all_flights,All scheduled flights,AIR INDIA LIMITED,INDIA,True
+AIZ,1300,4,75,276,3.6333,96.6167,21.2308,all_flights,All scheduled flights,ARKIA ISRAEL INLAND AIRLINES,ISRAEL,True
+ALK,472,4,16,213,12.6667,644.2083,45.1271,all_flights,All scheduled flights,SRILANKAN AIRLINES,SRI LANKA,False
+AMC,3425,4,44,713,4.4833,144.7833,20.8175,all_flights,All scheduled flights,AIR MALTA PLC.,MALTA,True
+AME,4,1,3,2,11.675,248.2,50.0,all_flights,All scheduled flights,AERONAVE MILITAR ESPANOLA. MINISTERIO DE DEFENSA,SPAIN,False
+AMV,1,1,1,1,84.8333,178.9167,100.0,all_flights,All scheduled flights,AIRCRAFT MAINTENANCE COMPANY (AMC AIRLINES),EGYPT,False
+AMW,297,4,21,78,6.0833,169.8667,26.2626,all_flights,All scheduled flights,ARMENIA AIRWAYS AIR COMPANY,ARMENIA,False
+AMX,1441,4,12,765,16.6333,630.8,53.0881,all_flights,All scheduled flights,"AEROVIAS DE MEXICO, S.A. DE C.V.",MEXICO,True
+ANA,748,4,16,272,8.9917,816.6417,36.3636,all_flights,All scheduled flights,"ALL NIPPON AIRWAYS CO., LTD.",JAPAN,True
+ANE,22061,4,277,2119,0.7667,60.5833,9.6052,all_flights,All scheduled flights,"AIR NOSTRUM LINEAS AEREAS DEL MEDITERRANEO, S.A.",SPAIN,True
+APF,2135,4,66,56,-5.9167,61.1333,2.623,all_flights,All scheduled flights,AMAPOLA FLYG AB,SWEDEN,True
+ARG,316,4,11,23,0.55,748.7833,7.2785,all_flights,All scheduled flights,AEROLINEAS ARGENTINAS,ARGENTINA,False
+ASL,10152,4,156,1708,1.7333,92.4417,16.8243,all_flights,All scheduled flights,AIR SERBIA,SERBIA,True
+ATG,192,4,2,1,-10.725,73.0,0.5208,all_flights,All scheduled flights,AEROTRANSCARGO,REPUBLIC OF MOLDOVA,False
+ATN,27,4,8,5,1.1167,443.75,18.5185,all_flights,All scheduled flights,"AIR TRANSPORT INTERNATIONAL (LITTLE ROCK, AR)",UNITED STATES,False
+AUA,32606,4,259,5725,5.0,84.05,17.5581,all_flights,All scheduled flights,AUSTRIAN AIRLINES (AUA) AG,AUSTRIA,True
+AUI,1,1,1,1,19.4,314.6,100.0,all_flights,All scheduled flights,UKRAINE INTERNATIONAL AIRLINES,UKRAINE,False
+AUL,597,4,10,122,3.5667,99.0667,20.4355,all_flights,All scheduled flights,"SMARTAVIA AIRLINES, JOINT STOCK COMPANY",RUSSIAN FEDERATION,True
+AUR,4078,4,47,175,-5.5667,42.8833,4.2913,all_flights,All scheduled flights,AURIGNY AIR SERVICES LTD.,UNITED KINGDOM,True
+AVA,1336,4,10,405,7.325,577.3667,30.3144,all_flights,All scheduled flights,AEROVIAS DEL CONTINENTE AMERICANO S.A.,COLOMBIA,True
+AWC,339,4,8,11,0.4167,44.3667,3.2448,all_flights,All scheduled flights,TITAN AIRWAYS LTD,UNITED KINGDOM,False
+AYY,2,1,2,0,-45.3833,325.7,0.0,all_flights,All scheduled flights,Unknown operator (AYY),,False
+AZD,130,4,2,1,-17.05,91.0417,0.7692,all_flights,All scheduled flights,ZIMEX AVIATION AUSTRIA,AUSTRIA,False
+AZG,1924,4,106,698,8.975,321.35,36.2786,all_flights,All scheduled flights,SILK WAY WEST AIRLINES,AZERBAIJAN,True
+AZQ,123,4,19,55,13.1667,126.7167,44.7154,all_flights,All scheduled flights,SILK WAY AIRLINES,AZERBAIJAN,False
+AZS,1,1,1,0,-51.3333,448.3,0.0,all_flights,All scheduled flights,AVIACON ZITOTRANS,RUSSIAN FEDERATION,False
+AZU,499,4,6,234,13.7167,573.4667,46.8938,all_flights,All scheduled flights,AZUL LINHAS AEREAS BRASILEIRAS S/A,BRAZIL,False
+AZV,602,4,101,155,4.825,304.5583,25.7475,all_flights,All scheduled flights,AZUR AIR,RUSSIAN FEDERATION,True
+BAE,296,4,16,44,4.2833,44.9,14.8649,all_flights,All scheduled flights,BAE SYSTEMS (CORPORATE AIR TRAVEL) LTD,UNITED KINGDOM,False
+BAR,1,1,1,0,-13.0833,265.0833,0.0,all_flights,All scheduled flights,ABU DHABI AVIATION,UNITED ARAB EMIRATES,False
+BAV,129,4,10,33,4.3833,723.2167,25.5814,all_flights,All scheduled flights,BAMBOO AIRWAYS,VIET NAM,False
+BAW,62073,4,505,23762,10.9167,139.2833,38.2807,all_flights,All scheduled flights,BRITISH AIRWAYS,UNITED KINGDOM,True
+BBC,296,4,13,141,13.2583,618.8833,47.6351,all_flights,All scheduled flights,BANGLADESH BIMAN,BANGLADESH,False
+BBD,1588,4,91,190,-2.5333,111.1583,11.9647,all_flights,All scheduled flights,BLUEBIRD NORDIC LTD,ICELAND,True
+BBG,191,1,15,23,1.4833,183.8333,12.0419,all_flights,All scheduled flights,BLUE BIRD AIRWAYS,GREECE,False
+BCS,25326,4,503,2193,-2.95,90.3583,8.6591,all_flights,All scheduled flights,"EUROPEAN AIR TRANSPORT, LEIPZIG",GERMANY,True
+BCY,54,4,36,1,-0.9583,80.0917,1.8519,all_flights,All scheduled flights,CITYJET,IRELAND,False
+BDR,164,4,2,32,4.3083,244.45,19.5122,all_flights,All scheduled flights,BADR AIRLINES,SUDAN,False
+BEL,17643,4,187,2429,1.25,99.35,13.7675,all_flights,All scheduled flights,BRUSSELS AIRLINES,BELGIUM,True
+BGH,43,2,24,6,1.2167,201.3,13.9535,all_flights,All scheduled flights,BH AIR,BULGARIA,False
+BLA,2575,3,182,476,4.45,148.45,18.4854,all_flights,All scheduled flights,BLUE AIR AVIATION S.A.,ROMANIA,True
+BNL,374,4,4,73,3.7333,101.7917,19.5187,all_flights,All scheduled flights,BERNIQ AIRWAYS,LIBYA,False
+BOX,3612,4,70,568,-0.2167,503.9333,15.7254,all_flights,All scheduled flights,"AEROLOGIC GMBH, LEIPZIG",GERMANY,True
+BPS,486,4,4,6,-2.9583,42.6,1.2346,all_flights,All scheduled flights,BUDAPEST AIRCRAFT SERVICE LTD,HUNGARY,False
+BRO,1,1,1,0,-30.9,286.8833,0.0,all_flights,All scheduled flights,2 EXCEL AVIATION LTD,UNITED KINGDOM,False
+BRQ,167,4,3,65,10.3833,184.0667,38.9222,all_flights,All scheduled flights,EL-BURAQ AIR TRANSPORT INC.,LIBYA,False
+BRU,1624,4,22,175,-1.5917,255.5167,10.7759,all_flights,All scheduled flights,BELAVIA,BELARUS,True
+BRX,7457,4,75,119,-1.75,67.25,1.5958,all_flights,All scheduled flights,BRAATHENS REGIONAL AIRWAYS AB,SWEDEN,True
+BSC,1,1,1,0,-12.0,80.8833,0.0,all_flights,All scheduled flights,AEROSTAN,KYRGYZSTAN,False
+BTI,11975,4,205,1452,2.9167,113.2333,12.1253,all_flights,All scheduled flights,AIR BALTIC CORPORATION JSC,LATVIA,True
+CAI,2505,4,156,776,7.3,210.3167,30.978,all_flights,All scheduled flights,TURISTIK HAVA TASIMACILIK A.S.,TURKEY,True
+CAJ,7,4,7,2,4.2333,150.45,28.5714,all_flights,All scheduled flights,AIR CARAIBES ATLANTIQUE,FRANCE,False
+CAL,799,4,17,380,13.9667,779.9333,47.5594,all_flights,All scheduled flights,CHINA AIRLINES,CHINA,True
+CAO,535,4,12,117,-0.2333,635.7,21.8692,all_flights,All scheduled flights,"AIR CHINA CARGO CO., LTD",CHINA,True
+CAT,2,1,2,2,26.225,71.375,100.0,all_flights,All scheduled flights,COPENHAGEN AIRTAXI A/S,DENMARK,False
+CBJ,42,3,6,24,20.0833,737.925,57.1429,all_flights,All scheduled flights,"BEIJING CAPITAL AIRLINES CO., LTD",CHINA,False
+CCA,1717,4,54,444,5.1667,607.0833,25.8591,all_flights,All scheduled flights,AIR CHINA,CHINA,True
+CCM,6882,4,79,710,-0.8,58.1,10.3168,all_flights,All scheduled flights,AIR CORSICA,FRANCE,True
+CEB,2,1,2,1,18.525,208.65,50.0,all_flights,All scheduled flights,CEBU PACIFIC AIR,PHILIPPINES,False
+CEL,18,1,2,5,6.6333,341.2583,27.7778,all_flights,All scheduled flights,CEIBA INTERCONTINENTAL,EQUATORIAL GUINEA,False
+CES,870,4,25,318,8.85,689.8167,36.5517,all_flights,All scheduled flights,CHINA EASTERN AIRLINES,CHINA,True
+CFE,10487,4,148,1810,3.2333,76.2167,17.2595,all_flights,All scheduled flights,BA CITYFLYER LTD,UNITED KINGDOM,True
+CFG,12391,4,521,3832,7.9833,203.8,30.9257,all_flights,All scheduled flights,"CONDOR FLUGDIENST GMBH, FRANKFURT (MAIN)",GERMANY,True
+CHG,335,4,41,90,4.9,423.8333,26.8657,all_flights,All scheduled flights,CHALLENGE AIRLINES (BE) S.A.,BELGIUM,False
+CHH,177,4,17,38,3.6667,605.2333,21.4689,all_flights,All scheduled flights,"HAINAN AIRLINES HOLDING CO., LTD.",CHINA,False
+CJT,468,4,27,158,7.2,431.975,33.7607,all_flights,All scheduled flights,CARGOJET AIRWAYS LTD,CANADA,False
+CKK,469,4,7,90,0.5833,651.3,19.1898,all_flights,All scheduled flights,CHINA CARGO AIRLINES LTD,CHINA,False
+CKS,80,4,7,39,14.0917,772.9583,48.75,all_flights,All scheduled flights,"KALITTA AIR, LLC (YPSILANTI, MI)",UNITED STATES,False
+CLG,1591,4,24,75,-2.7833,67.8167,4.714,all_flights,All scheduled flights,CHALAIR AVIATION,FRANCE,True
+CLX,3821,4,126,1311,8.2833,467.1833,34.3104,all_flights,All scheduled flights,CARGOLUX AIRLINES INTERNATIONAL S.A.,LUXEMBOURG,True
+CND,66,4,2,13,2.95,307.6917,19.697,all_flights,All scheduled flights,CORENDON DUTCH AIRLINES B.V.,NETHERLANDS,False
+CPA,1115,4,34,615,17.3167,718.9667,55.157,all_flights,All scheduled flights,CATHAY PACIFIC AIRWAYS LTD.,CHINA,True
+CPN,44,2,6,14,8.5667,156.3083,31.8182,all_flights,All scheduled flights,CASPIAN AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+CRL,1575,4,55,713,12.9,501.5833,45.2698,all_flights,All scheduled flights,CORSAIR,FRANCE,True
+CSA,306,4,18,73,3.4,102.6083,23.8562,all_flights,All scheduled flights,CZECH AIRLINES J.S.C.,CZECHIA,False
+CSC,268,4,18,40,-2.7917,573.0333,14.9254,all_flights,All scheduled flights,SI CHUAN AIRLINES,CHINA,False
+CSG,59,1,2,7,0.9667,708.9667,11.8644,all_flights,All scheduled flights,CHINA SOUTHERN AIRLINES CARGO,CHINA,False
+CSH,35,2,2,13,14.3667,667.8,37.1429,all_flights,All scheduled flights,SHANGHAI AIRLINES,CHINA,False
+CSN,1093,4,27,446,10.65,677.4667,40.8051,all_flights,All scheduled flights,CHINA SOUTHERN AIRLINES,CHINA,True
+CTM,2,1,2,1,12.3583,71.7167,50.0,all_flights,All scheduled flights,COMMANDEMENT DU TRANSPORT AERIEN MILITAIRE FRANCAIS,FRANCE,False
+CTN,7857,4,109,957,0.7333,76.25,12.1802,all_flights,All scheduled flights,CROATIA AIRLINES,CROATIA,True
+CUB,30,4,3,16,18.225,538.9167,53.3333,all_flights,All scheduled flights,CUBANA DE AVIACION S.A.,CUBA,False
+CWG,3,2,3,1,-12.1167,398.3333,33.3333,all_flights,All scheduled flights,WING AVIATION,UNITED STATES,False
+CWY,2,1,2,0,-5.2833,92.1,0.0,all_flights,All scheduled flights,WOODGATE AVIATION (NI) LTD.,UNITED KINGDOM,False
+CXA,37,4,3,25,29.9167,693.8167,67.5676,all_flights,All scheduled flights,XIAMEN AIRLINES,CHINA,False
+CXI,1604,4,138,244,1.1583,253.85,15.212,all_flights,All scheduled flights,CORENDON AIRLINES EUROPE,MALTA,True
+CYP,904,4,52,99,1.9583,90.025,10.9513,all_flights,All scheduled flights,CYPRUS AIRWAYS,CYPRUS,True
+DAH,6809,4,205,2419,9.65,127.15,35.5265,all_flights,All scheduled flights,AIR ALGERIE,ALGERIA,True
+DAL,14177,4,137,5289,9.4167,492.8,37.3069,all_flights,All scheduled flights,"DELTA AIR LINES, INC.",UNITED STATES,True
+DHA,75,1,20,3,-9.4,82.2,4.0,all_flights,All scheduled flights,DHL AIR AUSTRIA,AUSTRIA,False
+DHK,2885,4,75,396,2.0167,107.7833,13.7262,all_flights,All scheduled flights,DHL AIR LIMITED,UNITED KINGDOM,True
+DHL,2,1,2,0,-22.0583,152.7833,0.0,all_flights,All scheduled flights,"ASTAR AIR CARGO (MIAMI, FL)",UNITED STATES,False
+DHX,297,4,20,51,0.4,221.0167,17.1717,all_flights,All scheduled flights,DHL AVIATION EEMEA B.S.C.(C),BAHRAIN,False
+DIR,123,2,14,9,-2.45,117.0667,7.3171,all_flights,All scheduled flights,AERRO DIREKT,ROMANIA,False
+DJT,47,1,4,11,3.7,455.65,23.4043,all_flights,All scheduled flights,DREAMJET,FRANCE,False
+DKH,38,4,5,9,5.95,539.25,23.6842,all_flights,All scheduled flights,"JUNEYAO AIRLINES CO., LTD",CHINA,False
+DLA,7160,4,52,1190,1.2583,71.9333,16.6201,all_flights,All scheduled flights,AIR DOLOMITI,ITALY,True
+DLH,123716,4,762,16555,0.55,93.15,13.3815,all_flights,All scheduled flights,"DEUTSCHE LUFTHANSA, AG, KOELN",GERMANY,True
+DTA,404,4,7,162,11.775,432.8917,40.099,all_flights,All scheduled flights,"TAAG, LINHAS AEREAS DE ANGOLA (ANGOLA AIRLINES)",ANGOLA,False
+DTH,135,3,10,64,14.8,121.4833,47.4074,all_flights,All scheduled flights,TASSILI AIRLINES,ALGERIA,False
+EAI,2451,2,51,154,-1.8,62.3167,6.2831,all_flights,All scheduled flights,EMERALD AIRLINES (IRELAND) LIMITED,IRELAND,False
+EAX,2,1,2,0,-9.425,95.225,0.0,all_flights,All scheduled flights,EUROPEAN AVIATION SCHOOL OF BARCELONA,SPAIN,False
+EDW,5193,4,166,576,-1.0333,187.7833,11.0919,all_flights,All scheduled flights,EDELWEISS AIR AG,SWITZERLAND,True
+EIN,21161,4,182,3442,1.0167,118.7167,16.2658,all_flights,All scheduled flights,AER LINGUS TEORANTA,IRELAND,True
+EJM,2,2,2,2,51.9917,490.0667,100.0,all_flights,All scheduled flights,"EXECUTIVE JET MANAGEMENT, INC. (CINCINNATI, OH)",UNITED STATES,False
+ELY,8582,4,135,1844,5.4,250.1917,21.4868,all_flights,All scheduled flights,EL AL - ISRAEL AIRLINES LTD.,ISRAEL,True
+ENT,268,4,20,46,4.725,121.3583,17.1642,all_flights,All scheduled flights,ENTER AIR SP. Z.O.O.,POLAND,False
+ETD,6547,4,84,1767,7.3333,390.2167,26.9895,all_flights,All scheduled flights,ETIHAD AIRWAYS,UNITED ARAB EMIRATES,True
+ETH,6031,4,180,2163,9.4,407.1667,35.8647,all_flights,All scheduled flights,ETHIOPIAN AIRLINES CORPORATION,ETHIOPIA,True
+EUK,464,4,6,107,1.0667,462.3333,23.0603,all_flights,All scheduled flights,AER LINGUS (UK) LIMITED,UNITED KINGDOM,False
+EVA,660,4,18,413,21.3,756.7833,62.5758,all_flights,All scheduled flights,EVA AIRWAYS CORPORATION,CHINA,True
+EVE,459,4,24,172,11.1,547.4167,37.4728,all_flights,All scheduled flights,"EVELOP AIRLINE, S.L.",SPAIN,False
+EWG,40819,4,908,7985,3.45,121.9667,19.562,all_flights,All scheduled flights,EUROWINGS GMBH,GERMANY,True
+EXS,30258,4,943,7527,4.8833,210.675,24.8761,all_flights,All scheduled flights,JET2.COM LTD,UNITED KINGDOM,True
+EZE,2667,4,151,213,-0.5333,60.2667,7.9865,all_flights,All scheduled flights,EASTERN AIRWAYS (UK) LIMITED,UNITED KINGDOM,True
+EZS,17681,4,315,2340,-0.6833,98.2833,13.2345,all_flights,All scheduled flights,EASY JET SWITZERLAND SA,SWITZERLAND,True
+EZY,79162,4,1049,14654,1.65,119.7583,18.5114,all_flights,All scheduled flights,EASYJET UK LTD,UNITED KINGDOM,True
+FAD,100,3,13,27,-4.775,230.0667,27.0,all_flights,All scheduled flights,FLYADEAL,SAUDI ARABIA,False
+FAF,2,2,2,0,-0.5167,484.4833,0.0,all_flights,All scheduled flights,FORCE AERIENNE FRANCAISE,FRANCE,False
+FBA,55,1,8,5,-6.0,173.4667,9.0909,all_flights,All scheduled flights,FLY BAGHDAD,IRAQ,False
+FDX,7303,4,158,2118,6.2833,180.65,29.0018,all_flights,All scheduled flights,FEDERAL EXPRESS CORPORATION,UNITED STATES,True
+FEI,10,3,9,1,-16.8333,271.825,10.0,all_flights,All scheduled flights,EAGLE AIR ICELAND (FLUGFELAGID ERNIR),ICELAND,False
+FHY,250,3,29,86,7.1167,174.975,34.4,all_flights,All scheduled flights,FREE BIRD AIRLINES (HURKUS HAVAYOLU TASIMACILIK VE TICARET A.S.),TURKEY,False
+FIN,30154,4,229,4121,2.9167,113.125,13.6665,all_flights,All scheduled flights,FINNAIR OYJ,FINLAND,True
+FLI,1171,4,77,201,4.1167,118.4167,17.1648,all_flights,All scheduled flights,"ATLANTIC AIRWAYS, FAROE ISLANDS P/F",DENMARK,True
+FPY,1422,4,50,253,3.875,187.525,17.7918,all_flights,All scheduled flights,FLY PLAY,ICELAND,True
+FTL,175,4,9,7,-5.35,87.9333,4.0,all_flights,All scheduled flights,FLIGHTLINE,SPAIN,False
+FTR,368,4,4,30,-1.875,20.3583,8.1522,all_flights,All scheduled flights,FINIST'AIR,FRANCE,False
+FWI,1092,4,15,481,13.1167,487.5417,44.0476,all_flights,All scheduled flights,AIR CARAIBES,FRANCE,True
+GBG,22,2,17,3,-0.25,117.2083,13.6364,all_flights,All scheduled flights,GULLIVAIR,BULGARIA,False
+GCL,89,1,18,2,-6.2667,77.7,2.2472,all_flights,All scheduled flights,CARGOLOGIC GERMANY GMBH,GERMANY,False
+GEC,2045,4,61,427,3.0333,595.7167,20.8802,all_flights,All scheduled flights,"LUFTHANSA CARGO AG, FRANKFURT (MAIN)",GERMANY,True
+GES,2,1,2,1,35.95,161.9833,50.0,all_flights,All scheduled flights,"GESTAIR, S.A.",SPAIN,False
+GFA,2529,4,55,913,8.8,346.8167,36.1012,all_flights,All scheduled flights,GULF AIR,BAHRAIN,True
+GIA,39,4,4,29,24.2,825.1833,74.359,all_flights,All scheduled flights,"GARUDA INDONESIA AIRWAYS, PT.",INDONESIA,False
+GJT,6,1,6,0,0.725,204.55,0.0,all_flights,All scheduled flights,"GETJET AIRLINES, UAB",LITHUANIA,False
+GMA,3,2,2,0,-0.5333,26.4333,0.0,all_flights,All scheduled flights,GAMA AVIATION LTD,UNITED KINGDOM,False
+GMS,157,3,2,76,14.3167,205.15,48.4076,all_flights,All scheduled flights,GHADAMES AIR,LIBYA,False
+GOW,11,2,3,6,28.0833,289.1667,54.5455,all_flights,All scheduled flights,GO AIRLINES (INDIA) PRIVATE LIMITED,INDIA,False
+GRL,218,4,10,64,7.4,263.6417,29.3578,all_flights,All scheduled flights,AIR GREENLAND A/S,DENMARK,False
+GTI,804,4,117,268,6.2833,502.8,33.3333,all_flights,All scheduled flights,"ATLAS AIR, INC. (JAMAICA, NY)",UNITED STATES,True
+GWI,6121,4,43,765,0.6167,64.6,12.498,all_flights,All scheduled flights,"GERMANWINGS GMBH, KOELN",GERMANY,True
+HAF,10,2,8,1,-6.4417,133.7833,10.0,all_flights,All scheduled flights,HELLENIC AIR FORCE,GREECE,False
+HHN,5,2,2,1,2.85,146.3,20.0,all_flights,All scheduled flights,"HAHN AIR-LINES GMBH, DREIEICH",GERMANY,False
+HVN,590,4,25,302,15.5333,724.1917,51.1864,all_flights,All scheduled flights,HANG KHONG VIET NAM,VIET NAM,True
+IAE,2,2,2,2,25.7,185.025,100.0,all_flights,All scheduled flights,"IRAERO, AIRCOMPANY",RUSSIAN FEDERATION,False
+IAM,5,3,4,1,-32.0,365.0,20.0,all_flights,All scheduled flights,AERONAUTICA MILITARE ITALIANA,ITALY,False
+IAW,1383,4,50,480,7.4333,156.0333,34.7072,all_flights,All scheduled flights,IRAQI AIRWAYS,IRAQ,True
+IBB,15377,4,149,479,-5.4833,43.25,3.115,all_flights,All scheduled flights,BINTER CANARIAS,SPAIN,True
+IBE,29236,4,279,4340,3.25,126.3,14.8447,all_flights,All scheduled flights,"IBERIA - LINEAS AEREAS DE ESPANA, SOCIEDAD ANONIMA OPERADORA",SPAIN,True
+ICE,5154,4,74,1779,9.8667,181.1917,34.5169,all_flights,All scheduled flights,ICELANDAIR,ICELAND,True
+ICL,273,4,29,80,5.2667,274.5667,29.304,all_flights,All scheduled flights,CHALLENGE AIRLINES (IL),ISRAEL,False
+IFA,2,2,2,0,-25.8667,197.4167,0.0,all_flights,All scheduled flights,FAI RENT-A-JET GMBH,GERMANY,False
+IGA,2,2,2,0,1.7083,233.6833,0.0,all_flights,All scheduled flights,SKYTAXI LTD,POLAND,False
+IGO,243,3,2,29,0.3333,370.95,11.9342,all_flights,All scheduled flights,INTERGLOBE AVIATION PRIVATE LTD (T/A INDIGO),INDIA,False
+IRA,909,4,43,319,9.6333,188.7833,35.0935,all_flights,All scheduled flights,IRAN NATIONAL AIRLINES CORP. (IRAN AIR),IRAN (ISLAMIC REPUBLIC OF),True
+IRB,817,4,26,243,7.65,181.0833,29.743,all_flights,All scheduled flights,IRAN AIR TOURS CO.,IRAN (ISLAMIC REPUBLIC OF),True
+IRC,248,4,8,79,6.1083,163.7083,31.8548,all_flights,All scheduled flights,IRAN ASEMAN AIRLINE,IRAN (ISLAMIC REPUBLIC OF),False
+IRL,1,1,1,0,4.3,48.55,0.0,all_flights,All scheduled flights,IRISH AIR CORPS,IRELAND,False
+IRM,1126,4,16,145,-5.6417,192.575,12.8774,all_flights,All scheduled flights,MAHAN AIR,IRAN (ISLAMIC REPUBLIC OF),True
+ISR,2018,4,65,313,1.0333,66.5083,15.5104,all_flights,All scheduled flights,ISRAIR LTD,ISRAEL,True
+IZG,66,4,2,10,3.5917,88.5417,15.1515,all_flights,All scheduled flights,ZAGROS AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+JAL,819,4,11,193,4.2833,832.9167,23.5653,all_flights,All scheduled flights,"JAPAN AIRLINES CO., LTD",JAPAN,True
+JAV,81,3,4,14,1.2667,94.9,17.284,all_flights,All scheduled flights,JORDANIAN ENTERPRISE FOR AIR NAVIGATION AND AVIATION SERVICES (JATE) - JORDAN AVIATION,JORDAN,False
+JBU,743,4,8,137,0.9833,432.7667,18.4388,all_flights,All scheduled flights,"JETBLUE AIRWAYS CORPORATION (NEW YORK, NY)",UNITED STATES,True
+JET,1,1,1,0,-53.4833,151.2167,0.0,all_flights,All scheduled flights,SVENSKT INDUSTRIFLYG AB,SWEDEN,False
+JNL,1,1,1,0,10.5667,152.8833,0.0,all_flights,All scheduled flights,JETNETHERLANDS,NETHERLANDS,False
+JON,1061,4,17,6,-12.9,53.5833,0.5655,all_flights,All scheduled flights,JOON,FRANCE,True
+JZR,1132,4,23,386,9.1667,189.8833,34.0989,all_flights,All scheduled flights,JAZEERA AIRWAYS,KUWAIT,True
+KAC,2647,4,54,784,6.6333,301.25,29.6184,all_flights,All scheduled flights,KUWAIT AIRWAYS CORPORATION,KUWAIT,True
+KAL,1843,4,47,717,10.5333,695.6167,38.904,all_flights,All scheduled flights,"KOREAN AIR LINES CO., LTD.",REPUBLIC OF KOREA,True
+KHH,1,1,1,1,18.1333,75.0667,100.0,all_flights,All scheduled flights,ALEXANDRIA AIRLINES,EGYPT,False
+KLC,269,4,7,35,3.7833,65.8667,13.0112,all_flights,All scheduled flights,KLM CITYHOPPER BV,NETHERLANDS,False
+KLM,66654,4,336,15105,6.7833,88.3167,22.6618,all_flights,All scheduled flights,KLM ROYAL DUTCH AIRLINES,NETHERLANDS,True
+KMF,68,4,4,28,11.4417,288.975,41.1765,all_flights,All scheduled flights,KAM AIR,AFGHANISTAN,False
+KNE,1814,4,67,520,4.0,213.0417,28.6659,all_flights,All scheduled flights,FLYNAS COMPANY CLOSED JOINT STOCK COMPANY,SAUDI ARABIA,True
+KON,59,1,33,13,6.95,105.75,22.0339,all_flights,All scheduled flights,AIR CONNECT AVIATION GROUP,ROMANIA,False
+KQA,804,4,12,451,17.7583,499.5167,56.0945,all_flights,All scheduled flights,KENYA AIRWAYS LTD.,KENYA,True
+KRP,4,1,4,0,-9.4917,146.4417,0.0,all_flights,All scheduled flights,CARPATAIR S.A.,ROMANIA,False
+KTB,613,4,9,20,-4.4833,31.45,3.2626,all_flights,All scheduled flights,TRANSAVIABALTIKA,LITHUANIA,True
+KZR,2688,4,68,661,5.725,303.6417,24.5908,all_flights,All scheduled flights,AIR ASTANA,KAZAKHSTAN,True
+LAA,155,4,4,49,5.35,179.5833,31.6129,all_flights,All scheduled flights,LIBYAN AIRLINES,LIBYA,False
+LAE,64,3,6,22,8.8833,502.675,34.375,all_flights,All scheduled flights,LINEA AEREA CARGUERA DE COLOMBIA S.A.,COLOMBIA,False
+LAN,453,4,4,129,7.3833,722.8,28.4768,all_flights,All scheduled flights,LINEA AEREA NACIONAL DE CHILE (LAN),CHILE,False
+LAV,309,4,52,21,-0.9167,70.5667,6.7961,all_flights,All scheduled flights,"ALBA STAR, S.A.",SPAIN,False
+LBT,2497,4,87,626,7.35,144.7167,25.0701,all_flights,All scheduled flights,NOUVEL AIR TUNISIE,TUNISIA,True
+LCO,301,4,15,94,8.5,381.8667,31.2292,all_flights,All scheduled flights,LAN CARGO S.A.,CHILE,False
+LDG,1,1,1,1,17.2667,62.25,100.0,all_flights,All scheduled flights,LEADING EDGE AVIATION LTD.,UNITED KINGDOM,False
+LFA,1,1,1,0,-19.5167,66.7,0.0,all_flights,All scheduled flights,AEROSIM ACADEMY INC.,UNITED STATES,False
+LGL,9688,4,226,970,-2.7,105.8,10.0124,all_flights,All scheduled flights,LUXAIR - SOCIETE LUXEMBOURGEOISE DE NAVIGATION AERIENNE S.A.,LUXEMBOURG,True
+LOG,19082,4,313,1799,-1.25,60.8333,9.4277,all_flights,All scheduled flights,LOGAN AIR LIMITED,UNITED KINGDOM,True
+LOT,29201,4,230,3380,-1.0667,95.9,11.5749,all_flights,All scheduled flights,LOT - POLSKIE LINIE LOTNICZE,POLAND,True
+LPE,243,4,2,52,2.3833,661.05,21.3992,all_flights,All scheduled flights,LAN PERU S.A.,PERU,False
+LTR,386,4,4,6,-11.2417,29.3667,1.5544,all_flights,All scheduled flights,LUFTTRANSPORT A/S,NORWAY,False
+LUC,1,1,1,0,12.6333,789.0667,0.0,all_flights,All scheduled flights,ALBINATI AERONAUTICS SA,SWITZERLAND,False
+LWA,530,4,8,158,6.2083,192.0583,29.8113,all_flights,All scheduled flights,LIBYAN WINGS,LIBYA,True
+LXG,2,2,2,1,15.4333,196.2583,50.0,all_flights,All scheduled flights,"LUXAVIATION GERMANY GMBH, BUEREN",GERMANY,False
+LYC,5,1,5,3,18.4333,202.5667,60.0,all_flights,All scheduled flights,"LYNDEN AIR CARGO, LLC",UNITED STATES,False
+LYX,54,4,16,11,1.8167,83.3,20.3704,all_flights,All scheduled flights,SMARTLYNX AIRLINES MALTA,MALTA,False
+LZB,2088,4,80,286,2.3833,118.7917,13.6973,all_flights,All scheduled flights,BULGARIA AIR,BULGARIA,True
+MAA,49,3,12,30,29.15,512.3,61.2245,all_flights,All scheduled flights,"AEROTRANSPORTES MAS DE CARGA, S.A. DE C.V.",MEXICO,False
+MAI,267,4,13,105,11.45,149.8333,39.3258,all_flights,All scheduled flights,MAURITANIAN AIRLINES INTERNATIONAL,MAURITANIA,False
+MAS,498,4,9,268,17.1583,755.5083,53.8153,all_flights,All scheduled flights,MALAYSIA AIRLINES BERHAD,MALAYSIA,False
+MAU,374,4,5,124,9.725,681.775,33.1551,all_flights,All scheduled flights,AIR MAURITIUS LIMITED,MAURITIUS,False
+MDG,39,3,3,30,19.3333,653.0333,76.9231,all_flights,All scheduled flights,"AIR MADAGASCAR, SOCIETE NATIONALE MALGACHE DE TRANSPORTS AERIENS",MADAGASCAR,False
+MDO,1,1,1,0,-17.8333,252.2167,0.0,all_flights,All scheduled flights,MEL AIR LIMITED,MALTA,False
+MEA,3512,4,53,685,3.1833,214.9833,19.5046,all_flights,All scheduled flights,MIDDLE EAST AIRLINES - AIRLIBAN,LEBANON,True
+MGL,144,4,4,51,9.9917,530.0833,35.4167,all_flights,All scheduled flights,MONGOLIAN AIRLINES,MONGOLIA,False
+MLD,1474,4,42,132,-3.9417,135.8833,8.9552,all_flights,All scheduled flights,AIR MOLDOVA,REPUBLIC OF MOLDOVA,True
+MMD,1467,4,71,99,-3.6667,53.95,6.7485,all_flights,All scheduled flights,AIR ALSIE A/S,DENMARK,True
+MMZ,25,4,2,13,19.7,238.0167,52.0,all_flights,All scheduled flights,EUROATLANTIC AIRWAYS,PORTUGAL,False
+MNB,1164,4,45,201,-1.0333,164.8083,17.268,all_flights,All scheduled flights,MNG HAVAYOLLARI VE TASIMACILIK A.S.,TURKEY,True
+MNE,1336,4,60,79,-6.95,50.5667,5.9132,all_flights,All scheduled flights,TOMONTENEGRO,MONTENEGRO,True
+MPH,433,4,9,133,7.6667,493.2833,30.7159,all_flights,All scheduled flights,MARTINAIR HOLLAND N.V.,NETHERLANDS,False
+MSA,1630,4,68,45,-4.9417,74.9833,2.7607,all_flights,All scheduled flights,POSTE AIR CARGO S.R.L.,ITALY,True
+MSC,2118,4,141,446,3.5167,247.1333,21.0576,all_flights,All scheduled flights,AIR CAIRO,EGYPT,True
+MSI,1,1,1,0,1.1,411.1167,0.0,all_flights,All scheduled flights,MOTOR SICH,UKRAINE,False
+MSR,8185,4,104,3128,10.1,239.1,38.2162,all_flights,All scheduled flights,EGYPT AIR,EGYPT,True
+NCA,186,4,5,62,7.0583,513.4583,33.3333,all_flights,All scheduled flights,"NIPPON CARGO AIRLINES CO., LTD.",JAPAN,False
+NDA,587,4,6,22,-5.6833,38.15,3.7479,all_flights,All scheduled flights,NORDICA,ESTONIA,True
+NHZ,1,1,1,1,21.9667,127.1667,100.0,all_flights,All scheduled flights,NHV HELICOPTERS LTD,UNITED KINGDOM,False
+NIA,261,4,12,27,-1.0667,125.4833,10.3448,all_flights,All scheduled flights,NILE AIR,EGYPT,False
+NJE,8,4,7,1,0.8417,158.9667,12.5,all_flights,All scheduled flights,"NETJETS, TRANSPORTES AEREOS S.A.",PORTUGAL,False
+NOS,3790,4,490,550,0.4083,225.6167,14.5119,all_flights,All scheduled flights,NEOS S.P.A.,ITALY,True
+NTX,11,1,1,0,-4.9,74.9,0.0,all_flights,All scheduled flights,AK-AIR GEORGIA,GEORGIA,False
+NVR,3,1,3,1,11.7333,183.0333,33.3333,all_flights,All scheduled flights,NOVA AIRLINES AB,SWEDEN,False
+OAL,7512,4,87,316,-7.8917,57.75,4.2066,all_flights,All scheduled flights,OLYMPIC AIR,GREECE,True
+OBS,39,3,6,20,15.6667,489.8167,51.2821,all_flights,All scheduled flights,ORBEST,PORTUGAL,False
+OCN,4002,4,155,1167,6.7167,285.8917,29.1604,all_flights,All scheduled flights,EW DISCOVER GMBH,GERMANY,True
+OMA,1127,4,19,313,7.7833,391.5833,27.7728,all_flights,All scheduled flights,OMAN AIR,OMAN,True
+OMS,320,4,22,67,4.1667,262.7,20.9375,all_flights,All scheduled flights,SALAM AIR,OMAN,False
+PAC,338,4,14,99,4.825,589.575,29.2899,all_flights,All scheduled flights,"POLAR AIR CARGO WORLDWIDE, INC. (WASHINGTON, DC)",UNITED STATES,False
+PAL,22,1,2,12,21.4583,995.3,54.5455,all_flights,All scheduled flights,PHILIPPINE AIR LINES INC. (PAL),PHILIPPINES,False
+PCH,1,1,1,0,-65.0,215.0,0.0,all_flights,All scheduled flights,PILATUS FLUGZEUGWERKE AG,SWITZERLAND,False
+PGT,48945,4,531,10978,4.3333,108.95,22.4293,all_flights,All scheduled flights,PEGASUS HAVA TASIMACILIGI A.S. (PEGASUS),TURKEY,True
+PIA,316,4,16,147,13.2667,746.7667,46.519,all_flights,All scheduled flights,PAKISTAN INTERNATIONAL AIRLINES CORPORATION (PIA),PAKISTAN,False
+PLM,4,2,4,0,5.55,207.55,0.0,all_flights,All scheduled flights,WAMOS AIR S.A.,SPAIN,False
+PNX,498,4,37,31,-1.6,37.3,6.2249,all_flights,All scheduled flights,AIS AIRLINES,NETHERLANDS,False
+POF,1,1,1,0,-10.6167,131.25,0.0,all_flights,All scheduled flights,POLICE AUX FRONTIERS,FRANCE,False
+POL,1,1,1,0,-19.5,120.5167,0.0,all_flights,All scheduled flights,RIKSPOLISSTYRELSEN,SWEDEN,False
+PRS,24,1,4,6,2.45,138.825,25.0,all_flights,All scheduled flights,PARS AIR,IRAN (ISLAMIC REPUBLIC OF),False
+PVG,6,2,5,1,4.5083,243.8167,16.6667,all_flights,All scheduled flights,"PRIVILEGE STYLE, S.A.",SPAIN,False
+PWF,2,1,2,0,-16.9083,59.675,0.0,all_flights,All scheduled flights,"PRIVATE WINGS FLUGCHARTER GMBH, BERLIN",GERMANY,False
+QFA,514,4,10,281,17.2417,991.5417,54.6693,all_flights,All scheduled flights,QANTAS AIRWAYS LIMITED,AUSTRALIA,True
+QTR,23209,4,334,10584,13.1,368.3167,45.603,all_flights,All scheduled flights,QATAR AIRWAYS GROUP Q.C.S.C.,QATAR,True
+RAC,92,1,2,0,-5.7417,68.4917,0.0,all_flights,All scheduled flights,ICAR AIR,BOSNIA AND HERZEGOVINA,False
+RAM,19234,4,316,4940,6.2167,159.3333,25.6837,all_flights,All scheduled flights,ROYAL AIR MAROC - COMPAGNIE NATIONALE DE TRANSPORTS AERIENS,MOROCCO,True
+RBA,78,4,4,43,16.7833,884.0083,55.1282,all_flights,All scheduled flights,ROYAL BRUNEI AIRLINES,BRUNEI DARUSSALAM,False
+RCH,3,2,3,1,6.8833,455.45,33.3333,all_flights,All scheduled flights,AIR MOBILITY COMMAND (AMC),UNITED STATES,False
+RED,1,1,1,0,-8.5333,139.6,0.0,all_flights,All scheduled flights,COMITE INTERNATIONAL DE LA CROIX-ROUGE RED CROSS (INTERNATIONAL COMMITTEE),SWITZERLAND,False
+REU,459,4,9,247,16.65,647.6,53.8126,all_flights,All scheduled flights,AIR AUSTRAL,FRANCE,False
+RFF,5,2,4,4,21.7667,366.6333,80.0,all_flights,All scheduled flights,RUSSIAN FEDERATION AIR FORCE,RUSSIAN FEDERATION,False
+RIV,126,4,4,4,-10.3583,92.225,3.1746,all_flights,All scheduled flights,APG AIRLINES,FRANCE,False
+RJA,3270,4,56,943,6.5583,242.5833,28.8379,all_flights,All scheduled flights,ROYAL JORDANIAN,JORDAN,True
+RLU,38,3,4,1,-6.3,150.4,2.6316,all_flights,All scheduled flights,RUSLINE,RUSSIAN FEDERATION,False
+ROJ,3,3,3,1,7.5333,454.8833,33.3333,all_flights,All scheduled flights,ROYAL JET,UNITED ARAB EMIRATES,False
+ROT,8022,4,79,658,-3.8833,84.3333,8.2024,all_flights,All scheduled flights,COMPANIA NATIONALA DE TRANSPORTURI AERIENE ROMANE TAROM S.A.,ROMANIA,True
+RTV,1,1,1,0,-42.05,53.0333,0.0,all_flights,All scheduled flights,NORTAVIA,PORTUGAL,False
+RVR,3,1,3,0,-7.1833,80.1833,0.0,all_flights,All scheduled flights,RAVEN AIR LTD.,UNITED KINGDOM,False
+RWD,219,4,7,77,9.8833,481.55,35.1598,all_flights,All scheduled flights,RWANDAIR LTD.,RWANDA,False
+RYR,303940,4,5495,45482,1.7333,118.3333,14.9641,all_flights,All scheduled flights,RYANAIR,IRELAND,True
+RZO,2822,4,71,740,5.3333,142.0333,26.2225,all_flights,All scheduled flights,SATA INTERNACIONAL - AZORES AIRLINES S.A,PORTUGAL,True
+SAS,61376,4,799,5069,0.0667,70.9833,8.2589,all_flights,All scheduled flights,SCANDINAVIAN AIRLINES SYSTEM,SWEDEN,True
+SAT,5802,4,43,488,-0.4,33.0083,8.4109,all_flights,All scheduled flights,SERVICO ACOREANO DE TRANSPORTES AEREOS - EP (SATA),PORTUGAL,True
+SAW,163,4,12,77,14.3667,150.55,47.2393,all_flights,All scheduled flights,CHAM WING AIRLINES,SYRIAN ARAB REPUBLIC,False
+SBI,991,4,35,308,6.6667,148.7333,31.0797,all_flights,All scheduled flights,SIBERIA AIRLINES,RUSSIAN FEDERATION,True
+SDM,4366,4,75,1019,5.1667,110.0833,23.3394,all_flights,All scheduled flights,"ROSSIYA AIRLINES, JOINT STOCK COMPANY",RUSSIAN FEDERATION,True
+SDR,2355,4,334,555,4.9333,190.0333,23.5669,all_flights,All scheduled flights,SUNDAIR GMBH,GERMANY,True
+SEH,16644,4,216,799,-6.0167,59.7667,4.8005,all_flights,All scheduled flights,SKY EXPRESS S.A.,GREECE,True
+SEJ,108,4,17,30,4.9583,264.3083,27.7778,all_flights,All scheduled flights,SPICEJET,INDIA,False
+SEY,96,4,9,24,5.2167,378.7833,25.0,all_flights,All scheduled flights,AIR SEYCHELLES,SEYCHELLES,False
+SFS,3,2,3,1,2.6167,261.1167,33.3333,all_flights,All scheduled flights,SWISS FLIGHT SERVICES,SWITZERLAND,False
+SHI,8,1,4,2,4.4333,191.8333,25.0,all_flights,All scheduled flights,SEPEHRAN AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+SHS,171,3,21,56,7.2,213.5667,32.7485,all_flights,All scheduled flights,SHIRAK AVIA LLC,ARMENIA,False
+SHT,8043,4,25,2345,8.3667,67.6833,29.1558,all_flights,All scheduled flights,BRITISH AIRWAYS SHUTTLE,UNITED KINGDOM,True
+SHW,7,2,5,0,-11.0833,61.7833,0.0,all_flights,All scheduled flights,KN HELICOPTERS A/S,DENMARK,False
+SIA,4463,4,62,1941,12.4833,753.85,43.4909,all_flights,All scheduled flights,SINGAPORE AIRLINES LIMITED,SINGAPORE,True
+SLD,258,4,10,0,-14.7833,59.9167,0.0,all_flights,All scheduled flights,SILVER AIR LTD,CZECHIA,False
+SLJ,26,2,23,4,-2.4167,70.9583,15.3846,all_flights,All scheduled flights,SLAM LAVORI AEREI S.R.L.,ITALY,False
+SLM,81,4,6,45,16.7333,548.8333,55.5556,all_flights,All scheduled flights,SURINAAMSE LUCHTVAART MAATSCHAPPIJ N.V.,SURINAME,False
+SMR,118,4,6,34,7.6,281.1667,28.8136,all_flights,All scheduled flights,SOMON AIR,TAJIKISTAN,False
+SON,1,1,1,1,146.2,82.05,100.0,all_flights,All scheduled flights,ACASS IRELAND LTD.,IRELAND,False
+SOP,82,2,9,13,2.7583,90.1,15.8537,all_flights,All scheduled flights,SOLINAIR LTD,SLOVENIA,False
+SRN,2,1,2,0,-4.9,59.5083,0.0,all_flights,All scheduled flights,SPRINTAIR SA,POLAND,False
+SRR,2761,4,65,462,2.7333,70.4,16.7331,all_flights,All scheduled flights,MAERSK AIR CARGO A/S,DENMARK,True
+SSF,102,4,4,11,1.4833,123.2667,10.7843,all_flights,All scheduled flights,"SEVERSTAL, LTD AIRCOMPANY",RUSSIAN FEDERATION,False
+SSR,1,1,1,0,-31.5667,289.2,0.0,all_flights,All scheduled flights,SARDINIAN SKY SERVICE S.R.L.,ITALY,False
+STP,22,4,2,9,4.225,361.1583,40.9091,all_flights,All scheduled flights,STP AIRWAYS,SAO TOME AND PRINCIPE,False
+SUS,191,4,47,8,-9.35,108.0167,4.1885,all_flights,All scheduled flights,SUN-AIR OF SCANDINAVIA A/S,DENMARK,False
+SVA,5832,4,130,3727,20.3833,331.925,63.906,all_flights,All scheduled flights,SAUDI ARABIAN AIRLINES,SAUDI ARABIA,True
+SVR,1406,4,22,690,14.4833,139.6083,49.0754,all_flights,All scheduled flights,URAL AIRLINES,RUSSIAN FEDERATION,True
+SVS,1,1,1,0,-10.7833,88.6833,0.0,all_flights,All scheduled flights,SAS LINK AB,SWEDEN,False
+SWG,2,1,2,1,5.4667,449.25,50.0,all_flights,All scheduled flights,SUNWING AIRLINES INC.,CANADA,False
+SWN,1991,4,88,226,-3.0,84.7833,11.3511,all_flights,All scheduled flights,WEST ATLANTIC SWEDEN AB,SWEDEN,True
+SWR,35746,4,297,5981,2.9167,95.4917,16.7319,all_flights,All scheduled flights,SWISS INTERNATIONAL AIR LINES LTD,SWITZERLAND,True
+SWT,3249,4,160,202,-6.7833,62.0333,6.2173,all_flights,All scheduled flights,SWIFTAIR S.A.,SPAIN,True
+SXS,21308,4,445,5941,7.0167,187.1917,27.8815,all_flights,All scheduled flights,GUNES EKSPRES HAVACILIK A.S. (SUNEXPRESS),TURKEY,True
+SXY,65,4,5,31,14.7833,470.75,47.6923,all_flights,All scheduled flights,SAFARI EXPRESS CARGO LIMITED,KENYA,False
+SYL,24,4,2,7,11.5,135.9167,29.1667,all_flights,All scheduled flights,"AIRCOMPANY YAKUTIA, JOINT-STOCK COMPANY",RUSSIAN FEDERATION,False
+SYR,20,4,4,14,42.5583,314.2667,70.0,all_flights,All scheduled flights,SYRIAN ARAB AIRLINES,SYRIAN ARAB REPUBLIC,False
+TAM,1233,4,14,321,6.5,651.45,26.0341,all_flights,All scheduled flights,TAM - LINHAS AEREAS S.A.,BRAZIL,True
+TAP,35918,4,240,11929,8.8,145.8,33.2118,all_flights,All scheduled flights,"TRANSPORTES AEREOS PORTUGUESES, E.P.",PORTUGAL,True
+TAR,5169,4,113,1466,7.7333,121.9167,28.3614,all_flights,All scheduled flights,TUNIS AIR - SOCIETE TUNISIENNE DE L'AIR,TUNISIA,True
+TAX,17,2,3,5,3.8667,453.1,29.4118,all_flights,All scheduled flights,"THAI AIRASIA X CO., LTD",THAILAND,False
+TCV,120,4,7,51,11.7333,234.5417,42.5,all_flights,All scheduled flights,TRANSPORTES AEREOS DE CABO VERDE - TACV,CABO VERDE,False
+TDR,207,3,15,17,-7.4833,58.05,8.2126,all_flights,All scheduled flights,TRADE AIR,CROATIA,False
+TGW,292,4,9,142,13.9083,674.5333,48.6301,all_flights,All scheduled flights,SCOOT PTE. LTD.,SINGAPORE,False
+TGZ,398,4,14,56,-1.4,163.6417,14.0704,all_flights,All scheduled flights,GEORGIAN AIRWAYS,GEORGIA,False
+THA,1897,4,25,893,13.3333,677.95,47.0743,all_flights,All scheduled flights,THAI AIRWAYS INTERNATIONAL LTD.,THAILAND,True
+THT,177,4,2,65,11.0167,637.3833,36.7232,all_flights,All scheduled flights,AIR TAHITI NUI,FRANCE,False
+THY,149572,4,1215,30981,3.6333,139.55,20.7131,all_flights,All scheduled flights,TURK HAVA YOLLARI (TURKISH AIRLINES CO.),TURKEY,True
+TJT,1711,4,31,183,1.05,66.6833,10.6955,all_flights,All scheduled flights,TWIN JET,FRANCE,True
+TLR,1,1,1,0,-11.2167,110.8,0.0,all_flights,All scheduled flights,AIR LIBYA TIBESTI,LIBYA,False
+TMT,1,1,1,0,-2.0333,136.2667,0.0,all_flights,All scheduled flights,TITAN AIRWAYS MALTA,MALTA,False
+TOW,6,2,5,1,-0.5167,155.2417,16.6667,all_flights,All scheduled flights,AIRTANKER SERVICES LTD,UNITED KINGDOM,False
+TOY,1,1,1,1,38.6333,145.1,100.0,all_flights,All scheduled flights,TOYO AVIATION,ROMANIA,False
+TPA,21,2,3,5,7.0833,563.2667,23.8095,all_flights,All scheduled flights,TRANSPORTES AEREOS MERCANTILES PANAMERICANOS S.A. (TAMPA),COLOMBIA,False
+TRA,16032,4,331,3384,5.0667,152.0333,21.1078,all_flights,All scheduled flights,TRANSAVIA HOLLAND B.V.,NETHERLANDS,True
+TSC,2581,4,83,1316,15.4667,429.6167,50.988,all_flights,All scheduled flights,AIR TRANSAT A.T. INC.,CANADA,True
+TUA,146,4,9,49,7.1917,315.75,33.5616,all_flights,All scheduled flights,TURKMENHOVAYOLLARY,TURKMENISTAN,False
+TVF,24686,4,550,5882,6.5,127.7833,23.8273,all_flights,All scheduled flights,TRANSAVIA FRANCE,FRANCE,True
+TWI,123,3,15,27,5.7667,150.05,21.9512,all_flights,All scheduled flights,TAILWIND HAVAYOLLARI A.S.,TURKEY,False
+TYF,1,1,1,0,-17.3667,130.4667,0.0,all_flights,All scheduled flights,Unknown operator (TYF),,False
+UAE,20175,4,217,11607,17.6,392.0333,57.5316,all_flights,All scheduled flights,EMIRATES,UNITED ARAB EMIRATES,True
+UAG,1,1,1,0,-2.8833,57.45,0.0,all_flights,All scheduled flights,AS UNION AVIATION,LATVIA,False
+UAL,17002,4,177,6719,9.9667,498.0167,39.5189,all_flights,All scheduled flights,"UNITED AIRLINES, INC. (CHICAGO, IL)",UNITED STATES,True
+UGC,1,1,1,0,2.8,43.6667,0.0,all_flights,All scheduled flights,"URGEMER CANARIAS, S.L.",SPAIN,False
+UPS,6213,4,93,1183,-0.3333,121.2333,19.0407,all_flights,All scheduled flights,"UNITED PARCEL SERVICE COMPANY, (LOUISVILLE, KY)",UNITED STATES,True
+URG,2,2,2,0,-10.3583,43.275,0.0,all_flights,All scheduled flights,AIR URGA,UKRAINE,False
+UTA,1424,4,46,687,14.375,189.6,48.2444,all_flights,All scheduled flights,UTAIR AVIATION,RUSSIAN FEDERATION,True
+UZB,1515,4,38,572,11.3833,273.15,37.7558,all_flights,All scheduled flights,UZBEKISTAN AIRWAYS JSC,UZBEKISTAN,True
+VCV,24,4,16,9,6.8167,407.4833,37.5,all_flights,All scheduled flights,CONVIASA,VENEZUELA,False
+VIR,7090,4,77,2008,5.525,507.0167,28.3216,all_flights,All scheduled flights,VIRGIN ATLANTIC,UNITED KINGDOM,True
+VJT,8,4,8,1,-6.575,158.6167,12.5,all_flights,All scheduled flights,VISTAJET LTD,MALTA,False
+VLG,65268,4,793,9393,2.9833,96.1333,14.3914,all_flights,All scheduled flights,VUELING AIRLINES,SPAIN,True
+VSR,1,1,1,0,-38.1833,168.8333,0.0,all_flights,All scheduled flights,AVIOSTART AS LTD,BULGARIA,False
+VSV,615,4,39,226,9.9,159.0833,36.748,all_flights,All scheduled flights,SCAT,KAZAKHSTAN,True
+VTI,384,4,6,216,17.5917,510.6833,56.25,all_flights,All scheduled flights,TATA SIA AIRLINES LTD.,INDIA,False
+WIF,39644,4,300,587,-11.7167,56.25,1.4807,all_flights,All scheduled flights,WIDEROE'S FLYVESELSKAP A/S,NORWAY,True
+WJA,1131,4,35,652,19.6,443.4833,57.6481,all_flights,All scheduled flights,WESTJET AIRLINES LTD,CANADA,True
+WKT,1,1,1,0,-33.4333,300.2,0.0,all_flights,All scheduled flights,DEA AVIATION LTD,UNITED KINGDOM,False
+WZZ,74222,4,2174,14160,3.2333,125.9,19.0779,all_flights,All scheduled flights,WIZZ AIR HUNGARY LTD,HUNGARY,True
+AAB,1,1,1,1,25.1333,83.2833,100.0,scheduled_duration_under_3h,Under 3 hours,ABELAG AVIATION,BELGIUM,False
+AAL,1,1,1,0,10.0,126.0667,0.0,scheduled_duration_under_3h,Under 3 hours,AMERICAN AIRLINES INC.,UNITED STATES,False
+AAR,136,4,5,16,-1.9417,80.3,11.7647,scheduled_duration_under_3h,Under 3 hours,ASIANA AIRLINES,REPUBLIC OF KOREA,False
+AAW,245,4,8,130,15.75,154.2333,53.0612,scheduled_duration_under_3h,Under 3 hours,AFRICAN AIRLINES CORPORATION,LIBYA,False
+ABB,14,4,8,2,-2.275,54.0667,14.2857,scheduled_duration_under_3h,Under 3 hours,AIR BELGIUM SA,BELGIUM,False
+ABD,74,4,29,11,0.5917,73.9083,14.8649,scheduled_duration_under_3h,Under 3 hours,AIR ATLANTA ICELANDIC,ICELAND,False
+ABV,139,4,2,2,-6.2,69.3833,1.4388,scheduled_duration_under_3h,Under 3 hours,ASL AIRLINES UK,UNITED KINGDOM,False
+ABY,545,4,7,145,7.1667,166.65,26.6055,scheduled_duration_under_3h,Under 3 hours,AIR ARABIA,UNITED ARAB EMIRATES,True
+ACA,7,3,5,3,6.0,149.8333,42.8571,scheduled_duration_under_3h,Under 3 hours,AIR CANADA,CANADA,False
+ACP,14,4,6,1,-8.45,93.3333,7.1429,scheduled_duration_under_3h,Under 3 hours,ASTRAL AVIATION LIMITED,KENYA,False
+ACY,70,3,8,17,5.1083,62.0833,24.2857,scheduled_duration_under_3h,Under 3 hours,ARMENIAN NATIONAL AIRLINES CJSC,ARMENIA,False
+ADY,41,3,3,3,-1.6,173.4,7.3171,scheduled_duration_under_3h,Under 3 hours,AIR ARABIA ABU DHABI,UNITED ARAB EMIRATES,False
+ADZ,13,2,9,4,11.4,67.7833,30.7692,scheduled_duration_under_3h,Under 3 hours,COMPASS CARGO AIRLINES,BULGARIA,False
+AEA,18078,4,98,2043,1.8833,67.4083,11.301,scheduled_duration_under_3h,Under 3 hours,AIR EUROPA,SPAIN,True
+AEE,21465,4,256,2239,0.45,80.3167,10.4309,scheduled_duration_under_3h,Under 3 hours,AEGEAN AIRLINES,GREECE,True
+AFG,2,1,2,1,25.3333,170.325,50.0,scheduled_duration_under_3h,Under 3 hours,ARIANA AFGHAN AIRLINES,AFGHANISTAN,False
+AFL,1583,4,12,144,-3.3,145.0833,9.0967,scheduled_duration_under_3h,Under 3 hours,AEROFLOT - RUSSIAN AIRLINES,RUSSIAN FEDERATION,True
+AFR,71941,4,368,15866,5.35,79.2667,22.0542,scheduled_duration_under_3h,Under 3 hours,AIR FRANCE,FRANCE,True
+AHO,3,1,3,2,18.8167,94.25,66.6667,scheduled_duration_under_3h,Under 3 hours,"AIR HAMBURG, HAMBURG",GERMANY,False
+AHY,5168,4,73,551,1.8167,72.2917,10.6618,scheduled_duration_under_3h,Under 3 hours,"AZERBAIJAN HAVA YOLLARI, NATIONAL AIRLINE",AZERBAIJAN,True
+AIA,487,2,18,85,4.95,56.7,17.4538,scheduled_duration_under_3h,Under 3 hours,AMELIA,FRANCE,False
+AIC,1,1,1,1,42.7,114.1833,100.0,scheduled_duration_under_3h,Under 3 hours,AIR INDIA LIMITED,INDIA,False
+AIZ,931,4,36,157,1.9167,51.3333,16.8636,scheduled_duration_under_3h,Under 3 hours,ARKIA ISRAEL INLAND AIRLINES,ISRAEL,True
+ALK,13,3,2,7,15.3667,79.95,53.8462,scheduled_duration_under_3h,Under 3 hours,SRILANKAN AIRLINES,SRI LANKA,False
+AMC,2857,4,42,558,3.95,134.6333,19.531,scheduled_duration_under_3h,Under 3 hours,AIR MALTA PLC.,MALTA,True
+AMV,1,1,1,1,84.8333,178.9167,100.0,scheduled_duration_under_3h,Under 3 hours,AIRCRAFT MAINTENANCE COMPANY (AMC AIRLINES),EGYPT,False
+AMW,156,4,13,33,3.825,77.8333,21.1538,scheduled_duration_under_3h,Under 3 hours,ARMENIA AIRWAYS AIR COMPANY,ARMENIA,False
+ANA,18,1,1,1,-3.5,78.8583,5.5556,scheduled_duration_under_3h,Under 3 hours,"ALL NIPPON AIRWAYS CO., LTD.",JAPAN,False
+ANE,22036,4,273,2118,0.7667,60.55,9.6115,scheduled_duration_under_3h,Under 3 hours,"AIR NOSTRUM LINEAS AEREAS DEL MEDITERRANEO, S.A.",SPAIN,True
+APF,2134,4,65,56,-5.9,61.125,2.6242,scheduled_duration_under_3h,Under 3 hours,AMAPOLA FLYG AB,SWEDEN,True
+ASL,9780,4,145,1594,1.5167,90.8917,16.2986,scheduled_duration_under_3h,Under 3 hours,AIR SERBIA,SERBIA,True
+ATG,192,4,2,1,-10.725,73.0,0.5208,scheduled_duration_under_3h,Under 3 hours,AEROTRANSCARGO,REPUBLIC OF MOLDOVA,False
+ATN,3,2,2,2,19.85,108.2333,66.6667,scheduled_duration_under_3h,Under 3 hours,"AIR TRANSPORT INTERNATIONAL (LITTLE ROCK, AR)",UNITED STATES,False
+AUA,29116,4,208,4535,4.5,80.7667,15.5756,scheduled_duration_under_3h,Under 3 hours,AUSTRIAN AIRLINES (AUA) AG,AUSTRIA,True
+AUL,597,4,10,122,3.5667,99.0667,20.4355,scheduled_duration_under_3h,Under 3 hours,"SMARTAVIA AIRLINES, JOINT STOCK COMPANY",RUSSIAN FEDERATION,True
+AUR,4073,4,46,175,-5.5667,42.8833,4.2966,scheduled_duration_under_3h,Under 3 hours,AURIGNY AIR SERVICES LTD.,UNITED KINGDOM,True
+AWC,336,4,5,10,0.2417,44.3667,2.9762,scheduled_duration_under_3h,Under 3 hours,TITAN AIRWAYS LTD,UNITED KINGDOM,False
+AZD,130,4,2,1,-17.05,91.0417,0.7692,scheduled_duration_under_3h,Under 3 hours,ZIMEX AVIATION AUSTRIA,AUSTRIA,False
+AZG,315,4,30,96,6.6333,157.6667,30.4762,scheduled_duration_under_3h,Under 3 hours,SILK WAY WEST AIRLINES,AZERBAIJAN,False
+AZQ,109,4,15,53,14.4333,125.0667,48.6239,scheduled_duration_under_3h,Under 3 hours,SILK WAY AIRLINES,AZERBAIJAN,False
+AZV,38,2,4,10,1.1417,129.025,26.3158,scheduled_duration_under_3h,Under 3 hours,AZUR AIR,RUSSIAN FEDERATION,False
+BAE,270,4,13,38,4.2833,43.9333,14.0741,scheduled_duration_under_3h,Under 3 hours,BAE SYSTEMS (CORPORATE AIR TRAVEL) LTD,UNITED KINGDOM,False
+BAW,38077,4,271,13038,9.8667,106.2,34.2411,scheduled_duration_under_3h,Under 3 hours,BRITISH AIRWAYS,UNITED KINGDOM,True
+BBD,1455,4,84,182,-2.6667,106.95,12.5086,scheduled_duration_under_3h,Under 3 hours,BLUEBIRD NORDIC LTD,ICELAND,True
+BBG,88,1,9,8,1.4583,123.8083,9.0909,scheduled_duration_under_3h,Under 3 hours,BLUE BIRD AIRWAYS,GREECE,False
+BCS,23185,4,447,1837,-3.1333,86.0833,7.9232,scheduled_duration_under_3h,Under 3 hours,"EUROPEAN AIR TRANSPORT, LEIPZIG",GERMANY,True
+BCY,48,4,36,1,-0.8,76.4917,2.0833,scheduled_duration_under_3h,Under 3 hours,CITYJET,IRELAND,False
+BEL,14698,4,124,1745,0.9667,92.2833,11.8724,scheduled_duration_under_3h,Under 3 hours,BRUSSELS AIRLINES,BELGIUM,True
+BGH,13,2,9,2,3.3167,89.9167,15.3846,scheduled_duration_under_3h,Under 3 hours,BH AIR,BULGARIA,False
+BLA,1824,3,145,308,3.9083,122.15,16.886,scheduled_duration_under_3h,Under 3 hours,BLUE AIR AVIATION S.A.,ROMANIA,True
+BNL,373,4,4,73,3.75,101.7167,19.571,scheduled_duration_under_3h,Under 3 hours,BERNIQ AIRWAYS,LIBYA,False
+BOX,492,4,14,41,-2.575,81.8167,8.3333,scheduled_duration_under_3h,Under 3 hours,"AEROLOGIC GMBH, LEIPZIG",GERMANY,False
+BPS,486,4,4,6,-2.9583,42.6,1.2346,scheduled_duration_under_3h,Under 3 hours,BUDAPEST AIRCRAFT SERVICE LTD,HUNGARY,False
+BRQ,72,4,3,35,14.1333,172.2167,48.6111,scheduled_duration_under_3h,Under 3 hours,EL-BURAQ AIR TRANSPORT INC.,LIBYA,False
+BRU,133,4,3,4,-5.15,146.25,3.0075,scheduled_duration_under_3h,Under 3 hours,BELAVIA,BELARUS,False
+BRX,7441,4,70,115,-1.7667,67.2,1.5455,scheduled_duration_under_3h,Under 3 hours,BRAATHENS REGIONAL AIRWAYS AB,SWEDEN,True
+BSC,1,1,1,0,-12.0,80.8833,0.0,scheduled_duration_under_3h,Under 3 hours,AEROSTAN,KYRGYZSTAN,False
+BTI,10423,4,155,1187,2.75,98.1167,11.3883,scheduled_duration_under_3h,Under 3 hours,AIR BALTIC CORPORATION JSC,LATVIA,True
+CAI,654,4,61,179,6.4083,150.7667,27.37,scheduled_duration_under_3h,Under 3 hours,TURISTIK HAVA TASIMACILIK A.S.,TURKEY,True
+CAJ,4,3,4,1,6.975,135.7833,25.0,scheduled_duration_under_3h,Under 3 hours,AIR CARAIBES ATLANTIQUE,FRANCE,False
+CAO,50,3,1,6,-14.1583,138.0167,12.0,scheduled_duration_under_3h,Under 3 hours,"AIR CHINA CARGO CO., LTD",CHINA,False
+CAT,2,1,2,2,26.225,71.375,100.0,scheduled_duration_under_3h,Under 3 hours,COPENHAGEN AIRTAXI A/S,DENMARK,False
+CCM,6882,4,79,710,-0.8,58.1,10.3168,scheduled_duration_under_3h,Under 3 hours,AIR CORSICA,FRANCE,True
+CEB,1,1,1,0,14.0,163.1667,0.0,scheduled_duration_under_3h,Under 3 hours,CEBU PACIFIC AIR,PHILIPPINES,False
+CES,1,1,1,0,3.6167,127.0,0.0,scheduled_duration_under_3h,Under 3 hours,CHINA EASTERN AIRLINES,CHINA,False
+CFE,10364,4,136,1734,3.1167,75.6917,16.731,scheduled_duration_under_3h,Under 3 hours,BA CITYFLYER LTD,UNITED KINGDOM,True
+CFG,5159,4,291,1294,6.6667,137.4333,25.0824,scheduled_duration_under_3h,Under 3 hours,"CONDOR FLUGDIENST GMBH, FRANKFURT (MAIN)",GERMANY,True
+CHG,31,4,14,5,-1.9167,116.5667,16.129,scheduled_duration_under_3h,Under 3 hours,CHALLENGE AIRLINES (BE) S.A.,BELGIUM,False
+CJT,33,3,4,2,-1.6,94.4167,6.0606,scheduled_duration_under_3h,Under 3 hours,CARGOJET AIRWAYS LTD,CANADA,False
+CKK,12,4,1,4,8.9167,116.2667,33.3333,scheduled_duration_under_3h,Under 3 hours,CHINA CARGO AIRLINES LTD,CHINA,False
+CKS,1,1,1,0,2.1667,69.7333,0.0,scheduled_duration_under_3h,Under 3 hours,"KALITTA AIR, LLC (YPSILANTI, MI)",UNITED STATES,False
+CLG,1591,4,24,75,-2.7833,67.8167,4.714,scheduled_duration_under_3h,Under 3 hours,CHALAIR AVIATION,FRANCE,True
+CLX,328,4,20,73,5.5,87.2667,22.2561,scheduled_duration_under_3h,Under 3 hours,CARGOLUX AIRLINES INTERNATIONAL S.A.,LUXEMBOURG,False
+CPA,82,3,7,30,9.9917,67.1333,36.5854,scheduled_duration_under_3h,Under 3 hours,CATHAY PACIFIC AIRWAYS LTD.,CHINA,False
+CPN,34,2,5,13,10.925,147.6333,38.2353,scheduled_duration_under_3h,Under 3 hours,CASPIAN AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+CRL,112,4,18,37,9.325,44.25,33.0357,scheduled_duration_under_3h,Under 3 hours,CORSAIR,FRANCE,False
+CSA,191,4,14,56,4.0,94.4833,29.3194,scheduled_duration_under_3h,Under 3 hours,CZECH AIRLINES J.S.C.,CZECHIA,False
+CSC,13,2,2,3,2.8667,158.3,23.0769,scheduled_duration_under_3h,Under 3 hours,SI CHUAN AIRLINES,CHINA,False
+CSN,11,2,1,0,5.4,76.85,0.0,scheduled_duration_under_3h,Under 3 hours,CHINA SOUTHERN AIRLINES,CHINA,False
+CTM,2,1,2,1,12.3583,71.7167,50.0,scheduled_duration_under_3h,Under 3 hours,COMMANDEMENT DU TRANSPORT AERIEN MILITAIRE FRANCAIS,FRANCE,False
+CTN,7822,4,108,944,0.6833,76.0667,12.0685,scheduled_duration_under_3h,Under 3 hours,CROATIA AIRLINES,CROATIA,True
+CWY,2,1,2,0,-5.2833,92.1,0.0,scheduled_duration_under_3h,Under 3 hours,WOODGATE AVIATION (NI) LTD.,UNITED KINGDOM,False
+CXI,300,4,38,66,5.3167,145.6583,22.0,scheduled_duration_under_3h,Under 3 hours,CORENDON AIRLINES EUROPE,MALTA,False
+CYP,811,4,30,80,2.0833,86.4,9.8644,scheduled_duration_under_3h,Under 3 hours,CYPRUS AIRWAYS,CYPRUS,True
+DAH,5468,4,152,1884,9.6333,122.25,34.455,scheduled_duration_under_3h,Under 3 hours,AIR ALGERIE,ALGERIA,True
+DAL,3,3,3,0,-17.1167,115.2667,0.0,scheduled_duration_under_3h,Under 3 hours,"DELTA AIR LINES, INC.",UNITED STATES,False
+DHA,75,1,20,3,-9.4,82.2,4.0,scheduled_duration_under_3h,Under 3 hours,DHL AIR AUSTRIA,AUSTRIA,False
+DHK,1973,4,45,152,0.1,93.4833,7.704,scheduled_duration_under_3h,Under 3 hours,DHL AIR LIMITED,UNITED KINGDOM,True
+DHL,1,1,1,0,-33.65,97.3667,0.0,scheduled_duration_under_3h,Under 3 hours,"ASTAR AIR CARGO (MIAMI, FL)",UNITED STATES,False
+DHX,89,4,7,12,-5.8167,96.2833,13.4831,scheduled_duration_under_3h,Under 3 hours,DHL AVIATION EEMEA B.S.C.(C),BAHRAIN,False
+DIR,123,2,14,9,-2.45,117.0667,7.3171,scheduled_duration_under_3h,Under 3 hours,AERRO DIREKT,ROMANIA,False
+DLA,7142,4,52,1183,1.2083,71.825,16.564,scheduled_duration_under_3h,Under 3 hours,AIR DOLOMITI,ITALY,True
+DLH,104802,4,524,10153,-0.5167,85.25,9.6878,scheduled_duration_under_3h,Under 3 hours,"DEUTSCHE LUFTHANSA, AG, KOELN",GERMANY,True
+DTA,1,1,1,0,-10.6,142.6833,0.0,scheduled_duration_under_3h,Under 3 hours,"TAAG, LINHAS AEREAS DE ANGOLA (ANGOLA AIRLINES)",ANGOLA,False
+DTH,135,3,10,64,14.8,121.4833,47.4074,scheduled_duration_under_3h,Under 3 hours,TASSILI AIRLINES,ALGERIA,False
+EAI,2450,2,50,153,-1.8,62.3083,6.2449,scheduled_duration_under_3h,Under 3 hours,EMERALD AIRLINES (IRELAND) LIMITED,IRELAND,False
+EAX,2,1,2,0,-9.425,95.225,0.0,scheduled_duration_under_3h,Under 3 hours,EUROPEAN AVIATION SCHOOL OF BARCELONA,SPAIN,False
+EDW,2463,4,91,186,-2.0,124.3667,7.5518,scheduled_duration_under_3h,Under 3 hours,EDELWEISS AIR AG,SWITZERLAND,True
+EIN,16020,4,127,2421,1.125,90.025,15.1124,scheduled_duration_under_3h,Under 3 hours,AER LINGUS TEORANTA,IRELAND,True
+ELY,1843,4,52,241,3.0333,129.25,13.0765,scheduled_duration_under_3h,Under 3 hours,EL AL - ISRAEL AIRLINES LTD.,ISRAEL,True
+ENT,264,4,16,46,5.225,120.5333,17.4242,scheduled_duration_under_3h,Under 3 hours,ENTER AIR SP. Z.O.O.,POLAND,False
+ETD,164,4,9,29,4.9833,165.2333,17.6829,scheduled_duration_under_3h,Under 3 hours,ETIHAD AIRWAYS,UNITED ARAB EMIRATES,False
+ETH,927,4,40,151,2.3167,76.5167,16.2891,scheduled_duration_under_3h,Under 3 hours,ETHIOPIAN AIRLINES CORPORATION,ETHIOPIA,True
+EVE,8,1,2,5,18.5917,157.8833,62.5,scheduled_duration_under_3h,Under 3 hours,"EVELOP AIRLINE, S.L.",SPAIN,False
+EWG,34877,4,729,6552,3.2167,110.9333,18.786,scheduled_duration_under_3h,Under 3 hours,EUROWINGS GMBH,GERMANY,True
+EXS,12330,4,495,2228,3.55,153.4333,18.0697,scheduled_duration_under_3h,Under 3 hours,JET2.COM LTD,UNITED KINGDOM,True
+EZE,2667,4,151,213,-0.5333,60.2667,7.9865,scheduled_duration_under_3h,Under 3 hours,EASTERN AIRWAYS (UK) LIMITED,UNITED KINGDOM,True
+EZS,16235,4,273,2121,-0.8167,94.7333,13.0644,scheduled_duration_under_3h,Under 3 hours,EASY JET SWITZERLAND SA,SWITZERLAND,True
+EZY,62423,4,751,9677,0.6833,98.9,15.5023,scheduled_duration_under_3h,Under 3 hours,EASYJET UK LTD,UNITED KINGDOM,True
+FBA,35,1,6,3,-2.25,165.8333,8.5714,scheduled_duration_under_3h,Under 3 hours,FLY BAGHDAD,IRAQ,False
+FDX,3643,4,89,585,2.5167,69.4833,16.0582,scheduled_duration_under_3h,Under 3 hours,FEDERAL EXPRESS CORPORATION,UNITED STATES,True
+FEI,2,2,2,0,-22.9833,115.5583,0.0,scheduled_duration_under_3h,Under 3 hours,EAGLE AIR ICELAND (FLUGFELAGID ERNIR),ICELAND,False
+FHY,131,3,16,26,0.5833,120.2333,19.8473,scheduled_duration_under_3h,Under 3 hours,FREE BIRD AIRLINES (HURKUS HAVAYOLU TASIMACILIK VE TICARET A.S.),TURKEY,False
+FIN,23824,4,133,2611,2.25,92.0667,10.9595,scheduled_duration_under_3h,Under 3 hours,FINNAIR OYJ,FINLAND,True
+FLI,977,4,47,163,3.7667,116.05,16.6837,scheduled_duration_under_3h,Under 3 hours,"ATLANTIC AIRWAYS, FAROE ISLANDS P/F",DENMARK,True
+FPY,560,4,24,73,1.9833,163.6833,13.0357,scheduled_duration_under_3h,Under 3 hours,FLY PLAY,ICELAND,True
+FTL,175,4,9,7,-5.35,87.9333,4.0,scheduled_duration_under_3h,Under 3 hours,FLIGHTLINE,SPAIN,False
+FTR,368,4,4,30,-1.875,20.3583,8.1522,scheduled_duration_under_3h,Under 3 hours,FINIST'AIR,FRANCE,False
+GBG,15,2,12,2,-0.1833,61.6,13.3333,scheduled_duration_under_3h,Under 3 hours,GULLIVAIR,BULGARIA,False
+GCL,89,1,18,2,-6.2667,77.7,2.2472,scheduled_duration_under_3h,Under 3 hours,CARGOLOGIC GERMANY GMBH,GERMANY,False
+GEC,273,4,25,43,0.25,120.4,15.7509,scheduled_duration_under_3h,Under 3 hours,"LUFTHANSA CARGO AG, FRANKFURT (MAIN)",GERMANY,False
+GES,2,1,2,1,35.95,161.9833,50.0,scheduled_duration_under_3h,Under 3 hours,"GESTAIR, S.A.",SPAIN,False
+GFA,499,4,22,106,2.15,91.5167,21.2425,scheduled_duration_under_3h,Under 3 hours,GULF AIR,BAHRAIN,False
+GJT,3,1,3,0,-5.9333,62.9333,0.0,scheduled_duration_under_3h,Under 3 hours,"GETJET AIRLINES, UAB",LITHUANIA,False
+GMA,3,2,2,0,-0.5333,26.4333,0.0,scheduled_duration_under_3h,Under 3 hours,GAMA AVIATION LTD,UNITED KINGDOM,False
+GMS,11,3,1,6,22.7,177.65,54.5455,scheduled_duration_under_3h,Under 3 hours,GHADAMES AIR,LIBYA,False
+GRL,3,3,3,0,4.8,164.9,0.0,scheduled_duration_under_3h,Under 3 hours,AIR GREENLAND A/S,DENMARK,False
+GTI,34,4,13,7,8.425,107.125,20.5882,scheduled_duration_under_3h,Under 3 hours,"ATLAS AIR, INC. (JAMAICA, NY)",UNITED STATES,False
+GWI,6121,4,43,765,0.6167,64.6,12.498,scheduled_duration_under_3h,Under 3 hours,"GERMANWINGS GMBH, KOELN",GERMANY,True
+HAF,5,2,4,0,-5.1333,45.0,0.0,scheduled_duration_under_3h,Under 3 hours,HELLENIC AIR FORCE,GREECE,False
+HHN,4,2,2,1,5.25,144.9583,25.0,scheduled_duration_under_3h,Under 3 hours,"HAHN AIR-LINES GMBH, DREIEICH",GERMANY,False
+HVN,1,1,1,0,-0.2167,102.9833,0.0,scheduled_duration_under_3h,Under 3 hours,HANG KHONG VIET NAM,VIET NAM,False
+IAE,1,1,1,1,21.8,179.2,100.0,scheduled_duration_under_3h,Under 3 hours,"IRAERO, AIRCOMPANY",RUSSIAN FEDERATION,False
+IAW,1059,4,27,330,5.8167,150.6833,31.1615,scheduled_duration_under_3h,Under 3 hours,IRAQI AIRWAYS,IRAQ,True
+IBB,14900,4,134,451,-5.4833,42.8833,3.0268,scheduled_duration_under_3h,Under 3 hours,BINTER CANARIAS,SPAIN,True
+IBE,21548,4,166,2975,3.1833,106.6167,13.8064,scheduled_duration_under_3h,Under 3 hours,"IBERIA - LINEAS AEREAS DE ESPANA, SOCIEDAD ANONIMA OPERADORA",SPAIN,True
+ICE,2490,4,41,951,10.9667,162.925,38.1928,scheduled_duration_under_3h,Under 3 hours,ICELANDAIR,ICELAND,True
+ICL,43,4,8,2,-4.0667,109.2833,4.6512,scheduled_duration_under_3h,Under 3 hours,CHALLENGE AIRLINES (IL),ISRAEL,False
+IFA,1,1,1,0,-17.5167,136.5167,0.0,scheduled_duration_under_3h,Under 3 hours,FAI RENT-A-JET GMBH,GERMANY,False
+IGA,1,1,1,0,5.5,91.2833,0.0,scheduled_duration_under_3h,Under 3 hours,SKYTAXI LTD,POLAND,False
+IRA,305,4,16,98,7.25,163.2,32.1311,scheduled_duration_under_3h,Under 3 hours,IRAN NATIONAL AIRLINES CORP. (IRAN AIR),IRAN (ISLAMIC REPUBLIC OF),False
+IRB,391,4,16,152,11.2333,157.0667,38.8747,scheduled_duration_under_3h,Under 3 hours,IRAN AIR TOURS CO.,IRAN (ISLAMIC REPUBLIC OF),False
+IRC,217,4,7,74,7.3333,162.8667,34.1014,scheduled_duration_under_3h,Under 3 hours,IRAN ASEMAN AIRLINE,IRAN (ISLAMIC REPUBLIC OF),False
+IRL,1,1,1,0,4.3,48.55,0.0,scheduled_duration_under_3h,Under 3 hours,IRISH AIR CORPS,IRELAND,False
+IRM,466,4,6,53,-2.9833,168.075,11.3734,scheduled_duration_under_3h,Under 3 hours,MAHAN AIR,IRAN (ISLAMIC REPUBLIC OF),False
+ISR,1853,4,39,277,0.8167,65.9333,14.9487,scheduled_duration_under_3h,Under 3 hours,ISRAIR LTD,ISRAEL,True
+IZG,66,4,2,10,3.5917,88.5417,15.1515,scheduled_duration_under_3h,Under 3 hours,ZAGROS AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+JAV,81,3,4,14,1.2667,94.9,17.284,scheduled_duration_under_3h,Under 3 hours,JORDANIAN ENTERPRISE FOR AIR NAVIGATION AND AVIATION SERVICES (JATE) - JORDAN AVIATION,JORDAN,False
+JET,1,1,1,0,-53.4833,151.2167,0.0,scheduled_duration_under_3h,Under 3 hours,SVENSKT INDUSTRIFLYG AB,SWEDEN,False
+JNL,1,1,1,0,10.5667,152.8833,0.0,scheduled_duration_under_3h,Under 3 hours,JETNETHERLANDS,NETHERLANDS,False
+JON,1061,4,17,6,-12.9,53.5833,0.5655,scheduled_duration_under_3h,Under 3 hours,JOON,FRANCE,True
+JZR,425,4,11,128,8.5833,139.6833,30.1176,scheduled_duration_under_3h,Under 3 hours,JAZEERA AIRWAYS,KUWAIT,False
+KAC,397,4,14,71,2.1667,145.55,17.8841,scheduled_duration_under_3h,Under 3 hours,KUWAIT AIRWAYS CORPORATION,KUWAIT,False
+KAL,283,4,16,32,2.8167,85.4333,11.3074,scheduled_duration_under_3h,Under 3 hours,"KOREAN AIR LINES CO., LTD.",REPUBLIC OF KOREA,False
+KHH,1,1,1,1,18.1333,75.0667,100.0,scheduled_duration_under_3h,Under 3 hours,ALEXANDRIA AIRLINES,EGYPT,False
+KLC,269,4,7,35,3.7833,65.8667,13.0112,scheduled_duration_under_3h,Under 3 hours,KLM CITYHOPPER BV,NETHERLANDS,False
+KLM,55766,4,216,10717,6.1167,79.9,19.2178,scheduled_duration_under_3h,Under 3 hours,KLM ROYAL DUTCH AIRLINES,NETHERLANDS,True
+KNE,271,4,20,100,6.9333,152.65,36.9004,scheduled_duration_under_3h,Under 3 hours,FLYNAS COMPANY CLOSED JOINT STOCK COMPANY,SAUDI ARABIA,False
+KON,59,1,33,13,6.95,105.75,22.0339,scheduled_duration_under_3h,Under 3 hours,AIR CONNECT AVIATION GROUP,ROMANIA,False
+KRP,3,1,3,0,-16.9167,129.85,0.0,scheduled_duration_under_3h,Under 3 hours,CARPATAIR S.A.,ROMANIA,False
+KTB,613,4,9,20,-4.4833,31.45,3.2626,scheduled_duration_under_3h,Under 3 hours,TRANSAVIABALTIKA,LITHUANIA,True
+KZR,351,4,17,73,4.0833,99.2333,20.7977,scheduled_duration_under_3h,Under 3 hours,AIR ASTANA,KAZAKHSTAN,False
+LAA,82,4,3,30,7.4,168.2167,36.5854,scheduled_duration_under_3h,Under 3 hours,LIBYAN AIRLINES,LIBYA,False
+LAE,8,1,1,1,0.6667,129.225,12.5,scheduled_duration_under_3h,Under 3 hours,LINEA AEREA CARGUERA DE COLOMBIA S.A.,COLOMBIA,False
+LAV,286,4,42,18,-1.0583,69.5833,6.2937,scheduled_duration_under_3h,Under 3 hours,"ALBA STAR, S.A.",SPAIN,False
+LBT,2359,4,83,596,7.4667,143.0833,25.2649,scheduled_duration_under_3h,Under 3 hours,NOUVEL AIR TUNISIE,TUNISIA,True
+LCO,106,4,4,18,-1.5167,68.775,16.9811,scheduled_duration_under_3h,Under 3 hours,LAN CARGO S.A.,CHILE,False
+LDG,1,1,1,1,17.2667,62.25,100.0,scheduled_duration_under_3h,Under 3 hours,LEADING EDGE AVIATION LTD.,UNITED KINGDOM,False
+LFA,1,1,1,0,-19.5167,66.7,0.0,scheduled_duration_under_3h,Under 3 hours,AEROSIM ACADEMY INC.,UNITED STATES,False
+LGL,8745,4,186,797,-3.1833,100.5167,9.1138,scheduled_duration_under_3h,Under 3 hours,LUXAIR - SOCIETE LUXEMBOURGEOISE DE NAVIGATION AERIENNE S.A.,LUXEMBOURG,True
+LOG,19071,4,306,1796,-1.25,60.8,9.4174,scheduled_duration_under_3h,Under 3 hours,LOGAN AIR LIMITED,UNITED KINGDOM,True
+LOT,25473,4,169,2292,-1.9333,87.45,8.9978,scheduled_duration_under_3h,Under 3 hours,LOT - POLSKIE LINIE LOTNICZE,POLAND,True
+LTR,386,4,4,6,-11.2417,29.3667,1.5544,scheduled_duration_under_3h,Under 3 hours,LUFTTRANSPORT A/S,NORWAY,False
+LWA,166,4,4,72,12.7417,174.8417,43.3735,scheduled_duration_under_3h,Under 3 hours,LIBYAN WINGS,LIBYA,False
+LXG,1,1,1,0,-16.8,160.5833,0.0,scheduled_duration_under_3h,Under 3 hours,"LUXAVIATION GERMANY GMBH, BUEREN",GERMANY,False
+LYC,2,1,2,0,0.8667,44.8917,0.0,scheduled_duration_under_3h,Under 3 hours,"LYNDEN AIR CARGO, LLC",UNITED STATES,False
+LYX,44,2,7,5,-2.4917,81.7833,11.3636,scheduled_duration_under_3h,Under 3 hours,SMARTLYNX AIRLINES MALTA,MALTA,False
+LZB,1924,4,77,250,2.0083,112.0083,12.9938,scheduled_duration_under_3h,Under 3 hours,BULGARIA AIR,BULGARIA,True
+MAA,1,1,1,0,8.8167,142.7,0.0,scheduled_duration_under_3h,Under 3 hours,"AEROTRANSPORTES MAS DE CARGA, S.A. DE C.V.",MEXICO,False
+MAI,259,4,11,103,11.9,149.0833,39.7683,scheduled_duration_under_3h,Under 3 hours,MAURITANIAN AIRLINES INTERNATIONAL,MAURITANIA,False
+MEA,1641,4,23,197,0.55,96.9167,12.0049,scheduled_duration_under_3h,Under 3 hours,MIDDLE EAST AIRLINES - AIRLIBAN,LEBANON,True
+MLD,1235,4,37,91,-4.6667,129.8833,7.3684,scheduled_duration_under_3h,Under 3 hours,AIR MOLDOVA,REPUBLIC OF MOLDOVA,True
+MMD,1439,4,60,96,-3.6833,52.1833,6.6713,scheduled_duration_under_3h,Under 3 hours,AIR ALSIE A/S,DENMARK,True
+MNB,869,4,25,134,-2.5167,154.7833,15.42,scheduled_duration_under_3h,Under 3 hours,MNG HAVAYOLLARI VE TASIMACILIK A.S.,TURKEY,True
+MNE,1332,4,58,79,-6.95,50.5667,5.9309,scheduled_duration_under_3h,Under 3 hours,TOMONTENEGRO,MONTENEGRO,True
+MSA,1555,4,58,36,-5.0833,74.2333,2.3151,scheduled_duration_under_3h,Under 3 hours,POSTE AIR CARGO S.R.L.,ITALY,True
+MSC,238,4,35,39,-0.1333,160.1083,16.3866,scheduled_duration_under_3h,Under 3 hours,AIR CAIRO,EGYPT,False
+MSR,2534,4,31,623,4.4333,113.3,24.5856,scheduled_duration_under_3h,Under 3 hours,EGYPT AIR,EGYPT,True
+NCA,62,4,1,13,-0.275,106.4917,20.9677,scheduled_duration_under_3h,Under 3 hours,"NIPPON CARGO AIRLINES CO., LTD.",JAPAN,False
+NDA,587,4,6,22,-5.6833,38.15,3.7479,scheduled_duration_under_3h,Under 3 hours,NORDICA,ESTONIA,True
+NHZ,1,1,1,1,21.9667,127.1667,100.0,scheduled_duration_under_3h,Under 3 hours,NHV HELICOPTERS LTD,UNITED KINGDOM,False
+NIA,214,4,5,16,-2.2583,123.8417,7.4766,scheduled_duration_under_3h,Under 3 hours,NILE AIR,EGYPT,False
+NJE,4,4,3,0,-6.4417,63.0833,0.0,scheduled_duration_under_3h,Under 3 hours,"NETJETS, TRANSPORTES AEREOS S.A.",PORTUGAL,False
+NOS,1536,4,269,158,-0.9,94.6083,10.2865,scheduled_duration_under_3h,Under 3 hours,NEOS S.P.A.,ITALY,True
+NTX,11,1,1,0,-4.9,74.9,0.0,scheduled_duration_under_3h,Under 3 hours,AK-AIR GEORGIA,GEORGIA,False
+NVR,1,1,1,0,10.0833,154.75,0.0,scheduled_duration_under_3h,Under 3 hours,NOVA AIRLINES AB,SWEDEN,False
+OAL,7512,4,87,316,-7.8917,57.75,4.2066,scheduled_duration_under_3h,Under 3 hours,OLYMPIC AIR,GREECE,True
+OCN,990,4,59,136,4.6917,149.5333,13.7374,scheduled_duration_under_3h,Under 3 hours,EW DISCOVER GMBH,GERMANY,True
+OMA,1,1,1,1,29.7,66.2833,100.0,scheduled_duration_under_3h,Under 3 hours,OMAN AIR,OMAN,False
+OMS,9,2,2,3,1.9333,174.85,33.3333,scheduled_duration_under_3h,Under 3 hours,SALAM AIR,OMAN,False
+PAC,14,4,2,2,-2.3667,93.2417,14.2857,scheduled_duration_under_3h,Under 3 hours,"POLAR AIR CARGO WORLDWIDE, INC. (WASHINGTON, DC)",UNITED STATES,False
+PGT,34335,4,351,6407,2.6667,85.3667,18.6603,scheduled_duration_under_3h,Under 3 hours,PEGASUS HAVA TASIMACILIGI A.S. (PEGASUS),TURKEY,True
+PIA,2,1,1,1,8.7167,175.85,50.0,scheduled_duration_under_3h,Under 3 hours,PAKISTAN INTERNATIONAL AIRLINES CORPORATION (PIA),PAKISTAN,False
+PLM,2,2,2,0,1.7583,127.2417,0.0,scheduled_duration_under_3h,Under 3 hours,WAMOS AIR S.A.,SPAIN,False
+PNX,496,4,35,31,-1.6,37.2667,6.25,scheduled_duration_under_3h,Under 3 hours,AIS AIRLINES,NETHERLANDS,False
+POF,1,1,1,0,-10.6167,131.25,0.0,scheduled_duration_under_3h,Under 3 hours,POLICE AUX FRONTIERS,FRANCE,False
+POL,1,1,1,0,-19.5,120.5167,0.0,scheduled_duration_under_3h,Under 3 hours,RIKSPOLISSTYRELSEN,SWEDEN,False
+PRS,24,1,4,6,2.45,138.825,25.0,scheduled_duration_under_3h,Under 3 hours,PARS AIR,IRAN (ISLAMIC REPUBLIC OF),False
+PVG,1,1,1,0,4.4167,69.8167,0.0,scheduled_duration_under_3h,Under 3 hours,"PRIVILEGE STYLE, S.A.",SPAIN,False
+PWF,2,1,2,0,-16.9083,59.675,0.0,scheduled_duration_under_3h,Under 3 hours,"PRIVATE WINGS FLUGCHARTER GMBH, BERLIN",GERMANY,False
+QTR,1257,4,93,251,2.35,153.2167,19.9682,scheduled_duration_under_3h,Under 3 hours,QATAR AIRWAYS GROUP Q.C.S.C.,QATAR,True
+RAC,92,1,2,0,-5.7417,68.4917,0.0,scheduled_duration_under_3h,Under 3 hours,ICAR AIR,BOSNIA AND HERZEGOVINA,False
+RAM,12784,4,220,2908,5.45,121.2083,22.7472,scheduled_duration_under_3h,Under 3 hours,ROYAL AIR MAROC - COMPAGNIE NATIONALE DE TRANSPORTS AERIENS,MOROCCO,True
+RED,1,1,1,0,-8.5333,139.6,0.0,scheduled_duration_under_3h,Under 3 hours,COMITE INTERNATIONAL DE LA CROIX-ROUGE RED CROSS (INTERNATIONAL COMMITTEE),SWITZERLAND,False
+REU,1,1,1,0,-7.6667,72.0,0.0,scheduled_duration_under_3h,Under 3 hours,AIR AUSTRAL,FRANCE,False
+RIV,126,4,4,4,-10.3583,92.225,3.1746,scheduled_duration_under_3h,Under 3 hours,APG AIRLINES,FRANCE,False
+RJA,1213,4,17,191,2.35,119.9833,15.7461,scheduled_duration_under_3h,Under 3 hours,ROYAL JORDANIAN,JORDAN,True
+RLU,38,3,4,1,-6.3,150.4,2.6316,scheduled_duration_under_3h,Under 3 hours,RUSLINE,RUSSIAN FEDERATION,False
+ROT,7428,4,78,536,-4.5083,80.975,7.2159,scheduled_duration_under_3h,Under 3 hours,COMPANIA NATIONALA DE TRANSPORTURI AERIENE ROMANE TAROM S.A.,ROMANIA,True
+RTV,1,1,1,0,-42.05,53.0333,0.0,scheduled_duration_under_3h,Under 3 hours,NORTAVIA,PORTUGAL,False
+RVR,3,1,3,0,-7.1833,80.1833,0.0,scheduled_duration_under_3h,Under 3 hours,RAVEN AIR LTD.,UNITED KINGDOM,False
+RWD,81,3,2,15,8.9333,50.2667,18.5185,scheduled_duration_under_3h,Under 3 hours,RWANDAIR LTD.,RWANDA,False
+RYR,267750,4,4785,38191,1.5333,109.7167,14.2637,scheduled_duration_under_3h,Under 3 hours,RYANAIR,IRELAND,True
+RZO,2048,4,40,409,3.1583,135.1417,19.9707,scheduled_duration_under_3h,Under 3 hours,SATA INTERNACIONAL - AZORES AIRLINES S.A,PORTUGAL,True
+SAS,53948,4,489,3805,-0.1833,67.15,7.0531,scheduled_duration_under_3h,Under 3 hours,SCANDINAVIAN AIRLINES SYSTEM,SWEDEN,True
+SAT,5802,4,43,488,-0.4,33.0083,8.4109,scheduled_duration_under_3h,Under 3 hours,SERVICO ACOREANO DE TRANSPORTES AEREOS - EP (SATA),PORTUGAL,True
+SAW,129,4,9,60,13.5167,147.35,46.5116,scheduled_duration_under_3h,Under 3 hours,CHAM WING AIRLINES,SYRIAN ARAB REPUBLIC,False
+SBI,702,4,7,178,5.325,144.0667,25.3561,scheduled_duration_under_3h,Under 3 hours,SIBERIA AIRLINES,RUSSIAN FEDERATION,True
+SDM,3339,4,33,721,4.6667,98.9333,21.5933,scheduled_duration_under_3h,Under 3 hours,"ROSSIYA AIRLINES, JOINT STOCK COMPANY",RUSSIAN FEDERATION,True
+SDR,983,4,240,232,5.1833,141.55,23.6012,scheduled_duration_under_3h,Under 3 hours,SUNDAIR GMBH,GERMANY,True
+SEH,15875,4,177,686,-6.4833,58.8,4.3213,scheduled_duration_under_3h,Under 3 hours,SKY EXPRESS S.A.,GREECE,True
+SEY,1,1,1,0,11.1667,178.0333,0.0,scheduled_duration_under_3h,Under 3 hours,AIR SEYCHELLES,SEYCHELLES,False
+SHI,4,1,2,1,7.9917,122.4083,25.0,scheduled_duration_under_3h,Under 3 hours,SEPEHRAN AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+SHS,9,1,7,1,-2.85,168.85,11.1111,scheduled_duration_under_3h,Under 3 hours,SHIRAK AVIA LLC,ARMENIA,False
+SHT,8043,4,25,2345,8.3667,67.6833,29.1558,scheduled_duration_under_3h,Under 3 hours,BRITISH AIRWAYS SHUTTLE,UNITED KINGDOM,True
+SHW,7,2,5,0,-11.0833,61.7833,0.0,scheduled_duration_under_3h,Under 3 hours,KN HELICOPTERS A/S,DENMARK,False
+SIA,262,4,11,30,0.8333,96.1083,11.4504,scheduled_duration_under_3h,Under 3 hours,SINGAPORE AIRLINES LIMITED,SINGAPORE,False
+SLD,258,4,10,0,-14.7833,59.9167,0.0,scheduled_duration_under_3h,Under 3 hours,SILVER AIR LTD,CZECHIA,False
+SLJ,24,2,21,3,-2.4167,68.8333,12.5,scheduled_duration_under_3h,Under 3 hours,SLAM LAVORI AEREI S.R.L.,ITALY,False
+SLM,2,2,2,1,27.2083,89.05,50.0,scheduled_duration_under_3h,Under 3 hours,SURINAAMSE LUCHTVAART MAATSCHAPPIJ N.V.,SURINAME,False
+SON,1,1,1,1,146.2,82.05,100.0,scheduled_duration_under_3h,Under 3 hours,ACASS IRELAND LTD.,IRELAND,False
+SOP,82,2,9,13,2.7583,90.1,15.8537,scheduled_duration_under_3h,Under 3 hours,SOLINAIR LTD,SLOVENIA,False
+SRN,2,1,2,0,-4.9,59.5083,0.0,scheduled_duration_under_3h,Under 3 hours,SPRINTAIR SA,POLAND,False
+SRR,2756,4,65,462,2.7667,70.35,16.7634,scheduled_duration_under_3h,Under 3 hours,MAERSK AIR CARGO A/S,DENMARK,True
+SSF,102,4,4,11,1.4833,123.2667,10.7843,scheduled_duration_under_3h,Under 3 hours,"SEVERSTAL, LTD AIRCOMPANY",RUSSIAN FEDERATION,False
+SUS,185,4,41,8,-9.3667,107.5167,4.3243,scheduled_duration_under_3h,Under 3 hours,SUN-AIR OF SCANDINAVIA A/S,DENMARK,False
+SVA,319,4,14,154,14.4,160.05,48.2759,scheduled_duration_under_3h,Under 3 hours,SAUDI ARABIAN AIRLINES,SAUDI ARABIA,False
+SVR,1241,4,12,609,14.5,137.8833,49.0733,scheduled_duration_under_3h,Under 3 hours,URAL AIRLINES,RUSSIAN FEDERATION,True
+SVS,1,1,1,0,-10.7833,88.6833,0.0,scheduled_duration_under_3h,Under 3 hours,SAS LINK AB,SWEDEN,False
+SWN,1914,4,83,213,-2.9583,82.2833,11.1285,scheduled_duration_under_3h,Under 3 hours,WEST ATLANTIC SWEDEN AB,SWEDEN,True
+SWR,30820,4,224,4544,2.4167,89.4333,14.7437,scheduled_duration_under_3h,Under 3 hours,SWISS INTERNATIONAL AIR LINES LTD,SWITZERLAND,True
+SWT,3104,4,129,184,-6.7667,59.9417,5.9278,scheduled_duration_under_3h,Under 3 hours,SWIFTAIR S.A.,SPAIN,True
+SXS,9409,4,217,2187,4.9667,115.4333,23.2437,scheduled_duration_under_3h,Under 3 hours,GUNES EKSPRES HAVACILIK A.S. (SUNEXPRESS),TURKEY,True
+SYL,24,4,2,7,11.5,135.9167,29.1667,scheduled_duration_under_3h,Under 3 hours,"AIRCOMPANY YAKUTIA, JOINT-STOCK COMPANY",RUSSIAN FEDERATION,False
+SYR,1,1,1,1,80.3333,103.4833,100.0,scheduled_duration_under_3h,Under 3 hours,SYRIAN ARAB AIRLINES,SYRIAN ARAB REPUBLIC,False
+TAP,25396,4,142,7595,7.55,126.9167,29.9063,scheduled_duration_under_3h,Under 3 hours,"TRANSPORTES AEREOS PORTUGUESES, E.P.",PORTUGAL,True
+TAR,4893,4,106,1321,7.3833,118.6167,26.9978,scheduled_duration_under_3h,Under 3 hours,TUNIS AIR - SOCIETE TUNISIENNE DE L'AIR,TUNISIA,True
+TAX,1,1,1,0,9.75,56.25,0.0,scheduled_duration_under_3h,Under 3 hours,"THAI AIRASIA X CO., LTD",THAILAND,False
+TDR,205,3,13,16,-7.5667,57.6667,7.8049,scheduled_duration_under_3h,Under 3 hours,TRADE AIR,CROATIA,False
+TGW,55,2,2,10,8.3,150.3333,18.1818,scheduled_duration_under_3h,Under 3 hours,SCOOT PTE. LTD.,SINGAPORE,False
+TGZ,212,4,5,10,-5.7917,154.4083,4.717,scheduled_duration_under_3h,Under 3 hours,GEORGIAN AIRWAYS,GEORGIA,False
+THA,1,1,1,1,44.0667,45.9167,100.0,scheduled_duration_under_3h,Under 3 hours,THAI AIRWAYS INTERNATIONAL LTD.,THAILAND,False
+THY,92481,4,648,15315,2.6333,91.6167,16.5602,scheduled_duration_under_3h,Under 3 hours,TURK HAVA YOLLARI (TURKISH AIRLINES CO.),TURKEY,True
+TJT,1711,4,31,183,1.05,66.6833,10.6955,scheduled_duration_under_3h,Under 3 hours,TWIN JET,FRANCE,True
+TLR,1,1,1,0,-11.2167,110.8,0.0,scheduled_duration_under_3h,Under 3 hours,AIR LIBYA TIBESTI,LIBYA,False
+TMT,1,1,1,0,-2.0333,136.2667,0.0,scheduled_duration_under_3h,Under 3 hours,TITAN AIRWAYS MALTA,MALTA,False
+TOW,4,1,4,1,-0.5167,101.0,25.0,scheduled_duration_under_3h,Under 3 hours,AIRTANKER SERVICES LTD,UNITED KINGDOM,False
+TOY,1,1,1,1,38.6333,145.1,100.0,scheduled_duration_under_3h,Under 3 hours,TOYO AVIATION,ROMANIA,False
+TRA,11949,4,246,2241,4.2667,140.1167,18.7547,scheduled_duration_under_3h,Under 3 hours,TRANSAVIA HOLLAND B.V.,NETHERLANDS,True
+TSC,3,3,3,1,8.95,60.5667,33.3333,scheduled_duration_under_3h,Under 3 hours,AIR TRANSAT A.T. INC.,CANADA,False
+TUA,2,1,2,1,16.8833,161.1167,50.0,scheduled_duration_under_3h,Under 3 hours,TURKMENHOVAYOLLARY,TURKMENISTAN,False
+TVF,20185,4,456,4685,6.35,117.9167,23.2103,scheduled_duration_under_3h,Under 3 hours,TRANSAVIA FRANCE,FRANCE,True
+TWI,98,3,11,25,9.175,137.0,25.5102,scheduled_duration_under_3h,Under 3 hours,TAILWIND HAVAYOLLARI A.S.,TURKEY,False
+TYF,1,1,1,0,-17.3667,130.4667,0.0,scheduled_duration_under_3h,Under 3 hours,Unknown operator (TYF),,False
+UAE,437,4,30,110,6.6333,146.1,25.1716,scheduled_duration_under_3h,Under 3 hours,EMIRATES,UNITED ARAB EMIRATES,False
+UAG,1,1,1,0,-2.8833,57.45,0.0,scheduled_duration_under_3h,Under 3 hours,AS UNION AVIATION,LATVIA,False
+UAL,7,3,6,5,24.1,57.8167,71.4286,scheduled_duration_under_3h,Under 3 hours,"UNITED AIRLINES, INC. (CHICAGO, IL)",UNITED STATES,False
+UGC,1,1,1,0,2.8,43.6667,0.0,scheduled_duration_under_3h,Under 3 hours,"URGEMER CANARIAS, S.L.",SPAIN,False
+UPS,3582,4,54,512,-1.825,75.325,14.2937,scheduled_duration_under_3h,Under 3 hours,"UNITED PARCEL SERVICE COMPANY, (LOUISVILLE, KY)",UNITED STATES,True
+URG,2,2,2,0,-10.3583,43.275,0.0,scheduled_duration_under_3h,Under 3 hours,AIR URGA,UKRAINE,False
+UTA,553,4,25,234,11.6,133.0333,42.3146,scheduled_duration_under_3h,Under 3 hours,UTAIR AVIATION,RUSSIAN FEDERATION,True
+UZB,132,4,7,33,7.8583,147.125,25.0,scheduled_duration_under_3h,Under 3 hours,UZBEKISTAN AIRWAYS JSC,UZBEKISTAN,False
+VCV,1,1,1,0,-7.0333,85.3667,0.0,scheduled_duration_under_3h,Under 3 hours,CONVIASA,VENEZUELA,False
+VIR,46,3,10,8,1.4583,53.1583,17.3913,scheduled_duration_under_3h,Under 3 hours,VIRGIN ATLANTIC,UNITED KINGDOM,False
+VJT,5,4,5,1,-7.7833,147.0,20.0,scheduled_duration_under_3h,Under 3 hours,VISTAJET LTD,MALTA,False
+VLG,61208,4,724,8692,2.9333,93.1167,14.2008,scheduled_duration_under_3h,Under 3 hours,VUELING AIRLINES,SPAIN,True
+VSR,1,1,1,0,-38.1833,168.8333,0.0,scheduled_duration_under_3h,Under 3 hours,AVIOSTART AS LTD,BULGARIA,False
+VSV,378,4,8,126,9.7,76.2333,33.3333,scheduled_duration_under_3h,Under 3 hours,SCAT,KAZAKHSTAN,False
+WIF,39598,4,294,585,-11.7333,56.2167,1.4773,scheduled_duration_under_3h,Under 3 hours,WIDEROE'S FLYVESELSKAP A/S,NORWAY,True
+WZZ,61740,4,1847,11225,2.8917,116.6667,18.1811,scheduled_duration_under_3h,Under 3 hours,WIZZ AIR HUNGARY LTD,HUNGARY,True
+AAE,1,1,1,1,33.95,378.35,100.0,scheduled_duration_3h_or_more,3 hours or more,AIR ATLANTA EUROPE,MALTA,False
+AAL,11396,4,110,2654,4.0833,494.825,23.2889,scheduled_duration_3h_or_more,3 hours or more,AMERICAN AIRLINES INC.,UNITED STATES,True
+AAR,827,4,20,566,24.7833,681.1,68.4401,scheduled_duration_3h_or_more,3 hours or more,ASIANA AIRLINES,REPUBLIC OF KOREA,True
+AAW,168,4,5,58,9.5333,196.7417,34.5238,scheduled_duration_3h_or_more,3 hours or more,AFRICAN AIRLINES CORPORATION,LIBYA,False
+ABB,652,4,36,192,4.7333,524.325,29.4479,scheduled_duration_3h_or_more,3 hours or more,AIR BELGIUM SA,BELGIUM,True
+ABD,682,4,107,248,9.9667,480.7167,36.3636,scheduled_duration_3h_or_more,3 hours or more,AIR ATLANTA ICELANDIC,ICELAND,True
+ABG,54,1,25,35,21.2917,399.6833,64.8148,scheduled_duration_3h_or_more,3 hours or more,"ROYAL FLIGHT AIRLINES, CJSC",RUSSIAN FEDERATION,False
+ABS,1,1,1,0,-3.0,338.5333,0.0,scheduled_duration_3h_or_more,3 hours or more,AFRIJET BUSINESS SERVICES (ABS),GABON,False
+ABY,1560,4,24,487,7.325,271.575,31.2179,scheduled_duration_3h_or_more,3 hours or more,AIR ARABIA,UNITED ARAB EMIRATES,True
+ACA,7931,4,115,5321,27.5167,451.65,67.0912,scheduled_duration_3h_or_more,3 hours or more,AIR CANADA,CANADA,True
+ACP,192,4,31,78,10.9667,420.125,40.625,scheduled_duration_3h_or_more,3 hours or more,ASTRAL AVIATION LIMITED,KENYA,False
+ACY,185,3,7,48,5.15,211.9333,25.9459,scheduled_duration_3h_or_more,3 hours or more,ARMENIAN NATIONAL AIRLINES CJSC,ARMENIA,False
+ADY,282,3,13,54,-0.2,252.6083,19.1489,scheduled_duration_3h_or_more,3 hours or more,AIR ARABIA ABU DHABI,UNITED ARAB EMIRATES,False
+AEA,3172,4,58,967,8.2417,573.25,30.4855,scheduled_duration_3h_or_more,3 hours or more,AIR EUROPA,SPAIN,True
+AEE,3942,4,133,660,2.925,203.9833,16.7428,scheduled_duration_3h_or_more,3 hours or more,AEGEAN AIRLINES,GREECE,True
+AFG,129,4,17,45,5.2833,270.9167,34.8837,scheduled_duration_3h_or_more,3 hours or more,ARIANA AFGHAN AIRLINES,AFGHANISTAN,False
+AFL,3220,4,66,589,-2.6,295.975,18.2919,scheduled_duration_3h_or_more,3 hours or more,AEROFLOT - RUSSIAN AIRLINES,RUSSIAN FEDERATION,True
+AFR,20316,4,317,9997,14.7167,464.475,49.2075,scheduled_duration_3h_or_more,3 hours or more,AIR FRANCE,FRANCE,True
+AHO,2,1,2,0,-1.9167,271.3583,0.0,scheduled_duration_3h_or_more,3 hours or more,"AIR HAMBURG, HAMBURG",GERMANY,False
+AHY,1065,4,53,197,4.2,195.9833,18.4977,scheduled_duration_3h_or_more,3 hours or more,"AZERBAIJAN HAVA YOLLARI, NATIONAL AIRLINE",AZERBAIJAN,True
+AIC,3061,4,52,1295,11.8667,561.95,42.3064,scheduled_duration_3h_or_more,3 hours or more,AIR INDIA LIMITED,INDIA,True
+AIZ,369,4,42,119,8.3667,255.3333,32.2493,scheduled_duration_3h_or_more,3 hours or more,ARKIA ISRAEL INLAND AIRLINES,ISRAEL,False
+ALK,459,4,14,206,12.6,645.2167,44.8802,scheduled_duration_3h_or_more,3 hours or more,SRILANKAN AIRLINES,SRI LANKA,False
+AMC,568,4,21,155,6.7417,187.9167,27.2887,scheduled_duration_3h_or_more,3 hours or more,AIR MALTA PLC.,MALTA,True
+AME,4,1,3,2,11.675,248.2,50.0,scheduled_duration_3h_or_more,3 hours or more,AERONAVE MILITAR ESPANOLA. MINISTERIO DE DEFENSA,SPAIN,False
+AMW,141,4,11,45,6.8,213.6,31.9149,scheduled_duration_3h_or_more,3 hours or more,ARMENIA AIRWAYS AIR COMPANY,ARMENIA,False
+AMX,1441,4,12,765,16.6333,630.8,53.0881,scheduled_duration_3h_or_more,3 hours or more,"AEROVIAS DE MEXICO, S.A. DE C.V.",MEXICO,True
+ANA,730,4,15,271,9.4917,819.8083,37.1233,scheduled_duration_3h_or_more,3 hours or more,"ALL NIPPON AIRWAYS CO., LTD.",JAPAN,True
+ANE,25,4,9,1,-3.9333,190.2167,4.0,scheduled_duration_3h_or_more,3 hours or more,"AIR NOSTRUM LINEAS AEREAS DEL MEDITERRANEO, S.A.",SPAIN,False
+APF,1,1,1,0,-29.25,268.4333,0.0,scheduled_duration_3h_or_more,3 hours or more,AMAPOLA FLYG AB,SWEDEN,False
+ARG,316,4,11,23,0.55,748.7833,7.2785,scheduled_duration_3h_or_more,3 hours or more,AEROLINEAS ARGENTINAS,ARGENTINA,False
+ASL,372,4,31,114,7.8,209.3917,30.6452,scheduled_duration_3h_or_more,3 hours or more,AIR SERBIA,SERBIA,False
+ATN,24,4,6,3,-0.3333,460.4833,12.5,scheduled_duration_3h_or_more,3 hours or more,"AIR TRANSPORT INTERNATIONAL (LITTLE ROCK, AR)",UNITED STATES,False
+AUA,3490,4,84,1190,10.1583,257.3167,34.0974,scheduled_duration_3h_or_more,3 hours or more,AUSTRIAN AIRLINES (AUA) AG,AUSTRIA,True
+AUI,1,1,1,1,19.4,314.6,100.0,scheduled_duration_3h_or_more,3 hours or more,UKRAINE INTERNATIONAL AIRLINES,UKRAINE,False
+AUR,5,3,4,0,-5.1833,188.2667,0.0,scheduled_duration_3h_or_more,3 hours or more,AURIGNY AIR SERVICES LTD.,UNITED KINGDOM,False
+AVA,1336,4,10,405,7.325,577.3667,30.3144,scheduled_duration_3h_or_more,3 hours or more,AEROVIAS DEL CONTINENTE AMERICANO S.A.,COLOMBIA,True
+AWC,3,1,3,1,8.9833,248.2333,33.3333,scheduled_duration_3h_or_more,3 hours or more,TITAN AIRWAYS LTD,UNITED KINGDOM,False
+AYY,2,1,2,0,-45.3833,325.7,0.0,scheduled_duration_3h_or_more,3 hours or more,Unknown operator (AYY),,False
+AZG,1609,4,79,602,9.4,424.2167,37.4145,scheduled_duration_3h_or_more,3 hours or more,SILK WAY WEST AIRLINES,AZERBAIJAN,True
+AZQ,14,4,6,2,-19.0,409.5667,14.2857,scheduled_duration_3h_or_more,3 hours or more,SILK WAY AIRLINES,AZERBAIJAN,False
+AZS,1,1,1,0,-51.3333,448.3,0.0,scheduled_duration_3h_or_more,3 hours or more,AVIACON ZITOTRANS,RUSSIAN FEDERATION,False
+AZU,499,4,6,234,13.7167,573.4667,46.8938,scheduled_duration_3h_or_more,3 hours or more,AZUL LINHAS AEREAS BRASILEIRAS S/A,BRAZIL,False
+AZV,564,4,98,145,4.95,309.075,25.7092,scheduled_duration_3h_or_more,3 hours or more,AZUR AIR,RUSSIAN FEDERATION,True
+BAE,26,4,4,6,4.8,303.1083,23.0769,scheduled_duration_3h_or_more,3 hours or more,BAE SYSTEMS (CORPORATE AIR TRAVEL) LTD,UNITED KINGDOM,False
+BAR,1,1,1,0,-13.0833,265.0833,0.0,scheduled_duration_3h_or_more,3 hours or more,ABU DHABI AVIATION,UNITED ARAB EMIRATES,False
+BAV,129,4,10,33,4.3833,723.2167,25.5814,scheduled_duration_3h_or_more,3 hours or more,BAMBOO AIRWAYS,VIET NAM,False
+BAW,23996,4,329,10724,12.95,433.6417,44.6908,scheduled_duration_3h_or_more,3 hours or more,BRITISH AIRWAYS,UNITED KINGDOM,True
+BBC,296,4,13,141,13.2583,618.8833,47.6351,scheduled_duration_3h_or_more,3 hours or more,BANGLADESH BIMAN,BANGLADESH,False
+BBD,133,4,11,8,-1.9667,195.7167,6.015,scheduled_duration_3h_or_more,3 hours or more,BLUEBIRD NORDIC LTD,ICELAND,False
+BBG,103,1,8,15,1.5,220.2333,14.5631,scheduled_duration_3h_or_more,3 hours or more,BLUE BIRD AIRWAYS,GREECE,False
+BCS,2141,4,83,356,-0.6167,382.2333,16.6277,scheduled_duration_3h_or_more,3 hours or more,"EUROPEAN AIR TRANSPORT, LEIPZIG",GERMANY,True
+BCY,6,3,2,0,-2.975,189.75,0.0,scheduled_duration_3h_or_more,3 hours or more,CITYJET,IRELAND,False
+BDR,164,4,2,32,4.3083,244.45,19.5122,scheduled_duration_3h_or_more,3 hours or more,BADR AIRLINES,SUDAN,False
+BEL,2945,4,79,684,3.05,352.6,23.2258,scheduled_duration_3h_or_more,3 hours or more,BRUSSELS AIRLINES,BELGIUM,True
+BGH,30,2,15,4,-0.6417,206.45,13.3333,scheduled_duration_3h_or_more,3 hours or more,BH AIR,BULGARIA,False
+BLA,751,3,64,168,5.5167,199.5667,22.3702,scheduled_duration_3h_or_more,3 hours or more,BLUE AIR AVIATION S.A.,ROMANIA,True
+BNL,1,1,1,0,-6.2167,181.9167,0.0,scheduled_duration_3h_or_more,3 hours or more,BERNIQ AIRWAYS,LIBYA,False
+BOX,3120,4,56,527,0.2667,532.2583,16.891,scheduled_duration_3h_or_more,3 hours or more,"AEROLOGIC GMBH, LEIPZIG",GERMANY,True
+BRO,1,1,1,0,-30.9,286.8833,0.0,scheduled_duration_3h_or_more,3 hours or more,2 EXCEL AVIATION LTD,UNITED KINGDOM,False
+BRQ,95,4,2,30,7.8667,203.0167,31.5789,scheduled_duration_3h_or_more,3 hours or more,EL-BURAQ AIR TRANSPORT INC.,LIBYA,False
+BRU,1491,4,19,171,-1.15,259.1667,11.4688,scheduled_duration_3h_or_more,3 hours or more,BELAVIA,BELARUS,True
+BRX,16,4,7,4,10.6583,238.55,25.0,scheduled_duration_3h_or_more,3 hours or more,BRAATHENS REGIONAL AIRWAYS AB,SWEDEN,False
+BTI,1552,4,83,265,4.5833,235.7917,17.0747,scheduled_duration_3h_or_more,3 hours or more,AIR BALTIC CORPORATION JSC,LATVIA,True
+CAI,1851,4,113,597,7.7833,229.0833,32.2528,scheduled_duration_3h_or_more,3 hours or more,TURISTIK HAVA TASIMACILIK A.S.,TURKEY,True
+CAJ,3,2,3,1,-1.9833,313.85,33.3333,scheduled_duration_3h_or_more,3 hours or more,AIR CARAIBES ATLANTIQUE,FRANCE,False
+CAL,799,4,17,380,13.9667,779.9333,47.5594,scheduled_duration_3h_or_more,3 hours or more,CHINA AIRLINES,CHINA,True
+CAO,485,4,11,111,0.5167,644.1667,22.8866,scheduled_duration_3h_or_more,3 hours or more,"AIR CHINA CARGO CO., LTD",CHINA,False
+CBJ,42,3,6,24,20.0833,737.925,57.1429,scheduled_duration_3h_or_more,3 hours or more,"BEIJING CAPITAL AIRLINES CO., LTD",CHINA,False
+CCA,1717,4,54,444,5.1667,607.0833,25.8591,scheduled_duration_3h_or_more,3 hours or more,AIR CHINA,CHINA,True
+CEB,1,1,1,1,23.05,254.1333,100.0,scheduled_duration_3h_or_more,3 hours or more,CEBU PACIFIC AIR,PHILIPPINES,False
+CEL,18,1,2,5,6.6333,341.2583,27.7778,scheduled_duration_3h_or_more,3 hours or more,CEIBA INTERCONTINENTAL,EQUATORIAL GUINEA,False
+CES,869,4,24,318,8.9,689.8667,36.5938,scheduled_duration_3h_or_more,3 hours or more,CHINA EASTERN AIRLINES,CHINA,True
+CFE,123,3,21,76,19.2667,205.3833,61.7886,scheduled_duration_3h_or_more,3 hours or more,BA CITYFLYER LTD,UNITED KINGDOM,False
+CFG,7232,4,323,2538,9.175,278.175,35.094,scheduled_duration_3h_or_more,3 hours or more,"CONDOR FLUGDIENST GMBH, FRANKFURT (MAIN)",GERMANY,True
+CHG,304,4,28,85,5.3417,429.5083,27.9605,scheduled_duration_3h_or_more,3 hours or more,CHALLENGE AIRLINES (BE) S.A.,BELGIUM,False
+CHH,177,4,17,38,3.6667,605.2333,21.4689,scheduled_duration_3h_or_more,3 hours or more,"HAINAN AIRLINES HOLDING CO., LTD.",CHINA,False
+CJT,435,4,23,156,7.7,435.65,35.8621,scheduled_duration_3h_or_more,3 hours or more,CARGOJET AIRWAYS LTD,CANADA,False
+CKK,457,4,6,86,0.4,652.6833,18.8184,scheduled_duration_3h_or_more,3 hours or more,CHINA CARGO AIRLINES LTD,CHINA,False
+CKS,79,4,6,39,14.75,773.0,49.3671,scheduled_duration_3h_or_more,3 hours or more,"KALITTA AIR, LLC (YPSILANTI, MI)",UNITED STATES,False
+CLX,3493,4,106,1238,8.5667,480.1833,35.4423,scheduled_duration_3h_or_more,3 hours or more,CARGOLUX AIRLINES INTERNATIONAL S.A.,LUXEMBOURG,True
+CND,66,4,2,13,2.95,307.6917,19.697,scheduled_duration_3h_or_more,3 hours or more,CORENDON DUTCH AIRLINES B.V.,NETHERLANDS,False
+CPA,1033,4,28,585,17.8333,725.4333,56.6312,scheduled_duration_3h_or_more,3 hours or more,CATHAY PACIFIC AIRWAYS LTD.,CHINA,True
+CPN,10,2,1,1,5.5,189.5,10.0,scheduled_duration_3h_or_more,3 hours or more,CASPIAN AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+CRL,1463,4,37,676,13.2833,506.7,46.2064,scheduled_duration_3h_or_more,3 hours or more,CORSAIR,FRANCE,True
+CSA,115,2,4,17,3.35,247.8667,14.7826,scheduled_duration_3h_or_more,3 hours or more,CZECH AIRLINES J.S.C.,CZECHIA,False
+CSC,255,4,17,37,-3.05,576.7,14.5098,scheduled_duration_3h_or_more,3 hours or more,SI CHUAN AIRLINES,CHINA,False
+CSG,59,1,2,7,0.9667,708.9667,11.8644,scheduled_duration_3h_or_more,3 hours or more,CHINA SOUTHERN AIRLINES CARGO,CHINA,False
+CSH,35,2,2,13,14.3667,667.8,37.1429,scheduled_duration_3h_or_more,3 hours or more,SHANGHAI AIRLINES,CHINA,False
+CSN,1082,4,26,446,10.9083,678.3333,41.22,scheduled_duration_3h_or_more,3 hours or more,CHINA SOUTHERN AIRLINES,CHINA,True
+CTN,35,4,12,13,12.65,193.4833,37.1429,scheduled_duration_3h_or_more,3 hours or more,CROATIA AIRLINES,CROATIA,False
+CUB,30,4,3,16,18.225,538.9167,53.3333,scheduled_duration_3h_or_more,3 hours or more,CUBANA DE AVIACION S.A.,CUBA,False
+CWG,3,2,3,1,-12.1167,398.3333,33.3333,scheduled_duration_3h_or_more,3 hours or more,WING AVIATION,UNITED STATES,False
+CXA,37,4,3,25,29.9167,693.8167,67.5676,scheduled_duration_3h_or_more,3 hours or more,XIAMEN AIRLINES,CHINA,False
+CXI,1304,4,106,178,-0.3167,260.375,13.6503,scheduled_duration_3h_or_more,3 hours or more,CORENDON AIRLINES EUROPE,MALTA,True
+CYP,93,4,24,19,1.7,198.4,20.4301,scheduled_duration_3h_or_more,3 hours or more,CYPRUS AIRWAYS,CYPRUS,False
+DAH,1341,4,80,535,9.8167,236.6667,39.8956,scheduled_duration_3h_or_more,3 hours or more,AIR ALGERIE,ALGERIA,True
+DAL,14174,4,134,5289,9.4167,492.8083,37.3148,scheduled_duration_3h_or_more,3 hours or more,"DELTA AIR LINES, INC.",UNITED STATES,True
+DHK,912,4,31,244,5.8917,443.8333,26.7544,scheduled_duration_3h_or_more,3 hours or more,DHL AIR LIMITED,UNITED KINGDOM,True
+DHL,1,1,1,0,-10.4667,208.2,0.0,scheduled_duration_3h_or_more,3 hours or more,"ASTAR AIR CARGO (MIAMI, FL)",UNITED STATES,False
+DHX,208,4,14,39,1.8333,281.1917,18.75,scheduled_duration_3h_or_more,3 hours or more,DHL AVIATION EEMEA B.S.C.(C),BAHRAIN,False
+DJT,47,1,4,11,3.7,455.65,23.4043,scheduled_duration_3h_or_more,3 hours or more,DREAMJET,FRANCE,False
+DKH,38,4,5,9,5.95,539.25,23.6842,scheduled_duration_3h_or_more,3 hours or more,"JUNEYAO AIRLINES CO., LTD",CHINA,False
+DLA,18,3,11,7,8.75,194.9417,38.8889,scheduled_duration_3h_or_more,3 hours or more,AIR DOLOMITI,ITALY,False
+DLH,18914,4,398,6402,8.95,470.6167,33.8479,scheduled_duration_3h_or_more,3 hours or more,"DEUTSCHE LUFTHANSA, AG, KOELN",GERMANY,True
+DTA,403,4,7,162,11.8167,432.9833,40.1985,scheduled_duration_3h_or_more,3 hours or more,"TAAG, LINHAS AEREAS DE ANGOLA (ANGOLA AIRLINES)",ANGOLA,False
+EAI,1,1,1,1,22.75,192.9333,100.0,scheduled_duration_3h_or_more,3 hours or more,EMERALD AIRLINES (IRELAND) LIMITED,IRELAND,False
+EDW,2730,4,91,390,-0.1667,256.525,14.2857,scheduled_duration_3h_or_more,3 hours or more,EDELWEISS AIR AG,SWITZERLAND,True
+EIN,5141,4,92,1021,0.4167,385.1833,19.8599,scheduled_duration_3h_or_more,3 hours or more,AER LINGUS TEORANTA,IRELAND,True
+EJM,2,2,2,2,51.9917,490.0667,100.0,scheduled_duration_3h_or_more,3 hours or more,"EXECUTIVE JET MANAGEMENT, INC. (CINCINNATI, OH)",UNITED STATES,False
+ELY,6739,4,91,1603,6.2,270.2167,23.7869,scheduled_duration_3h_or_more,3 hours or more,EL AL - ISRAEL AIRLINES LTD.,ISRAEL,True
+ENT,4,2,4,0,-5.8167,236.075,0.0,scheduled_duration_3h_or_more,3 hours or more,ENTER AIR SP. Z.O.O.,POLAND,False
+ETD,6383,4,77,1738,7.3833,392.0167,27.2286,scheduled_duration_3h_or_more,3 hours or more,ETIHAD AIRWAYS,UNITED ARAB EMIRATES,True
+ETH,5104,4,140,2012,10.9,422.1583,39.4201,scheduled_duration_3h_or_more,3 hours or more,ETHIOPIAN AIRLINES CORPORATION,ETHIOPIA,True
+EUK,464,4,6,107,1.0667,462.3333,23.0603,scheduled_duration_3h_or_more,3 hours or more,AER LINGUS (UK) LIMITED,UNITED KINGDOM,False
+EVA,660,4,18,413,21.3,756.7833,62.5758,scheduled_duration_3h_or_more,3 hours or more,EVA AIRWAYS CORPORATION,CHINA,True
+EVE,451,4,22,167,10.9333,548.35,37.0288,scheduled_duration_3h_or_more,3 hours or more,"EVELOP AIRLINE, S.L.",SPAIN,False
+EWG,5942,4,378,1433,4.7417,222.8417,24.1165,scheduled_duration_3h_or_more,3 hours or more,EUROWINGS GMBH,GERMANY,True
+EXS,17928,4,571,5299,5.9667,247.6,29.5571,scheduled_duration_3h_or_more,3 hours or more,JET2.COM LTD,UNITED KINGDOM,True
+EZS,1446,4,76,219,1.125,235.9583,15.1452,scheduled_duration_3h_or_more,3 hours or more,EASY JET SWITZERLAND SA,SWITZERLAND,True
+EZY,16739,4,470,4977,6.0667,234.4667,29.733,scheduled_duration_3h_or_more,3 hours or more,EASYJET UK LTD,UNITED KINGDOM,True
+FAD,100,3,13,27,-4.775,230.0667,27.0,scheduled_duration_3h_or_more,3 hours or more,FLYADEAL,SAUDI ARABIA,False
+FAF,2,2,2,0,-0.5167,484.4833,0.0,scheduled_duration_3h_or_more,3 hours or more,FORCE AERIENNE FRANCAISE,FRANCE,False
+FBA,20,1,5,2,-15.6917,189.6833,10.0,scheduled_duration_3h_or_more,3 hours or more,FLY BAGHDAD,IRAQ,False
+FDX,3660,4,79,1533,11.6417,465.2833,41.8852,scheduled_duration_3h_or_more,3 hours or more,FEDERAL EXPRESS CORPORATION,UNITED STATES,True
+FEI,8,3,7,1,-16.475,298.1667,12.5,scheduled_duration_3h_or_more,3 hours or more,EAGLE AIR ICELAND (FLUGFELAGID ERNIR),ICELAND,False
+FHY,119,3,13,60,15.2,242.05,50.4202,scheduled_duration_3h_or_more,3 hours or more,FREE BIRD AIRLINES (HURKUS HAVAYOLU TASIMACILIK VE TICARET A.S.),TURKEY,False
+FIN,6330,4,133,1510,6.0583,269.5417,23.8547,scheduled_duration_3h_or_more,3 hours or more,FINNAIR OYJ,FINLAND,True
+FLI,194,4,34,38,5.7667,207.0417,19.5876,scheduled_duration_3h_or_more,3 hours or more,"ATLANTIC AIRWAYS, FAROE ISLANDS P/F",DENMARK,False
+FPY,862,4,38,180,5.0583,218.5833,20.8817,scheduled_duration_3h_or_more,3 hours or more,FLY PLAY,ICELAND,True
+FWI,1092,4,15,481,13.1167,487.5417,44.0476,scheduled_duration_3h_or_more,3 hours or more,AIR CARAIBES,FRANCE,True
+GBG,7,2,6,1,-6.5,533.9667,14.2857,scheduled_duration_3h_or_more,3 hours or more,GULLIVAIR,BULGARIA,False
+GEC,1772,4,39,384,3.4,663.8,21.6704,scheduled_duration_3h_or_more,3 hours or more,"LUFTHANSA CARGO AG, FRANKFURT (MAIN)",GERMANY,True
+GFA,2030,4,38,807,10.4667,363.0917,39.7537,scheduled_duration_3h_or_more,3 hours or more,GULF AIR,BAHRAIN,True
+GIA,39,4,4,29,24.2,825.1833,74.359,scheduled_duration_3h_or_more,3 hours or more,"GARUDA INDONESIA AIRWAYS, PT.",INDONESIA,False
+GJT,3,1,3,0,5.3833,249.6167,0.0,scheduled_duration_3h_or_more,3 hours or more,"GETJET AIRLINES, UAB",LITHUANIA,False
+GMS,146,3,2,70,14.1667,206.4833,47.9452,scheduled_duration_3h_or_more,3 hours or more,GHADAMES AIR,LIBYA,False
+GOW,11,2,3,6,28.0833,289.1667,54.5455,scheduled_duration_3h_or_more,3 hours or more,GO AIRLINES (INDIA) PRIVATE LIMITED,INDIA,False
+GRL,215,4,7,64,7.4333,264.5167,29.7674,scheduled_duration_3h_or_more,3 hours or more,AIR GREENLAND A/S,DENMARK,False
+GTI,770,4,104,261,6.2083,505.9417,33.8961,scheduled_duration_3h_or_more,3 hours or more,"ATLAS AIR, INC. (JAMAICA, NY)",UNITED STATES,True
+HAF,5,2,4,1,-8.9833,200.0667,20.0,scheduled_duration_3h_or_more,3 hours or more,HELLENIC AIR FORCE,GREECE,False
+HHN,1,1,1,0,-0.8833,180.6167,0.0,scheduled_duration_3h_or_more,3 hours or more,"HAHN AIR-LINES GMBH, DREIEICH",GERMANY,False
+HVN,589,4,24,302,15.5333,724.2167,51.2733,scheduled_duration_3h_or_more,3 hours or more,HANG KHONG VIET NAM,VIET NAM,True
+IAE,1,1,1,1,29.6,190.85,100.0,scheduled_duration_3h_or_more,3 hours or more,"IRAERO, AIRCOMPANY",RUSSIAN FEDERATION,False
+IAM,5,3,4,1,-32.0,365.0,20.0,scheduled_duration_3h_or_more,3 hours or more,AERONAUTICA MILITARE ITALIANA,ITALY,False
+IAW,324,4,28,150,13.0417,259.0917,46.2963,scheduled_duration_3h_or_more,3 hours or more,IRAQI AIRWAYS,IRAQ,False
+IBB,477,4,45,28,-6.0833,195.8333,5.87,scheduled_duration_3h_or_more,3 hours or more,BINTER CANARIAS,SPAIN,False
+IBE,7688,4,134,1365,3.4667,564.875,17.7549,scheduled_duration_3h_or_more,3 hours or more,"IBERIA - LINEAS AEREAS DE ESPANA, SOCIEDAD ANONIMA OPERADORA",SPAIN,True
+ICE,2664,4,54,828,8.9333,197.7417,31.0811,scheduled_duration_3h_or_more,3 hours or more,ICELANDAIR,ICELAND,True
+ICL,230,4,21,78,7.175,309.6083,33.913,scheduled_duration_3h_or_more,3 hours or more,CHALLENGE AIRLINES (IL),ISRAEL,False
+IFA,1,1,1,0,-34.2167,258.3167,0.0,scheduled_duration_3h_or_more,3 hours or more,FAI RENT-A-JET GMBH,GERMANY,False
+IGA,1,1,1,0,-2.0833,376.0833,0.0,scheduled_duration_3h_or_more,3 hours or more,SKYTAXI LTD,POLAND,False
+IGO,243,3,2,29,0.3333,370.95,11.9342,scheduled_duration_3h_or_more,3 hours or more,INTERGLOBE AVIATION PRIVATE LTD (T/A INDIGO),INDIA,False
+IRA,604,4,29,221,10.3833,291.3083,36.5894,scheduled_duration_3h_or_more,3 hours or more,IRAN NATIONAL AIRLINES CORP. (IRAN AIR),IRAN (ISLAMIC REPUBLIC OF),True
+IRB,426,4,13,91,4.825,193.9417,21.3615,scheduled_duration_3h_or_more,3 hours or more,IRAN AIR TOURS CO.,IRAN (ISLAMIC REPUBLIC OF),False
+IRC,31,4,3,5,5.7833,192.4,16.129,scheduled_duration_3h_or_more,3 hours or more,IRAN ASEMAN AIRLINE,IRAN (ISLAMIC REPUBLIC OF),False
+IRM,660,4,12,92,-8.6167,203.5167,13.9394,scheduled_duration_3h_or_more,3 hours or more,MAHAN AIR,IRAN (ISLAMIC REPUBLIC OF),True
+ISR,165,4,31,36,6.1833,221.4667,21.8182,scheduled_duration_3h_or_more,3 hours or more,ISRAIR LTD,ISRAEL,False
+JAL,819,4,11,193,4.2833,832.9167,23.5653,scheduled_duration_3h_or_more,3 hours or more,"JAPAN AIRLINES CO., LTD",JAPAN,True
+JBU,743,4,8,137,0.9833,432.7667,18.4388,scheduled_duration_3h_or_more,3 hours or more,"JETBLUE AIRWAYS CORPORATION (NEW YORK, NY)",UNITED STATES,True
+JZR,707,4,17,258,9.5833,205.1833,36.4922,scheduled_duration_3h_or_more,3 hours or more,JAZEERA AIRWAYS,KUWAIT,True
+KAC,2250,4,43,713,7.6833,325.5,31.6889,scheduled_duration_3h_or_more,3 hours or more,KUWAIT AIRWAYS CORPORATION,KUWAIT,True
+KAL,1560,4,31,685,12.6667,709.2917,43.9103,scheduled_duration_3h_or_more,3 hours or more,"KOREAN AIR LINES CO., LTD.",REPUBLIC OF KOREA,True
+KLM,10888,4,150,4388,11.6333,525.5,40.3012,scheduled_duration_3h_or_more,3 hours or more,KLM ROYAL DUTCH AIRLINES,NETHERLANDS,True
+KMF,68,4,4,28,11.4417,288.975,41.1765,scheduled_duration_3h_or_more,3 hours or more,KAM AIR,AFGHANISTAN,False
+KNE,1543,4,55,420,3.1,224.5333,27.2197,scheduled_duration_3h_or_more,3 hours or more,FLYNAS COMPANY CLOSED JOINT STOCK COMPANY,SAUDI ARABIA,True
+KQA,804,4,12,451,17.7583,499.5167,56.0945,scheduled_duration_3h_or_more,3 hours or more,KENYA AIRWAYS LTD.,KENYA,True
+KRP,1,1,1,0,7.8667,199.6833,0.0,scheduled_duration_3h_or_more,3 hours or more,CARPATAIR S.A.,ROMANIA,False
+KZR,2337,4,57,588,6.0833,313.0333,25.1605,scheduled_duration_3h_or_more,3 hours or more,AIR ASTANA,KAZAKHSTAN,True
+LAA,73,4,2,19,2.4333,203.3833,26.0274,scheduled_duration_3h_or_more,3 hours or more,LIBYAN AIRLINES,LIBYA,False
+LAE,56,3,5,21,11.075,507.375,37.5,scheduled_duration_3h_or_more,3 hours or more,LINEA AEREA CARGUERA DE COLOMBIA S.A.,COLOMBIA,False
+LAN,453,4,4,129,7.3833,722.8,28.4768,scheduled_duration_3h_or_more,3 hours or more,LINEA AEREA NACIONAL DE CHILE (LAN),CHILE,False
+LAV,23,3,10,3,2.7333,253.4833,13.0435,scheduled_duration_3h_or_more,3 hours or more,"ALBA STAR, S.A.",SPAIN,False
+LBT,138,4,25,30,4.325,192.1333,21.7391,scheduled_duration_3h_or_more,3 hours or more,NOUVEL AIR TUNISIE,TUNISIA,False
+LCO,195,4,12,76,11.7667,491.6333,38.9744,scheduled_duration_3h_or_more,3 hours or more,LAN CARGO S.A.,CHILE,False
+LGL,943,4,75,173,2.1333,246.5667,18.3457,scheduled_duration_3h_or_more,3 hours or more,LUXAIR - SOCIETE LUXEMBOURGEOISE DE NAVIGATION AERIENNE S.A.,LUXEMBOURG,True
+LOG,11,3,8,3,2.6167,237.2,27.2727,scheduled_duration_3h_or_more,3 hours or more,LOGAN AIR LIMITED,UNITED KINGDOM,False
+LOT,3728,4,88,1088,6.0667,459.2917,29.1845,scheduled_duration_3h_or_more,3 hours or more,LOT - POLSKIE LINIE LOTNICZE,POLAND,True
+LPE,243,4,2,52,2.3833,661.05,21.3992,scheduled_duration_3h_or_more,3 hours or more,LAN PERU S.A.,PERU,False
+LUC,1,1,1,0,12.6333,789.0667,0.0,scheduled_duration_3h_or_more,3 hours or more,ALBINATI AERONAUTICS SA,SWITZERLAND,False
+LWA,364,4,6,86,2.5667,201.8083,23.6264,scheduled_duration_3h_or_more,3 hours or more,LIBYAN WINGS,LIBYA,False
+LXG,1,1,1,1,47.6667,231.9333,100.0,scheduled_duration_3h_or_more,3 hours or more,"LUXAVIATION GERMANY GMBH, BUEREN",GERMANY,False
+LYC,3,1,3,3,27.1,407.6333,100.0,scheduled_duration_3h_or_more,3 hours or more,"LYNDEN AIR CARGO, LLC",UNITED STATES,False
+LYX,10,3,9,6,23.3417,235.0833,60.0,scheduled_duration_3h_or_more,3 hours or more,SMARTLYNX AIRLINES MALTA,MALTA,False
+LZB,164,4,16,36,5.6333,194.85,21.9512,scheduled_duration_3h_or_more,3 hours or more,BULGARIA AIR,BULGARIA,False
+MAA,48,3,11,30,29.7667,514.3833,62.5,scheduled_duration_3h_or_more,3 hours or more,"AEROTRANSPORTES MAS DE CARGA, S.A. DE C.V.",MEXICO,False
+MAI,8,3,4,2,-3.2417,187.7833,25.0,scheduled_duration_3h_or_more,3 hours or more,MAURITANIAN AIRLINES INTERNATIONAL,MAURITANIA,False
+MAS,498,4,9,268,17.1583,755.5083,53.8153,scheduled_duration_3h_or_more,3 hours or more,MALAYSIA AIRLINES BERHAD,MALAYSIA,False
+MAU,374,4,5,124,9.725,681.775,33.1551,scheduled_duration_3h_or_more,3 hours or more,AIR MAURITIUS LIMITED,MAURITIUS,False
+MDG,39,3,3,30,19.3333,653.0333,76.9231,scheduled_duration_3h_or_more,3 hours or more,"AIR MADAGASCAR, SOCIETE NATIONALE MALGACHE DE TRANSPORTS AERIENS",MADAGASCAR,False
+MDO,1,1,1,0,-17.8333,252.2167,0.0,scheduled_duration_3h_or_more,3 hours or more,MEL AIR LIMITED,MALTA,False
+MEA,1871,4,31,488,5.4667,260.5667,26.0823,scheduled_duration_3h_or_more,3 hours or more,MIDDLE EAST AIRLINES - AIRLIBAN,LEBANON,True
+MGL,144,4,4,51,9.9917,530.0833,35.4167,scheduled_duration_3h_or_more,3 hours or more,MONGOLIAN AIRLINES,MONGOLIA,False
+MLD,239,4,12,41,-1.0333,210.5667,17.1548,scheduled_duration_3h_or_more,3 hours or more,AIR MOLDOVA,REPUBLIC OF MOLDOVA,False
+MMD,28,2,14,3,-2.15,215.0583,10.7143,scheduled_duration_3h_or_more,3 hours or more,AIR ALSIE A/S,DENMARK,False
+MMZ,25,4,2,13,19.7,238.0167,52.0,scheduled_duration_3h_or_more,3 hours or more,EUROATLANTIC AIRWAYS,PORTUGAL,False
+MNB,295,4,30,67,1.65,199.55,22.7119,scheduled_duration_3h_or_more,3 hours or more,MNG HAVAYOLLARI VE TASIMACILIK A.S.,TURKEY,False
+MNE,4,3,4,0,-6.5,183.7083,0.0,scheduled_duration_3h_or_more,3 hours or more,TOMONTENEGRO,MONTENEGRO,False
+MPH,433,4,9,133,7.6667,493.2833,30.7159,scheduled_duration_3h_or_more,3 hours or more,MARTINAIR HOLLAND N.V.,NETHERLANDS,False
+MSA,75,4,10,9,0.4667,238.8667,12.0,scheduled_duration_3h_or_more,3 hours or more,POSTE AIR CARGO S.R.L.,ITALY,False
+MSC,1880,4,114,407,3.725,253.9333,21.6489,scheduled_duration_3h_or_more,3 hours or more,AIR CAIRO,EGYPT,True
+MSI,1,1,1,0,1.1,411.1167,0.0,scheduled_duration_3h_or_more,3 hours or more,MOTOR SICH,UKRAINE,False
+MSR,5651,4,80,2505,12.5,264.9333,44.3284,scheduled_duration_3h_or_more,3 hours or more,EGYPT AIR,EGYPT,True
+NCA,124,4,5,49,11.4417,564.4417,39.5161,scheduled_duration_3h_or_more,3 hours or more,"NIPPON CARGO AIRLINES CO., LTD.",JAPAN,False
+NIA,47,4,7,11,2.5,292.1,23.4043,scheduled_duration_3h_or_more,3 hours or more,NILE AIR,EGYPT,False
+NJE,4,3,4,1,6.1167,242.6083,25.0,scheduled_duration_3h_or_more,3 hours or more,"NETJETS, TRANSPORTES AEREOS S.A.",PORTUGAL,False
+NOS,2254,4,232,392,1.6083,273.9667,17.3913,scheduled_duration_3h_or_more,3 hours or more,NEOS S.P.A.,ITALY,True
+NVR,2,1,2,1,13.5167,186.7417,50.0,scheduled_duration_3h_or_more,3 hours or more,NOVA AIRLINES AB,SWEDEN,False
+OBS,39,3,6,20,15.6667,489.8167,51.2821,scheduled_duration_3h_or_more,3 hours or more,ORBEST,PORTUGAL,False
+OCN,3012,4,115,1031,7.9083,512.7,34.2297,scheduled_duration_3h_or_more,3 hours or more,EW DISCOVER GMBH,GERMANY,True
+OMA,1126,4,18,312,7.7583,391.625,27.7087,scheduled_duration_3h_or_more,3 hours or more,OMAN AIR,OMAN,True
+OMS,311,4,21,64,4.3333,264.0,20.5788,scheduled_duration_3h_or_more,3 hours or more,SALAM AIR,OMAN,False
+PAC,324,4,12,97,5.2083,600.2667,29.9383,scheduled_duration_3h_or_more,3 hours or more,"POLAR AIR CARGO WORLDWIDE, INC. (WASHINGTON, DC)",UNITED STATES,False
+PAL,22,1,2,12,21.4583,995.3,54.5455,scheduled_duration_3h_or_more,3 hours or more,PHILIPPINE AIR LINES INC. (PAL),PHILIPPINES,False
+PCH,1,1,1,0,-65.0,215.0,0.0,scheduled_duration_3h_or_more,3 hours or more,PILATUS FLUGZEUGWERKE AG,SWITZERLAND,False
+PGT,14610,4,264,4571,8.3167,213.6417,31.2868,scheduled_duration_3h_or_more,3 hours or more,PEGASUS HAVA TASIMACILIGI A.S. (PEGASUS),TURKEY,True
+PIA,314,4,16,146,13.2667,748.425,46.4968,scheduled_duration_3h_or_more,3 hours or more,PAKISTAN INTERNATIONAL AIRLINES CORPORATION (PIA),PAKISTAN,False
+PLM,2,1,2,0,8.1083,423.8333,0.0,scheduled_duration_3h_or_more,3 hours or more,WAMOS AIR S.A.,SPAIN,False
+PNX,2,1,2,0,-19.3083,196.4667,0.0,scheduled_duration_3h_or_more,3 hours or more,AIS AIRLINES,NETHERLANDS,False
+PVG,5,2,4,1,4.6,250.8167,20.0,scheduled_duration_3h_or_more,3 hours or more,"PRIVILEGE STYLE, S.A.",SPAIN,False
+QFA,514,4,10,281,17.2417,991.5417,54.6693,scheduled_duration_3h_or_more,3 hours or more,QANTAS AIRWAYS LIMITED,AUSTRALIA,True
+QTR,21952,4,249,10333,13.6667,372.8167,47.0709,scheduled_duration_3h_or_more,3 hours or more,QATAR AIRWAYS GROUP Q.C.S.C.,QATAR,True
+RAM,6450,4,159,2032,7.9167,225.725,31.5039,scheduled_duration_3h_or_more,3 hours or more,ROYAL AIR MAROC - COMPAGNIE NATIONALE DE TRANSPORTS AERIENS,MOROCCO,True
+RBA,78,4,4,43,16.7833,884.0083,55.1282,scheduled_duration_3h_or_more,3 hours or more,ROYAL BRUNEI AIRLINES,BRUNEI DARUSSALAM,False
+RCH,3,2,3,1,6.8833,455.45,33.3333,scheduled_duration_3h_or_more,3 hours or more,AIR MOBILITY COMMAND (AMC),UNITED STATES,False
+REU,458,4,8,247,16.6833,647.625,53.9301,scheduled_duration_3h_or_more,3 hours or more,AIR AUSTRAL,FRANCE,False
+RFF,5,2,4,4,21.7667,366.6333,80.0,scheduled_duration_3h_or_more,3 hours or more,RUSSIAN FEDERATION AIR FORCE,RUSSIAN FEDERATION,False
+RJA,2057,4,40,752,9.7833,281.5,36.5581,scheduled_duration_3h_or_more,3 hours or more,ROYAL JORDANIAN,JORDAN,True
+ROJ,3,3,3,1,7.5333,454.8833,33.3333,scheduled_duration_3h_or_more,3 hours or more,ROYAL JET,UNITED ARAB EMIRATES,False
+ROT,594,4,18,122,3.9417,197.625,20.5387,scheduled_duration_3h_or_more,3 hours or more,COMPANIA NATIONALA DE TRANSPORTURI AERIENE ROMANE TAROM S.A.,ROMANIA,True
+RWD,138,4,5,62,12.1083,498.1833,44.9275,scheduled_duration_3h_or_more,3 hours or more,RWANDAIR LTD.,RWANDA,False
+RYR,36190,4,1671,7291,3.3333,213.6333,20.1464,scheduled_duration_3h_or_more,3 hours or more,RYANAIR,IRELAND,True
+RZO,774,4,34,331,11.5167,301.125,42.7649,scheduled_duration_3h_or_more,3 hours or more,SATA INTERNACIONAL - AZORES AIRLINES S.A,PORTUGAL,True
+SAS,7428,4,388,1264,2.2167,244.7917,17.0167,scheduled_duration_3h_or_more,3 hours or more,SCANDINAVIAN AIRLINES SYSTEM,SWEDEN,True
+SAW,34,4,4,17,15.9667,329.6083,50.0,scheduled_duration_3h_or_more,3 hours or more,CHAM WING AIRLINES,SYRIAN ARAB REPUBLIC,False
+SBI,289,4,28,130,13.3333,310.35,44.9827,scheduled_duration_3h_or_more,3 hours or more,SIBERIA AIRLINES,RUSSIAN FEDERATION,False
+SDM,1027,4,47,298,6.8,217.8167,29.0166,scheduled_duration_3h_or_more,3 hours or more,"ROSSIYA AIRLINES, JOINT STOCK COMPANY",RUSSIAN FEDERATION,True
+SDR,1372,4,118,323,4.675,246.425,23.5423,scheduled_duration_3h_or_more,3 hours or more,SUNDAIR GMBH,GERMANY,True
+SEH,769,4,53,113,1.5667,206.15,14.6944,scheduled_duration_3h_or_more,3 hours or more,SKY EXPRESS S.A.,GREECE,True
+SEJ,108,4,17,30,4.9583,264.3083,27.7778,scheduled_duration_3h_or_more,3 hours or more,SPICEJET,INDIA,False
+SEY,95,4,9,24,4.4333,378.8833,25.2632,scheduled_duration_3h_or_more,3 hours or more,AIR SEYCHELLES,SEYCHELLES,False
+SFS,3,2,3,1,2.6167,261.1167,33.3333,scheduled_duration_3h_or_more,3 hours or more,SWISS FLIGHT SERVICES,SWITZERLAND,False
+SHI,4,1,2,1,4.1333,265.3667,25.0,scheduled_duration_3h_or_more,3 hours or more,SEPEHRAN AIRLINES,IRAN (ISLAMIC REPUBLIC OF),False
+SHS,162,3,15,55,7.5,214.1833,33.9506,scheduled_duration_3h_or_more,3 hours or more,SHIRAK AVIA LLC,ARMENIA,False
+SIA,4201,4,52,1911,13.25,758.7667,45.4892,scheduled_duration_3h_or_more,3 hours or more,SINGAPORE AIRLINES LIMITED,SINGAPORE,True
+SLJ,2,1,2,1,2.8917,184.6833,50.0,scheduled_duration_3h_or_more,3 hours or more,SLAM LAVORI AEREI S.R.L.,ITALY,False
+SLM,79,4,4,44,16.7333,549.2333,55.6962,scheduled_duration_3h_or_more,3 hours or more,SURINAAMSE LUCHTVAART MAATSCHAPPIJ N.V.,SURINAME,False
+SMR,118,4,6,34,7.6,281.1667,28.8136,scheduled_duration_3h_or_more,3 hours or more,SOMON AIR,TAJIKISTAN,False
+SRR,5,3,3,0,-4.2333,186.75,0.0,scheduled_duration_3h_or_more,3 hours or more,MAERSK AIR CARGO A/S,DENMARK,False
+SSR,1,1,1,0,-31.5667,289.2,0.0,scheduled_duration_3h_or_more,3 hours or more,SARDINIAN SKY SERVICE S.R.L.,ITALY,False
+STP,22,4,2,9,4.225,361.1583,40.9091,scheduled_duration_3h_or_more,3 hours or more,STP AIRWAYS,SAO TOME AND PRINCIPE,False
+SUS,6,3,6,0,-6.9833,201.4917,0.0,scheduled_duration_3h_or_more,3 hours or more,SUN-AIR OF SCANDINAVIA A/S,DENMARK,False
+SVA,5513,4,121,3573,20.7167,335.9333,64.8104,scheduled_duration_3h_or_more,3 hours or more,SAUDI ARABIAN AIRLINES,SAUDI ARABIA,True
+SVR,165,4,12,81,14.4,218.1333,49.0909,scheduled_duration_3h_or_more,3 hours or more,URAL AIRLINES,RUSSIAN FEDERATION,False
+SWG,2,1,2,1,5.4667,449.25,50.0,scheduled_duration_3h_or_more,3 hours or more,SUNWING AIRLINES INC.,CANADA,False
+SWN,77,4,14,13,-7.0167,189.8667,16.8831,scheduled_duration_3h_or_more,3 hours or more,WEST ATLANTIC SWEDEN AB,SWEDEN,False
+SWR,4926,4,94,1437,7.0333,498.0917,29.1717,scheduled_duration_3h_or_more,3 hours or more,SWISS INTERNATIONAL AIR LINES LTD,SWITZERLAND,True
+SWT,145,4,44,18,-7.7,204.45,12.4138,scheduled_duration_3h_or_more,3 hours or more,SWIFTAIR S.A.,SPAIN,False
+SXS,11899,4,325,3754,8.5833,209.2,31.5489,scheduled_duration_3h_or_more,3 hours or more,GUNES EKSPRES HAVACILIK A.S. (SUNEXPRESS),TURKEY,True
+SXY,65,4,5,31,14.7833,470.75,47.6923,scheduled_duration_3h_or_more,3 hours or more,SAFARI EXPRESS CARGO LIMITED,KENYA,False
+SYR,19,4,3,13,39.0667,314.7667,68.4211,scheduled_duration_3h_or_more,3 hours or more,SYRIAN ARAB AIRLINES,SYRIAN ARAB REPUBLIC,False
+TAM,1233,4,14,321,6.5,651.45,26.0341,scheduled_duration_3h_or_more,3 hours or more,TAM - LINHAS AEREAS S.A.,BRAZIL,True
+TAP,10522,4,163,4334,11.825,310.075,41.1899,scheduled_duration_3h_or_more,3 hours or more,"TRANSPORTES AEREOS PORTUGUESES, E.P.",PORTUGAL,True
+TAR,276,4,31,145,16.8167,236.5,52.5362,scheduled_duration_3h_or_more,3 hours or more,TUNIS AIR - SOCIETE TUNISIENNE DE L'AIR,TUNISIA,False
+TAX,16,1,2,5,3.7,456.9167,31.25,scheduled_duration_3h_or_more,3 hours or more,"THAI AIRASIA X CO., LTD",THAILAND,False
+TCV,120,4,7,51,11.7333,234.5417,42.5,scheduled_duration_3h_or_more,3 hours or more,TRANSPORTES AEREOS DE CABO VERDE - TACV,CABO VERDE,False
+TDR,2,1,2,1,6.6167,213.2083,50.0,scheduled_duration_3h_or_more,3 hours or more,TRADE AIR,CROATIA,False
+TGW,237,4,9,132,18.4,700.3167,55.6962,scheduled_duration_3h_or_more,3 hours or more,SCOOT PTE. LTD.,SINGAPORE,False
+TGZ,186,4,10,46,4.3417,261.5917,24.7312,scheduled_duration_3h_or_more,3 hours or more,GEORGIAN AIRWAYS,GEORGIA,False
+THA,1896,4,24,892,13.325,677.9667,47.0464,scheduled_duration_3h_or_more,3 hours or more,THAI AIRWAYS INTERNATIONAL LTD.,THAILAND,True
+THT,177,4,2,65,11.0167,637.3833,36.7232,scheduled_duration_3h_or_more,3 hours or more,AIR TAHITI NUI,FRANCE,False
+THY,57091,4,730,15666,5.6,245.45,27.4404,scheduled_duration_3h_or_more,3 hours or more,TURK HAVA YOLLARI (TURKISH AIRLINES CO.),TURKEY,True
+TOW,2,1,1,0,2.6667,346.1417,0.0,scheduled_duration_3h_or_more,3 hours or more,AIRTANKER SERVICES LTD,UNITED KINGDOM,False
+TPA,21,2,3,5,7.0833,563.2667,23.8095,scheduled_duration_3h_or_more,3 hours or more,TRANSPORTES AEREOS MERCANTILES PANAMERICANOS S.A. (TAMPA),COLOMBIA,False
+TRA,4083,4,154,1143,7.4833,220.7333,27.9941,scheduled_duration_3h_or_more,3 hours or more,TRANSAVIA HOLLAND B.V.,NETHERLANDS,True
+TSC,2578,4,80,1315,15.4917,429.6583,51.0085,scheduled_duration_3h_or_more,3 hours or more,AIR TRANSAT A.T. INC.,CANADA,True
+TUA,144,4,7,48,7.1917,318.6083,33.3333,scheduled_duration_3h_or_more,3 hours or more,TURKMENHOVAYOLLARY,TURKMENISTAN,False
+TVF,4501,4,162,1197,7.2167,208.3,26.5941,scheduled_duration_3h_or_more,3 hours or more,TRANSAVIA FRANCE,FRANCE,True
+TWI,25,3,6,2,-5.9333,196.25,8.0,scheduled_duration_3h_or_more,3 hours or more,TAILWIND HAVAYOLLARI A.S.,TURKEY,False
+UAE,19738,4,190,11497,17.8833,393.6,58.248,scheduled_duration_3h_or_more,3 hours or more,EMIRATES,UNITED ARAB EMIRATES,True
+UAL,16995,4,171,6714,9.9667,498.05,39.5057,scheduled_duration_3h_or_more,3 hours or more,"UNITED AIRLINES, INC. (CHICAGO, IL)",UNITED STATES,True
+UPS,2631,4,42,671,2.2833,470.9,25.5036,scheduled_duration_3h_or_more,3 hours or more,"UNITED PARCEL SERVICE COMPANY, (LOUISVILLE, KY)",UNITED STATES,True
+UTA,871,4,28,453,15.85,203.4667,52.0092,scheduled_duration_3h_or_more,3 hours or more,UTAIR AVIATION,RUSSIAN FEDERATION,True
+UZB,1383,4,33,539,11.85,277.1167,38.9732,scheduled_duration_3h_or_more,3 hours or more,UZBEKISTAN AIRWAYS JSC,UZBEKISTAN,True
+VCV,23,4,15,9,7.9833,501.2833,39.1304,scheduled_duration_3h_or_more,3 hours or more,CONVIASA,VENEZUELA,False
+VIR,7044,4,67,2000,5.55,508.0167,28.393,scheduled_duration_3h_or_more,3 hours or more,VIRGIN ATLANTIC,UNITED KINGDOM,True
+VJT,3,3,3,0,-5.3667,432.05,0.0,scheduled_duration_3h_or_more,3 hours or more,VISTAJET LTD,MALTA,False
+VLG,4060,4,147,701,3.925,199.2667,17.266,scheduled_duration_3h_or_more,3 hours or more,VUELING AIRLINES,SPAIN,True
+VSV,237,4,33,100,10.6167,265.1667,42.1941,scheduled_duration_3h_or_more,3 hours or more,SCAT,KAZAKHSTAN,False
+VTI,384,4,6,216,17.5917,510.6833,56.25,scheduled_duration_3h_or_more,3 hours or more,TATA SIA AIRLINES LTD.,INDIA,False
+WIF,46,4,8,2,-3.5833,213.45,4.3478,scheduled_duration_3h_or_more,3 hours or more,WIDEROE'S FLYVESELSKAP A/S,NORWAY,False
+WJA,1131,4,35,652,19.6,443.4833,57.6481,scheduled_duration_3h_or_more,3 hours or more,WESTJET AIRLINES LTD,CANADA,True
+WKT,1,1,1,0,-33.4333,300.2,0.0,scheduled_duration_3h_or_more,3 hours or more,DEA AVIATION LTD,UNITED KINGDOM,False
+WZZ,12482,4,578,2935,5.025,209.975,23.5139,scheduled_duration_3h_or_more,3 hours or more,WIZZ AIR HUNGARY LTD,HUNGARY,True

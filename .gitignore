@@ -47,9 +47,18 @@ Thumbs.db
 # API keys y configuración
 .env
 *.env
+.env.*
+!.env.example
 config.ini
 secrets.json
 credentials.json
+.streamlit/secrets.toml
+**/.streamlit/secrets.toml
+secrets.toml
+*.pem
+*.key
+*.p12
+*.pfx
 
 
 # ===================================

@@ -1,0 +1,11 @@
+# Direct dependencies for Streamlit Community Cloud.
+# Regenerate requirements.txt with pip-tools; do not edit the lockfile manually.
+altair==6.2.2
+numpy==2.4.0
+pandas==2.3.3
+plotly==6.9.0
+pydeck==0.9.3
+scikit-learn==1.9.0
+scipy==1.16.3
+skops==0.14.0
+streamlit==1.61.1

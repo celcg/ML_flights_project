@@ -86,13 +86,11 @@ def ranking_panel(title: str, frame: pd.DataFrame, accent_class: str) -> None:
             f'<span class="mini-rank-rate">{row["delay_over_15_pct"]:.1f}%</span>'
             "</div>"
         )
-    st.markdown(
+    st.html(
         f'<div class="mini-ranking {accent_class}">'
         '<div class="mini-ranking-heading">'
         f'<div class="mini-ranking-title">{html.escape(title)}</div>'
         '<div class="mini-ranking-unit">Delayed &gt;15 min (%)</div>'
         "</div>"
-        f'{"".join(rows)}</div>',
-        unsafe_allow_html=True,
+        f'{"".join(rows)}</div>'
     )
-

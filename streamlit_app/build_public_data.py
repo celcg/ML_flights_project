@@ -14,11 +14,14 @@ APP_ROOT = Path(__file__).resolve().parent
 PROJECT_ROOT = APP_ROOT.parent
 OUTPUT_ROOT = APP_ROOT / "public_data" / "introduction"
 ROUTES_OUTPUT_ROOT = APP_ROOT / "public_data" / "routes"
+AIRLINES_OUTPUT_ROOT = APP_ROOT / "public_data" / "airlines"
+AIRPORTS_OUTPUT_ROOT = APP_ROOT / "public_data" / "airports"
 ANALYSIS_YEAR = 2022
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.flight_data_catalog import discover_monthly_flights
+from streamlit_app.data_policy import suppress_small_aggregates
 
 
 USE_COLUMNS = [
@@ -54,6 +57,17 @@ ROUTE_SCOPE_LABELS = {
 }
 ROUTE_MIN_FLIGHTS = 500
 ROUTE_MIN_PERIODS = 3
+AIRLINE_MIN_FLIGHTS = 500
+AIRLINE_MIN_PERIODS = 3
+AIRPORT_MIN_FLIGHTS = 500
+AIRPORT_MIN_PERIODS = 3
+UNKNOWN_OPERATOR_CODES = {"ZZZ", "UNK", "UNKNOWN"}
+
+
+def write_aggregate_csv(table: pd.DataFrame, path: Path) -> None:
+    """Write only aggregate cells meeting the public minimum sample size."""
+
+    suppress_small_aggregates(table).round(4).to_csv(path, index=False)
 
 
 def load_airport_dimension() -> pd.DataFrame:
@@ -141,6 +155,11 @@ def clean_chunk(chunk: pd.DataFrame) -> pd.DataFrame:
         ),
         "period": frame.loc[mask, "FILED OFF BLOCK TIME"].dt.to_period("M").astype(str),
         "arrival_delay_min": arrival_delay.loc[mask],
+        "departure_delay_min": departure_delay.loc[mask],
+        "filed_departure_hour": frame.loc[mask, "FILED OFF BLOCK TIME"].dt.hour,
+        "filed_departure_weekday": frame.loc[mask, "FILED OFF BLOCK TIME"].dt.dayofweek,
+        "filed_arrival_hour": frame.loc[mask, "FILED ARRIVAL TIME"].dt.hour,
+        "filed_arrival_weekday": frame.loc[mask, "FILED ARRIVAL TIME"].dt.dayofweek,
         "scheduled_duration_min": (
             frame.loc[mask, "FILED ARRIVAL TIME"]
             - frame.loc[mask, "FILED OFF BLOCK TIME"]
@@ -319,6 +338,353 @@ def build_route_operator_metrics(
     return pd.concat(rows, ignore_index=True)
 
 
+def build_airline_metrics(population: pd.DataFrame) -> pd.DataFrame:
+    """Build exact airline aggregates for dashboard rankings and profiles."""
+
+    airlines = load_airline_dimension()
+    rows: list[pd.DataFrame] = []
+    for scope_id, frame in route_scope_frames(population).items():
+        valid = frame.dropna(
+            subset=["operator_code", "arrival_delay_min", "scheduled_duration_min"]
+        ).copy()
+        valid = valid[
+            valid["operator_code"].ne("")
+            & ~valid["operator_code"].isin(UNKNOWN_OPERATOR_CODES)
+            & valid["scheduled_duration_min"].gt(0)
+        ]
+        valid["delayed_over_15"] = valid["arrival_delay_min"].gt(15)
+        valid["route"] = valid["ADEP"].astype(str) + " → " + valid["ADES"].astype(str)
+        grouped = valid.groupby("operator_code", observed=True).agg(
+            flight_count=("arrival_delay_min", "size"),
+            periods_active=("period", "nunique"),
+            route_count=("route", "nunique"),
+            delayed_over_15_count=("delayed_over_15", "sum"),
+            median_arrival_delay_min=("arrival_delay_min", "median"),
+            median_scheduled_duration_min=("scheduled_duration_min", "median"),
+        ).reset_index()
+        grouped["delay_over_15_pct"] = (
+            100 * grouped["delayed_over_15_count"] / grouped["flight_count"]
+        )
+        grouped["scope_id"] = scope_id
+        grouped["scope_label"] = ROUTE_SCOPE_LABELS[scope_id]
+        grouped["operator_name"] = grouped["operator_code"].map(airlines["Company"])
+        grouped["operator_country"] = grouped["operator_code"].map(airlines["Country"])
+        grouped["operator_name"] = grouped["operator_name"].fillna(
+            grouped["operator_code"].map(lambda value: f"Unknown operator ({value})")
+        )
+        grouped["executive_eligible"] = (
+            grouped["flight_count"].ge(AIRLINE_MIN_FLIGHTS)
+            & grouped["periods_active"].ge(AIRLINE_MIN_PERIODS)
+        )
+        rows.append(grouped)
+    return pd.concat(rows, ignore_index=True)
+
+
+def build_airline_monthly_metrics(
+    population: pd.DataFrame,
+    airline_metrics: pd.DataFrame,
+) -> pd.DataFrame:
+    """Build exact monthly airline aggregates for eligible dashboard airlines."""
+
+    rows: list[pd.DataFrame] = []
+    for scope_id, frame in route_scope_frames(population).items():
+        valid = frame.dropna(
+            subset=["operator_code", "period", "arrival_delay_min"]
+        ).copy()
+        valid = valid[
+            valid["operator_code"].ne("")
+            & ~valid["operator_code"].isin(UNKNOWN_OPERATOR_CODES)
+        ]
+        valid["delayed_over_15"] = valid["arrival_delay_min"].gt(15)
+        grouped = valid.groupby(["operator_code", "period"], observed=True).agg(
+            flight_count=("arrival_delay_min", "size"),
+            delayed_over_15_count=("delayed_over_15", "sum"),
+            median_arrival_delay_min=("arrival_delay_min", "median"),
+            median_scheduled_duration_min=("scheduled_duration_min", "median"),
+        ).reset_index()
+        eligible = airline_metrics[
+            airline_metrics["scope_id"].eq(scope_id)
+            & airline_metrics["executive_eligible"].eq(True)
+        ][["operator_code", "operator_name", "operator_country"]]
+        grouped = grouped.merge(eligible, on="operator_code", how="inner")
+        grouped["delay_over_15_pct"] = (
+            100 * grouped["delayed_over_15_count"] / grouped["flight_count"]
+        )
+        grouped["scope_id"] = scope_id
+        rows.append(grouped)
+    return pd.concat(rows, ignore_index=True)
+
+
+def write_airline_public_data(population: pd.DataFrame) -> None:
+    """Write reusable airline-level public aggregates only."""
+
+    AIRLINES_OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
+    airline_metrics = build_airline_metrics(population)
+    write_aggregate_csv(
+        airline_metrics, AIRLINES_OUTPUT_ROOT / "airline_metrics.csv"
+    )
+    write_aggregate_csv(
+        build_airline_monthly_metrics(population, airline_metrics),
+        AIRLINES_OUTPUT_ROOT / "airline_monthly_metrics.csv",
+    )
+    pd.DataFrame([{
+        "minimum_flights": AIRLINE_MIN_FLIGHTS,
+        "minimum_periods": AIRLINE_MIN_PERIODS,
+        "ranking_unit": "Identified ICAO airline operator",
+        "delay_threshold": "Arrival delay greater than 15 minutes",
+    }]).to_csv(AIRLINES_OUTPUT_ROOT / "airline_ranking_methodology.csv", index=False)
+
+
+def _airport_movement_metrics(
+    frame: pd.DataFrame,
+    *,
+    airport_column: str,
+    delay_column: str,
+    prefix: str,
+) -> pd.DataFrame:
+    """Aggregate one arrival/departure side before combining airport metrics."""
+
+    valid = frame.dropna(subset=[airport_column, delay_column]).copy()
+    valid = valid[valid[airport_column].ne("")]
+    delayed_column = f"{prefix}_delayed_over_15"
+    valid[delayed_column] = valid[delay_column].gt(15)
+    return valid.groupby(airport_column, observed=True).agg(
+        **{
+            f"{prefix}_flight_count": (delay_column, "size"),
+            f"{prefix}_delayed_over_15_count": (delayed_column, "sum"),
+            f"median_{prefix}_delay_min": (delay_column, "median"),
+            f"{prefix}_periods_active": ("period", "nunique"),
+        }
+    ).reset_index().rename(columns={airport_column: "airport_code"})
+
+
+def build_airport_metrics(population: pd.DataFrame) -> pd.DataFrame:
+    """Build exact arrival, departure and combined metrics per airport."""
+
+    airports = load_airport_dimension()
+    rows: list[pd.DataFrame] = []
+    for scope_id, frame in route_scope_frames(population).items():
+        arrivals = _airport_movement_metrics(
+            frame,
+            airport_column="ADES",
+            delay_column="arrival_delay_min",
+            prefix="arrival",
+        )
+        departures = _airport_movement_metrics(
+            frame,
+            airport_column="ADEP",
+            delay_column="departure_delay_min",
+            prefix="departure",
+        )
+        grouped = arrivals.merge(departures, on="airport_code", how="outer")
+        count_columns = [
+            "arrival_flight_count",
+            "arrival_delayed_over_15_count",
+            "arrival_periods_active",
+            "departure_flight_count",
+            "departure_delayed_over_15_count",
+            "departure_periods_active",
+        ]
+        grouped[count_columns] = grouped[count_columns].fillna(0).astype(int)
+        grouped["flight_count"] = (
+            grouped["arrival_flight_count"] + grouped["departure_flight_count"]
+        )
+        grouped["delayed_over_15_count"] = (
+            grouped["arrival_delayed_over_15_count"]
+            + grouped["departure_delayed_over_15_count"]
+        )
+        grouped["arrival_delay_over_15_pct"] = (
+            100
+            * grouped["arrival_delayed_over_15_count"]
+            / grouped["arrival_flight_count"].replace(0, np.nan)
+        )
+        grouped["departure_delay_over_15_pct"] = (
+            100
+            * grouped["departure_delayed_over_15_count"]
+            / grouped["departure_flight_count"].replace(0, np.nan)
+        )
+        grouped["combined_delay_over_15_pct"] = (
+            100 * grouped["delayed_over_15_count"] / grouped["flight_count"]
+        )
+        grouped["periods_active"] = grouped[
+            ["arrival_periods_active", "departure_periods_active"]
+        ].max(axis=1)
+        grouped["scope_id"] = scope_id
+        grouped["scope_label"] = ROUTE_SCOPE_LABELS[scope_id]
+        grouped["airport_name"] = grouped["airport_code"].map(airports["Airport name"])
+        grouped["city"] = grouped["airport_code"].map(airports["City"])
+        grouped["country"] = grouped["airport_code"].map(airports["Country"])
+        grouped["latitude"] = grouped["airport_code"].map(
+            frame.groupby("ADEP", observed=True)["origin_latitude"].median()
+                .combine_first(frame.groupby("ADES", observed=True)["destination_latitude"].median())
+        )
+        grouped["longitude"] = grouped["airport_code"].map(
+            frame.groupby("ADEP", observed=True)["origin_longitude"].median()
+                .combine_first(frame.groupby("ADES", observed=True)["destination_longitude"].median())
+        )
+        grouped["executive_eligible"] = (
+            grouped["flight_count"].ge(AIRPORT_MIN_FLIGHTS)
+            & grouped["periods_active"].ge(AIRPORT_MIN_PERIODS)
+        )
+        rows.append(grouped)
+    return pd.concat(rows, ignore_index=True)
+
+
+def _airport_period_metrics(
+    frame: pd.DataFrame,
+    *,
+    airport_column: str,
+    delay_column: str,
+    prefix: str,
+) -> pd.DataFrame:
+    valid = frame.dropna(subset=[airport_column, "period", delay_column]).copy()
+    valid = valid[valid[airport_column].ne("")]
+    valid["delayed_over_15"] = valid[delay_column].gt(15)
+    return valid.groupby([airport_column, "period"], observed=True).agg(
+        **{
+            f"{prefix}_flight_count": (delay_column, "size"),
+            f"{prefix}_delayed_over_15_count": ("delayed_over_15", "sum"),
+        }
+    ).reset_index().rename(columns={airport_column: "airport_code"})
+
+
+def build_airport_monthly_metrics(
+    population: pd.DataFrame,
+    airport_metrics: pd.DataFrame,
+) -> pd.DataFrame:
+    rows: list[pd.DataFrame] = []
+    for scope_id, frame in route_scope_frames(population).items():
+        arrivals = _airport_period_metrics(
+            frame,
+            airport_column="ADES",
+            delay_column="arrival_delay_min",
+            prefix="arrival",
+        )
+        departures = _airport_period_metrics(
+            frame,
+            airport_column="ADEP",
+            delay_column="departure_delay_min",
+            prefix="departure",
+        )
+        grouped = arrivals.merge(
+            departures, on=["airport_code", "period"], how="outer"
+        )
+        count_columns = [
+            "arrival_flight_count",
+            "arrival_delayed_over_15_count",
+            "departure_flight_count",
+            "departure_delayed_over_15_count",
+        ]
+        grouped[count_columns] = grouped[count_columns].fillna(0).astype(int)
+        grouped["flight_count"] = (
+            grouped["arrival_flight_count"] + grouped["departure_flight_count"]
+        )
+        grouped["arrival_delay_over_15_pct"] = (
+            100 * grouped["arrival_delayed_over_15_count"]
+            / grouped["arrival_flight_count"].replace(0, np.nan)
+        )
+        grouped["departure_delay_over_15_pct"] = (
+            100 * grouped["departure_delayed_over_15_count"]
+            / grouped["departure_flight_count"].replace(0, np.nan)
+        )
+        grouped["combined_delay_over_15_pct"] = (
+            100
+            * (grouped["arrival_delayed_over_15_count"] + grouped["departure_delayed_over_15_count"])
+            / grouped["flight_count"]
+        )
+        eligible = airport_metrics[
+            airport_metrics["scope_id"].eq(scope_id)
+            & airport_metrics["executive_eligible"].eq(True)
+        ][["airport_code"]]
+        grouped = grouped.merge(eligible, on="airport_code", how="inner")
+        grouped["scope_id"] = scope_id
+        rows.append(grouped)
+    return pd.concat(rows, ignore_index=True)
+
+
+def build_airport_heatmap_metrics(
+    population: pd.DataFrame,
+    airport_metrics: pd.DataFrame,
+) -> pd.DataFrame:
+    """Build airport delay rates by scheduled local snapshot weekday and hour."""
+
+    rows: list[pd.DataFrame] = []
+    movement_specs = [
+        ("arrival", "ADES", "arrival_delay_min", "filed_arrival_hour", "filed_arrival_weekday"),
+        ("departure", "ADEP", "departure_delay_min", "filed_departure_hour", "filed_departure_weekday"),
+    ]
+    for scope_id, frame in route_scope_frames(population).items():
+        eligible_codes = set(
+            airport_metrics.loc[
+                airport_metrics["scope_id"].eq(scope_id)
+                & airport_metrics["executive_eligible"].eq(True),
+                "airport_code",
+            ]
+        )
+        movement_frames: list[pd.DataFrame] = []
+        for movement_type, airport_col, delay_col, hour_col, weekday_col in movement_specs:
+            movement = frame[[airport_col, delay_col, hour_col, weekday_col]].dropna().copy()
+            movement = movement[movement[airport_col].isin(eligible_codes)]
+            movement = movement.rename(columns={
+                airport_col: "airport_code",
+                delay_col: "delay_min",
+                hour_col: "hour",
+                weekday_col: "weekday_order",
+            })
+            movement["movement_type"] = movement_type
+            movement_frames.append(movement)
+        combined = pd.concat(movement_frames, ignore_index=True)
+        both = combined.copy()
+        both["movement_type"] = "both"
+        combined = pd.concat([combined, both], ignore_index=True)
+        combined["delayed_over_15"] = combined["delay_min"].gt(15)
+        grouped = combined.groupby(
+            ["airport_code", "movement_type", "weekday_order", "hour"],
+            observed=True,
+        ).agg(
+            flight_count=("delay_min", "size"),
+            delayed_over_15_count=("delayed_over_15", "sum"),
+        ).reset_index()
+        grouped["delay_over_15_pct"] = (
+            100 * grouped["delayed_over_15_count"] / grouped["flight_count"]
+        )
+        grouped["weekday"] = grouped["weekday_order"].map(
+            dict(enumerate(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]))
+        )
+        grouped["scope_id"] = scope_id
+        rows.append(grouped)
+    return pd.concat(rows, ignore_index=True)
+
+
+def write_airport_public_data(population: pd.DataFrame) -> None:
+    """Write airport-level aggregate datasets without flight-level records."""
+
+    AIRPORTS_OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
+    airport_metrics = build_airport_metrics(population)
+    write_aggregate_csv(
+        airport_metrics, AIRPORTS_OUTPUT_ROOT / "airport_metrics.csv"
+    )
+    write_aggregate_csv(
+        build_airport_monthly_metrics(population, airport_metrics),
+        AIRPORTS_OUTPUT_ROOT / "airport_monthly_metrics.csv",
+    )
+    heatmap_metrics = build_airport_heatmap_metrics(population, airport_metrics)
+    write_aggregate_csv(
+        heatmap_metrics[
+            [
+                "airport_code",
+                "movement_type",
+                "hour",
+                "flight_count",
+                "delay_over_15_pct",
+                "weekday",
+                "scope_id",
+            ]
+        ],
+        AIRPORTS_OUTPUT_ROOT / "airport_heatmap_metrics.csv",
+    )
+
+
 def summarise_scope(scope_id: str, frame: pd.DataFrame) -> dict[str, float | int | str]:
     delay = frame["arrival_delay_min"].to_numpy(dtype=float)
     delayed_0 = delay > 0
@@ -347,10 +713,24 @@ def summarise_scope(scope_id: str, frame: pd.DataFrame) -> dict[str, float | int
 
 
 def build_overview(population: pd.DataFrame) -> pd.DataFrame:
-    return pd.DataFrame([
-        summarise_scope(scope_id, frame)
-        for scope_id, frame in scope_frames(population).items()
-    ])
+    airports = load_airport_dimension()
+    enriched = population.assign(
+        origin_country=population["ADEP"].map(airports["Country"]),
+        destination_country=population["ADES"].map(airports["Country"]),
+    )
+    rows = []
+    for scope_id, frame in scope_frames(enriched).items():
+        row = summarise_scope(scope_id, frame)
+        international = frame[
+            frame["origin_country"].notna()
+            & frame["destination_country"].notna()
+            & frame["origin_country"].ne(frame["destination_country"])
+        ]
+        row["median_international_arrival_delay_min"] = float(
+            international["arrival_delay_min"].median()
+        )
+        rows.append(row)
+    return pd.DataFrame(rows)
 
 
 def build_monthly(population: pd.DataFrame) -> pd.DataFrame:
@@ -550,7 +930,7 @@ def write_public_data(population: pd.DataFrame, months: list[str]) -> None:
         "correlation_metrics.csv": build_correlation_metrics(population),
     }
     for filename, table in tables.items():
-        table.round(4).to_csv(OUTPUT_ROOT / filename, index=False)
+        write_aggregate_csv(table, OUTPUT_ROOT / filename)
 
     metadata = pd.DataFrame([
         {"key": "dataset_start", "value": f"{min(months)[:4]}-{min(months)[4:]}"},
@@ -571,6 +951,7 @@ def write_public_data(population: pd.DataFrame, months: list[str]) -> None:
     definitions = pd.DataFrame([
         {"metric": "delay_over_15_pct", "display_name": "Flights delayed >15 min", "unit": "%", "description": "Share of arrivals more than 15 minutes late"},
         {"metric": "median_arrival_delay_min", "display_name": "Median arrival delay", "unit": "minutes", "description": "Median actual minus filed arrival time across all flights"},
+        {"metric": "median_international_arrival_delay_min", "display_name": "Median arrival delay on international flights", "unit": "minutes", "description": "Median actual minus filed arrival time for flights whose origin and destination countries differ"},
         {"metric": "median_delayed_only_min", "display_name": "Median among delayed flights", "unit": "minutes", "description": "Median arrival delay among flights delayed more than 15 minutes"},
         {"metric": "p90_arrival_delay_min", "display_name": "90th percentile delay", "unit": "minutes", "description": "Ninety percent of flights have a delay at or below this value"},
         {"metric": "total_positive_delay_hours", "display_name": "Accumulated positive delay", "unit": "hours", "description": "Sum of positive arrival-delay minutes; early arrivals do not offset delays"},
@@ -581,15 +962,18 @@ def write_public_data(population: pd.DataFrame, months: list[str]) -> None:
 
     ROUTES_OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
     route_metrics = build_route_metrics(population)
-    route_metrics.round(4).to_csv(ROUTES_OUTPUT_ROOT / "route_metrics.csv", index=False)
-    build_route_monthly_metrics(population, route_metrics).round(4).to_csv(
-        ROUTES_OUTPUT_ROOT / "route_monthly_metrics.csv", index=False
+    write_aggregate_csv(route_metrics, ROUTES_OUTPUT_ROOT / "route_metrics.csv")
+    write_aggregate_csv(
+        build_route_monthly_metrics(population, route_metrics),
+        ROUTES_OUTPUT_ROOT / "route_monthly_metrics.csv",
     )
-    build_route_operator_metrics(population, route_metrics).round(4).to_csv(
-        ROUTES_OUTPUT_ROOT / "route_operator_metrics.csv", index=False
+    write_aggregate_csv(
+        build_route_operator_metrics(population, route_metrics),
+        ROUTES_OUTPUT_ROOT / "route_operator_metrics.csv",
     )
-    build_route_scope_summary(population).round(4).to_csv(
-        ROUTES_OUTPUT_ROOT / "route_scope_summary.csv", index=False
+    write_aggregate_csv(
+        build_route_scope_summary(population),
+        ROUTES_OUTPUT_ROOT / "route_scope_summary.csv",
     )
     pd.DataFrame([{
         "minimum_flights": ROUTE_MIN_FLIGHTS,
@@ -597,6 +981,8 @@ def write_public_data(population: pd.DataFrame, months: list[str]) -> None:
         "ranking_unit": "Directional route (ADEP → ADES)",
         "delay_threshold": "Arrival delay greater than 15 minutes",
     }]).to_csv(ROUTES_OUTPUT_ROOT / "route_ranking_methodology.csv", index=False)
+    write_airline_public_data(population)
+    write_airport_public_data(population)
 
 
 def main() -> None:
