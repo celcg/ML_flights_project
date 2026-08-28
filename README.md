@@ -10,6 +10,7 @@ Current outputs include a complete business report, a Streamlit analytics applic
 
 The final objectives of this project:
 - A interactive dashboard analyzing patterns in delays, useful for airlines to track delays, but also customers to know most and least reliable airports, airlines, routes, hours and periods.
+  Accesible at: [flights-delay.streamlit.app](https://flights-delay.streamlit.app/)
 - A ML model as a reusable tool that helps analysts identify unreliable routes and operating windows, compare network performance fairly and prioritise flights with elevated delay risk.
 
 Disclaimer: this is just a portfolio project, due to law regulations it cannot be used with commercial purposes.
