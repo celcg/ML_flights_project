@@ -9,8 +9,10 @@ The work combines a reproducible PySpark data pipeline, a descriptive aviation d
 Current outputs include a complete business report, a Streamlit analytics application, leakage-safe train/validation/test datasets and saved regression and classification models. Ridge is the selected minute-regression model: on the locked March 2023 test it achieved **9.85-minute MAE and 15.22-minute RMSE**. The classifier is useful as a risk-ranking prototype, but its recall still needs improvement before operational deployment.
 
 The final objectives of this project:
-- A interactive dashboard analyzing patterns in delays, useful for airlines to track delays, but also customers to know most and least reliable airports, airlines, routes, hours and periods. 
--A ML model as a reusable tool that helps analysts identify unreliable routes and operating windows, compare network performance fairly and prioritise flights with elevated delay risk.
+- A interactive dashboard analyzing patterns in delays, useful for airlines to track delays, but also customers to know most and least reliable airports, airlines, routes, hours and periods.
+- A ML model as a reusable tool that helps analysts identify unreliable routes and operating windows, compare network performance fairly and prioritise flights with elevated delay risk.
+
+Disclaimer: this is just a portfolio project, due to law regulations it cannot be used with commercial purposes.
 
 ## 2. Technologies
 
