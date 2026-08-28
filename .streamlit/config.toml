@@ -15,7 +15,7 @@ headingFont = "sans-serif"
 baseFontSize = 15
 baseFontWeight = 400
 headingFontSizes = ["36px", "27px", "20px", "16px", "14px", "12px"]
-headingFontWeights = [700, 650, 650, 600, 600, 600]
+headingFontWeights = [700, 600, 600, 600, 600, 600]
 linkUnderline = false
 
 blueColor = "#2F6FB0"
@@ -41,9 +41,10 @@ primaryColor = "#7FAED8"
 [server]
 enableCORS = true
 enableXsrfProtection = true
-corsAllowedOrigins = ["http://127.0.0.1:8503", "http://localhost:8503"]
 
 [browser]
-serverAddress = "127.0.0.1"
-serverPort = 8503
 gatherUsageStats = false
+
+[client]
+showErrorDetails = "none"
+toolbarMode = "minimal"
