@@ -1,6 +1,7 @@
 metric,display_name,unit,description
 delay_over_15_pct,Flights delayed >15 min,%,Share of arrivals more than 15 minutes late
 median_arrival_delay_min,Median arrival delay,minutes,Median actual minus filed arrival time across all flights
+median_international_arrival_delay_min,Median arrival delay on international flights,minutes,Median actual minus filed arrival time for flights whose origin and destination countries differ
 median_delayed_only_min,Median among delayed flights,minutes,Median arrival delay among flights delayed more than 15 minutes
 p90_arrival_delay_min,90th percentile delay,minutes,Ninety percent of flights have a delay at or below this value
 total_positive_delay_hours,Accumulated positive delay,hours,Sum of positive arrival-delay minutes; early arrivals do not offset delays

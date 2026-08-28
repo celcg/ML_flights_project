@@ -9,10 +9,20 @@ MIN_PUBLIC_AGGREGATE_FLIGHTS = 20
 
 
 def suppress_small_aggregates(frame: pd.DataFrame) -> pd.DataFrame:
-    """Exclude aggregate cells backed by fewer than the publication minimum."""
+    """Exclude rows containing a non-empty aggregate below the public minimum."""
 
-    if "flight_count" not in frame.columns:
+    count_columns = [
+        column
+        for column in frame.columns
+        if column == "flight_count" or column.endswith("_flight_count")
+    ]
+    if not count_columns:
         return frame
-    return frame.loc[
-        frame["flight_count"].ge(MIN_PUBLIC_AGGREGATE_FLIGHTS)
-    ].copy()
+
+    publishable = pd.Series(True, index=frame.index)
+    for column in count_columns:
+        counts = pd.to_numeric(frame[column], errors="coerce")
+        publishable &= counts.isna() | counts.eq(0) | counts.ge(
+            MIN_PUBLIC_AGGREGATE_FLIGHTS
+        )
+    return frame.loc[publishable].copy()
