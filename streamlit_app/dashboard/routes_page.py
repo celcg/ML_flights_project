@@ -8,7 +8,7 @@ import pandas as pd
 import pydeck as pdk
 import streamlit as st
 
-from dashboard.common import style_chart
+from dashboard.common import render_eurocontrol_attribution, style_chart
 from dashboard.config import (
     BLUE,
     DELAYED_ROUTE_THRESHOLD_PCT,
@@ -558,3 +558,4 @@ def _render_route_information(
             the map.
             """
         )
+        render_eurocontrol_attribution()

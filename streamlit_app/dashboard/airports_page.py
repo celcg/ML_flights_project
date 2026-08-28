@@ -11,6 +11,7 @@ from dashboard.airport_visuals import (
     airport_map_deck,
     airport_timeline_chart,
 )
+from dashboard.common import render_eurocontrol_attribution
 from dashboard.config import (
     AIRPORT_DELAY_VIEWS,
     ROUTE_SCOPE_LABELS,
@@ -313,3 +314,4 @@ def _render_airport_information(
             timestamps contained in each snapshot. Only aggregated results are published.
             """
         )
+        render_eurocontrol_attribution()

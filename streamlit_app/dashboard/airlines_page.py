@@ -9,7 +9,7 @@ import plotly.express as px
 import pydeck as pdk
 import streamlit as st
 
-from dashboard.common import style_chart
+from dashboard.common import render_eurocontrol_attribution, style_chart
 from dashboard.config import (
     BLUE,
     DELAYED_ROUTE_THRESHOLD_PCT,
@@ -423,6 +423,7 @@ def _render_preserved_high_delay_chart(
             st.info("No identified airline aggregate is available for this scope.")
         else:
             st.altair_chart(_airline_delay_chart(summary), width="stretch")
+        render_eurocontrol_attribution()
 
 
 def _high_delay_airline_summary(
@@ -516,3 +517,4 @@ def _render_airline_information(
             Only aggregated results are published.
             """
         )
+        render_eurocontrol_attribution()

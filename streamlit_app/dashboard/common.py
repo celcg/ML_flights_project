@@ -10,6 +10,22 @@ import streamlit as st
 from dashboard.config import GRID, MUTED, TEXT
 
 
+EUROCONTROL_ATTRIBUTION_NOTICE = """
+---
+
+**EUROCONTROL attribution and disclaimer**
+
+This document/R&D product has been created with or contains elements of the
+Aviation Data Repository for Research made available by EUROCONTROL. ©2020,
+EUROCONTROL.
+
+EUROCONTROL does not necessarily support and/or endorse the conclusion of this
+document/R&D product. EUROCONTROL shall not be liable for any direct, indirect,
+incidental or consequential damages arising out of or in connection with this
+document/product and/or the underlying Aviation Data Repository for Research.
+"""
+
+
 def style_chart(chart: alt.TopLevelMixin) -> alt.TopLevelMixin:
     """Apply the dashboard's common accessible chart styling."""
 
@@ -43,6 +59,12 @@ def style_chart(chart: alt.TopLevelMixin) -> alt.TopLevelMixin:
             padding=8,
         )
     )
+
+
+def render_eurocontrol_attribution() -> None:
+    """Render the required ADRR source attribution and liability disclaimer."""
+
+    st.markdown(EUROCONTROL_ATTRIBUTION_NOTICE)
 
 
 def section_anchor(anchor_id: str, extra_class: str = "") -> None:

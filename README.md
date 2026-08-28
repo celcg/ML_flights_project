@@ -41,6 +41,12 @@ python -m pip install -r requirements.txt
 
 The flight data cannot be redistributed with this repository. Register for the **EUROCONTROL Aviation Data Repository for Research**, accept its terms and download the monthly `Flights_*.csv.gz` files into `data/raw/<YYYYMM>/` or `data/raw/flights/`. The project uses this source despite its non-consecutive coverage because it offers millions of European operations and unusually rich categorical and operational fields for airports, operators, aircraft, routes and schedules.
 
+## EUROCONTROL attribution and disclaimer
+
+This document/R&D product has been created with or contains elements of the Aviation Data Repository for Research made available by EUROCONTROL. ©2020, EUROCONTROL.
+
+EUROCONTROL does not necessarily support and/or endorse the conclusion of this document/R&D product. EUROCONTROL shall not be liable for any direct, indirect, incidental or consequential damages arising out of or in connection with this document/product and/or the underlying Aviation Data Repository for Research.
+
 Run the notebooks in numerical order. For the expanded workflow, notebook 10 builds the temporal Parquet partitions and notebook 11 trains and evaluates both prediction tasks.
 
 ```powershell

@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 
 from dashboard.airport_visuals import airport_label
+from dashboard.common import render_eurocontrol_attribution
 from dashboard.data import load_airport_data, load_route_data
 from dashboard.entity_analysis import highest_traffic_half
 from dashboard.flight_search import FlightSearchStats, build_search_stats
@@ -295,3 +296,4 @@ def _render_search_information(period_text: str, study_year: str) -> None:
             an operational forecast or passenger decision tool.
             """
         )
+        render_eurocontrol_attribution()

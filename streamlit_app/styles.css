@@ -369,6 +369,10 @@ button:focus-visible, [role="button"]:focus-visible {
 .st-key-trend_card {
     margin-bottom: 0 !important;
 }
+.st-key-scope_reliability_card,
+.st-key-trend_card {
+    margin-top: 15px !important;
+}
 .st-key-overview_kpi_card,
 .st-key-overview_rankings_card {
     height: 280px;
@@ -587,6 +591,7 @@ button:focus-visible, [role="button"]:focus-visible {
     padding-bottom: 14px !important;
 }
 .st-key-route_scope_summary {
+    margin-bottom: 0 !important;
     padding-bottom: 16px !important;
     overflow: hidden !important;
 }
@@ -601,6 +606,7 @@ button:focus-visible, [role="button"]:focus-visible {
 }
 [data-testid="stHorizontalBlock"]:has(.st-key-route_scope_summary) > [data-testid="stColumn"] {
     min-width: 0 !important;
+    align-self: flex-start !important;
 }
 .combined-route-kpi {
     min-height: 58px;

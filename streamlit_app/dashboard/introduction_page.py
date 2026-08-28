@@ -9,7 +9,11 @@ import pandas as pd
 import pydeck as pdk
 import streamlit as st
 
-from dashboard.common import section_anchor, style_chart
+from dashboard.common import (
+    render_eurocontrol_attribution,
+    section_anchor,
+    style_chart,
+)
 from dashboard.config import (
     BLUE,
     COMPACT_CHART_PADDING,
@@ -407,6 +411,7 @@ def _render_study_information(period_text: str, study_year: str) -> None:
             calendar year.
             """
         )
+        render_eurocontrol_attribution()
 
 
 def _render_methodology(
@@ -453,3 +458,4 @@ def _render_methodology(
                 the analysis and interpretations are those of this project.
                 """
             )
+            render_eurocontrol_attribution()
