@@ -5,6 +5,7 @@
 *.CSV
 *.xlsx
 *.xls
+*.parquet
 *.zip
 *.tar.gz
 *csv.gz
